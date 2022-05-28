@@ -26,7 +26,6 @@ dependencies {
 
 tasks.test {
     useTestNG {
-        suites("src/test/resources/testng-all.xml")
         suiteXmlFiles = listOf(file("src/test/resources/testng-all.xml"))
 //        listeners < < 'org.testng.reporters.XMLReporter:generateTestResultAttributes=true,generateGroupsAttribute=true'
     }
