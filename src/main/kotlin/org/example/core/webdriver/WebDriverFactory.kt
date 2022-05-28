@@ -127,6 +127,5 @@ interface IWebDriverFactory {
             val firefoxOptions = FirefoxOptions(cap)
             return RemoteWebDriver(URL(virtualUrl), firefoxOptions)
         }
-
     }
 }

@@ -13,7 +13,8 @@ interface IAbstractDriverFactory<T> {
             val browserName = IBrowser.BaseImpl().getBrowser()
             return when {
                 browserName?.startsWith("remote") == true -> {
-                    IWebDriverFactory.RemoteWebDriverFactory(ConfigManager.configuration().virtualUrl()).setupWebDriver()
+                    IWebDriverFactory.RemoteWebDriverFactory(ConfigManager.configuration().virtualUrl())
+                        .setupWebDriver()
                 }
                 else -> {
                     IWebDriverFactory.LocalWebDriverFactory().setupWebDriver()
