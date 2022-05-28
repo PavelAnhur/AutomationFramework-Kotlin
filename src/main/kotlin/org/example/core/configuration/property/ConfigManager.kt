@@ -5,7 +5,6 @@ import org.aeonbits.owner.Config.LoadPolicy
 import org.aeonbits.owner.Config.Sources
 import org.aeonbits.owner.ConfigCache
 
-
 @LoadPolicy(Config.LoadType.MERGE)
 @Sources("system:properties", "classpath:configuration.properties")
 interface Configuration : Config {
@@ -16,7 +15,6 @@ interface Configuration : Config {
     @Config.Key("virtual.url")
     fun virtualUrl(): String?
 }
-
 
 class ConfigManager {
     companion object {

@@ -24,6 +24,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
     implementation("org.apache.logging.log4j:log4j-core:2.17.2")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+    testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha16")
     compileOnly("org.projectlombok:lombok:1.18.24")
 }
 
@@ -39,8 +40,10 @@ tasks.withType<KotlinCompile> {
 }
 
 buildscript {
-    repositories {
-        maven("https://plugins.gradle.org/m2/")
+    configurations {
+        classpath {
+            exclude(group = "org.slf4j.simple")
+        }
     }
     dependencies {
         classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")

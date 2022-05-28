@@ -23,11 +23,9 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
-
 interface IWebDriverFactory {
     val logger: KLogger
     fun setupWebDriver(): WebDriver
-
 
     class LocalWebDriverFactory : IWebDriverFactory {
         override val logger: KLogger
@@ -82,7 +80,6 @@ interface IWebDriverFactory {
             return OperaDriverManager.operadriver().create()
         }
     }
-
 
     class RemoteWebDriverFactory(private val virtualUrl: String?) : IWebDriverFactory {
         override val logger: KLogger

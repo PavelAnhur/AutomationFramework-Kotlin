@@ -12,13 +12,12 @@ interface IBrowser {
     }
 }
 
-
 enum class Browser(val value: String) {
     CHROME("chrome"),
     FIREFOX("firefox"),
     OPERA("opera"),
     EDGE("edge"),
     REMOTE_FIREFOX("remoteFirefox"),
-    REMOTE_CHROME ("remoteChrome"),
+    REMOTE_CHROME("remoteChrome"),
     REMOTE_EDGE("remoteEdge")
 }
