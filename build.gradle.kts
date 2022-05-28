@@ -15,17 +15,14 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.6.21")
-    testImplementation("org.slf4j:slf4j-simple:2.0.0-alpha7")
-    testImplementation("org.testng:testng:7.5")
     implementation("org.seleniumhq.selenium:selenium-java:4.1.4")
     implementation("io.github.bonigarcia:webdrivermanager:5.1.1")
     implementation("org.aeonbits.owner:owner:1.0.12")
-    implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
-    implementation("org.apache.logging.log4j:log4j-core:2.17.2")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+    implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.6.21")
+    testImplementation("org.testng:testng:7.5")
     testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha16")
-    compileOnly("org.projectlombok:lombok:1.18.24")
 }
 
 tasks.test {
@@ -42,7 +39,8 @@ tasks.withType<KotlinCompile> {
 buildscript {
     configurations {
         classpath {
-            exclude(group = "org.slf4j.simple")
+            exclude(group = "org.slf4j", module = "slf4j-log4j12")
+            exclude(group = "lgo4j", module = "log4j")
         }
     }
     dependencies {
