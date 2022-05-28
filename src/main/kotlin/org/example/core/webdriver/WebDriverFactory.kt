@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.edge.EdgeDriver
+import org.openqa.selenium.edge.EdgeOptions
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxOptions
 import org.openqa.selenium.firefox.FirefoxProfile
@@ -96,6 +97,7 @@ interface IWebDriverFactory {
                     when (browserName) {
                         Browser.REMOTE_CHROME.value -> getRemoteChromeDriver()
                         Browser.REMOTE_FIREFOX.value -> getRemoteFirefoxDriver()
+                        Browser.REMOTE_EDGE.value -> getRemoteEdgeWebDriver()
                         else -> throw RemoteWebDriverException("can't create remote web driver for $browserName browser")
                     }
             } catch (e: Exception) {
@@ -126,6 +128,15 @@ interface IWebDriverFactory {
             cap.setCapability("firefox.switches", listOf("--disable-notifications"))
             val firefoxOptions = FirefoxOptions(cap)
             return RemoteWebDriver(URL(virtualUrl), firefoxOptions)
+        }
+
+        private fun getRemoteEdgeWebDriver(): WebDriver {
+            val options = EdgeOptions()
+            val edgePrefs = HashMap<String, Any>()
+            edgePrefs["profile.default_content_settings.popups"] = 0
+            options.setCapability("prefs", edgePrefs)
+            options.setCapability("useAutomationExtension", false)
+            return RemoteWebDriver(URL(virtualUrl), options)
         }
     }
 }

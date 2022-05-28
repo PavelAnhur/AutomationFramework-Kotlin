@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.6.20"
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
 }
 
 group = "org.example"
@@ -36,3 +37,14 @@ tasks.test {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
+
+buildscript {
+    repositories {
+        maven("https://plugins.gradle.org/m2/")
+    }
+    dependencies {
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+    }
+}
+
+apply(plugin = "org.jlleitschuh.gradle.ktlint")
