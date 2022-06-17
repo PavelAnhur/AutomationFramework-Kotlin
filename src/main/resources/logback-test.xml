@@ -1,7 +1,7 @@
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>[%-5.5t] [%d] [%-5p] [%-25.25c{1}::%-15.15M:%-4L] %m%n</pattern>
+            <pattern>[%-4.4t] [%d] [%-5p] [%-25.25c{1}::%-15.15M:%-4L] %m%n</pattern>
         </encoder>
     </appender>
 
