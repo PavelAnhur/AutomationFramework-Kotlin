@@ -6,8 +6,7 @@ import org.testng.annotations.Test
 
 class MyStoreTest : BaseTest() {
 
-    private val homePage: MyStoreHomePage
-        get() = MyStoreHomePage(driver)
+    private val homePage = MyStoreHomePage(driver)
 
     @Test(description = "Validate home page logo title")
     fun homePageLogoTest() {
