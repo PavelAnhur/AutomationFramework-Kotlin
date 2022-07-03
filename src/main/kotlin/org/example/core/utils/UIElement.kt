@@ -25,7 +25,7 @@ class UIElement(
 
 
     fun click() {
-        logger.info { "clicking on element: '$this'" }
+        logger.info { "clicking on element: $this" }
         try {
             scrollToElement()
         } catch (e: Exception) {
@@ -34,12 +34,12 @@ class UIElement(
     }
 
     fun waitForDisplayed(timeout: Long = UIElementConst.DEFAULT_TIMEOUT_IN_SEC) {
-        logger.info { "waiting for element '$this' is displayed" }
+        logger.info { "waiting for element is displayed: $this" }
         WebDriverWait(driver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfElementLocated(by))
     }
 
     private fun scrollToElement() {
-        logger.info { "scrolling to the element: '$this'" }
+        logger.info { "scrolling to the element: $this" }
         jsExecutor.executeScript("arguments[0].scrollIntoView();", driver.findElement(by))
     }
 
@@ -49,6 +49,6 @@ class UIElement(
     }
 
     override fun toString(): String {
-        return "locator=$by $description"
+        return "locator=$by \"$description\""
     }
 }
