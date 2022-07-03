@@ -15,5 +15,6 @@ class WomenCollectionsTest : BaseTest() {
     fun womenCollectionsComperingTest() {
         logger.info { "Compare women collections by price order" }
         homePage.clickWomenTitle()
+        womenPage.selectSortOrder("desc")
     }
 }

@@ -22,6 +22,9 @@ import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
+import java.time.Duration
+
+private const val DEFAULT_ELEMENT_TIMEOUT = 3L
 
 interface IWebDriverFactory {
     val logger: KLogger
@@ -47,6 +50,7 @@ interface IWebDriverFactory {
                 logger.error(e.message)
             }
             driver?.manage()?.window()?.maximize()
+            driver?.manage()?.timeouts()?.implicitlyWait(Duration.ofSeconds(DEFAULT_ELEMENT_TIMEOUT))
             return driver ?: throw LocalWebDriverException("can't create local web driver")
         }
 
@@ -102,6 +106,7 @@ interface IWebDriverFactory {
             }
 
             driver?.manage()?.window()?.maximize()
+            driver?.manage()?.timeouts()?.implicitlyWait(Duration.ofSeconds(DEFAULT_ELEMENT_TIMEOUT))
             return driver ?: throw RemoteWebDriverException("can't create remote web driver")
         }
 
