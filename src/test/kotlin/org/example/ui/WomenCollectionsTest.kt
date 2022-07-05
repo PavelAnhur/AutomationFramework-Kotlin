@@ -10,8 +10,8 @@ class WomenCollectionsTest : BaseTest() {
         logger.info { "Compare women collections by price order" }
         MyStoreHomePage().clickWomenTitle()
             .selectSortOrder("desc")
-            .selectProductView("list")
-            .collectProductInfo()
+            .selectCollectionView("list")
+            .collectProductsInfo()
         
     }
 }

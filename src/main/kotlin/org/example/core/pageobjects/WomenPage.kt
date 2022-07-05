@@ -25,7 +25,7 @@ class WomenPage : BasePage() {
         return value
     }
     
-    fun selectProductView(view: String): WomenPage {
+    fun selectCollectionView(view: String): WomenPage {
         logger.info { "Changing products view.." }
         UIElement(
             By.xpath("//a[@title='${getViewLocatorAttributeTitle(view)}']"),
@@ -43,7 +43,7 @@ class WomenPage : BasePage() {
         return titleAttributeValue
     }
     
-    fun collectProductInfo(): WomenPage {
+    fun collectProductsInfo(): WomenPage {
         //TODO: implement DB storing
         return this
     }
