@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver
 
 interface IAbstractDriverFactory<T> {
     fun create(): T
-
+    
     class BaseImpl : IAbstractDriverFactory<WebDriver> {
         override fun create(): WebDriver {
             val browserName = IBrowser.BaseImpl().getBrowser()
