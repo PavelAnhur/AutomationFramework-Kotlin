@@ -28,19 +28,19 @@ class WomenPage : BasePage() {
     fun selectCollectionView(view: String): WomenPage {
         logger.info { "Changing products view.." }
         UIElement(
-            By.xpath("//a[@title='${getViewLocatorAttributeTitle(view)}']"),
+            By.id("${getViewLocatorId(view)}"),
             "product view"
         ).click()
             .also { return this }
     }
     
-    private fun getViewLocatorAttributeTitle(view: String): String? {
-        var titleAttributeValue: String? = null
+    private fun getViewLocatorId(view: String): String? {
+        var idValue: String? = null
         when {
-            view.lowercase() == "list" -> titleAttributeValue = "List"
-            view.lowercase() == "grid" -> titleAttributeValue = "Grid"
+            view.lowercase() == "list" -> idValue = "list"
+            view.lowercase() == "grid" -> idValue = "grid"
         }
-        return titleAttributeValue
+        return idValue
     }
     
     fun collectProductsInfo(): WomenPage {

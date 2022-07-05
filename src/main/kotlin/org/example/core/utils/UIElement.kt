@@ -6,6 +6,7 @@ import org.example.core.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebElement
+import org.openqa.selenium.support.ui.ExpectedCondition
 import org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable
 import org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated
 import org.openqa.selenium.support.ui.WebDriverWait
@@ -22,9 +23,13 @@ class UIElement(
     
     constructor(by: By) : this(by, by.toString())
     
+    override fun toString(): String {
+        return "locator=$by"
+    }
+    
     fun waitForDisplayed(timeout: Long = DEFAULT_TIMEOUT_IN_SEC) {
         logger.info { "waiting for element is displayed: $this" }
-        WebDriverWait(driver, Duration.ofSeconds(timeout)).until(visibilityOfElementLocated(by))
+        waitForCondition(timeout, visibilityOfElementLocated(by))
     }
     
     fun getAttribute(attribute: String): String? {
@@ -33,14 +38,14 @@ class UIElement(
     }
     
     fun click() {
-        logger.info { "clicking on the element: $this" }
+        logger.info { "click on the element: $description" }
         try {
             scrollToElement()
             waitForClickable()
             getElement().click()
         } catch (e: Exception) {
             logger.error { "Failed clicking on the element $this: ${e.message}" }
-            assert(false) { "${e.message}" }
+            error("${e.message}")
         }
     }
     
@@ -51,12 +56,12 @@ class UIElement(
     
     private fun waitForClickable(timeout: Long = DEFAULT_TIMEOUT_IN_SEC) {
         logger.info("waiting for element is clickable: $this")
-        WebDriverWait(driver, Duration.ofSeconds(timeout)).until(elementToBeClickable(by))
+        waitForCondition(timeout, elementToBeClickable(by))
+    }
+    
+    private fun waitForCondition(timeout: Long, expectedCondition: ExpectedCondition<WebElement>) {
+        WebDriverWait(driver, Duration.ofSeconds(timeout)).until(expectedCondition)
     }
     
     private fun getElement(): WebElement = driver.findElement(by)
-    
-    override fun toString(): String {
-        return "locator=$by"
-    }
 }
