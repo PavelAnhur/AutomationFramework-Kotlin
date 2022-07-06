@@ -14,7 +14,7 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
-class RemoteWebDriverFactory: IWebDriverFactory {
+class RemoteWebDriverFactory : WebDriverFactory() {
     
     override fun getDriver(browser: String): WebDriver? {
         val virtualUrl = ConfigManager.configuration().virtualUrl()
