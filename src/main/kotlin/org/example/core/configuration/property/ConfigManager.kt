@@ -14,6 +14,9 @@ interface Configuration : Config {
 
     @Config.Key("virtual.url")
     fun virtualUrl(): String?
+    
+    @Config.Key("homepage.url")
+    fun homePageUrl(): String?
 }
 
 class ConfigManager {

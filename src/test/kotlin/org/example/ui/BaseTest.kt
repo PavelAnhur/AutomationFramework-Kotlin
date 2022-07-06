@@ -1,7 +1,10 @@
 package org.example.ui
 
+import mu.KLogger
 import mu.KotlinLogging
+import org.example.core.configuration.property.ConfigManager
 import org.example.core.webdriver.WebDriverSingleton
+import org.openqa.selenium.WebDriver
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.AfterTest
@@ -9,29 +12,29 @@ import org.testng.annotations.BeforeClass
 import org.testng.annotations.BeforeMethod
 import java.util.Optional
 
-open class BaseTest {
-    protected val logger = KotlinLogging.logger {}
-    private val driver = WebDriverSingleton.instanceOf()
-    
+open class BaseTest(private val driver: WebDriver = WebDriverSingleton.instanceOf(),
+                    private val homePageUrl: String? = ConfigManager.configuration().homePageUrl(),
+                    protected val logger: KLogger = KotlinLogging.logger {}
+) {
     @BeforeClass(alwaysRun = true)
     fun before() {
         logger.info { "clearing cookies.." }
         driver.manage().deleteAllCookies()
         logger.info { "opening 'My Store' home page.." }
-        driver.get("http://automationpractice.com/index.php")
+        driver.get(homePageUrl)
     }
     
     @BeforeMethod(alwaysRun = true)
     open fun beforeMethod(result: ITestResult) {
         logger.info("****************************************************************")
-        logger.info("Starting new test: " + result.method.methodName)
+        logger.info("Starting new test: ${result.method.methodName}")
         logger.info("****************************************************************")
     }
     
     @AfterMethod(alwaysRun = true)
     fun afterMethod(result: ITestResult) {
         val throwableText = Optional.ofNullable<Throwable>(result.throwable)
-            .map { x: Throwable -> "${x.message}" }
+            .map { throwable -> "${throwable.message}" }
             .orElse("")
         
         val status = when (result.status) {
@@ -40,7 +43,7 @@ open class BaseTest {
             else -> "skipped: $throwableText"
         }
         logger.info("****************************************************************")
-        logger.info("Test: " + result.method.methodName + " " + status)
+        logger.info("Test: ${result.method.methodName} $status")
         logger.info("****************************************************************")
     }
     

@@ -9,7 +9,7 @@ object WebDriverSingleton {
     
     init {
         logger.info { "initializing web driver.." }
-        instance = IAbstractDriverFactory.BaseImpl().create()
+        instance = WebDriverConfig().setupWebDriver()
     }
     
     fun instanceOf(): WebDriver {
