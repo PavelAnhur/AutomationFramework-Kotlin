@@ -8,5 +8,5 @@ abstract class WebDriverFactory {
     val logger: KLogger
         get() = KotlinLogging.logger {}
     
-    abstract fun getDriver(browser: String): WebDriver?
+    abstract fun getDriver(browserName: String): WebDriver?
 }

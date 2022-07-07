@@ -16,15 +16,16 @@ import java.net.URL
 
 class RemoteWebDriverFactory : WebDriverFactory() {
     
-    override fun getDriver(browser: String): WebDriver? {
+    override fun getDriver(browserName: String): WebDriver? {
         val virtualUrl = ConfigManager.configuration().virtualUrl()
         var driver: RemoteWebDriver? = null
+        val browser = browserName.removePrefix("remote").lowercase()
         try {
             driver =
                 when (browser) {
-                    Browser.REMOTE_CHROME.value -> getRemoteChromeDriver(virtualUrl)
-                    Browser.REMOTE_FIREFOX.value -> getRemoteFirefoxDriver(virtualUrl)
-                    Browser.REMOTE_EDGE.value -> getRemoteEdgeWebDriver(virtualUrl)
+                    Browser.CHROME.value -> getRemoteChromeDriver(virtualUrl)
+                    Browser.FIREFOX.value -> getRemoteFirefoxDriver(virtualUrl)
+                    Browser.EDGE.value -> getRemoteEdgeWebDriver(virtualUrl)
                     else -> throw RemoteWebDriverException("can't create remote web driver for $browser browser")
                 }
         } catch (e: Exception) {
@@ -36,7 +37,7 @@ class RemoteWebDriverFactory : WebDriverFactory() {
     private fun getRemoteChromeDriver(virtualUrl: String?): RemoteWebDriver {
         val cap = DesiredCapabilities()
         cap.platform = Platform.ANY
-        cap.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE)
+        cap.setCapability(CapabilityType.UNHANDLED_PROMPT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE)
         cap.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true)
         
         val chromeOptions = ChromeOptions()
@@ -48,19 +49,18 @@ class RemoteWebDriverFactory : WebDriverFactory() {
     }
     
     private fun getRemoteFirefoxDriver(virtualUrl: String?): RemoteWebDriver {
-        val cap = DesiredCapabilities()
-        cap.platform = Platform.ANY
-        cap.setCapability("firefox.switches", listOf("--disable-notifications"))
-        val firefoxOptions = FirefoxOptions(cap)
+        val firefoxOptions = FirefoxOptions()
+        firefoxOptions.setAcceptInsecureCerts(true)
+        firefoxOptions.addArguments("--disable-notifications")
+        firefoxOptions.setCapability("platformName", Platform.ANY)
+        logger.info { "remote firefox driver ready" }
         return RemoteWebDriver(URL(virtualUrl), firefoxOptions)
     }
     
     private fun getRemoteEdgeWebDriver(virtualUrl: String?): RemoteWebDriver {
         val options = EdgeOptions()
-        val edgePrefs = HashMap<String, Any>()
-        edgePrefs["profile.default_content_settings.popups"] = 0
-        options.setCapability("prefs", edgePrefs)
-        options.setCapability("useAutomationExtension", false)
+        options.setAcceptInsecureCerts(true)
+        logger.info { "remote edge driver ready" }
         return RemoteWebDriver(URL(virtualUrl), options)
     }
 }

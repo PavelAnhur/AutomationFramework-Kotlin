@@ -18,8 +18,6 @@ open class BaseTest(private val driver: WebDriver = WebDriverSingleton.instanceO
 ) {
     @BeforeClass(alwaysRun = true)
     fun before() {
-        logger.info { "clearing cookies.." }
-        driver.manage().deleteAllCookies()
         logger.info { "opening 'My Store' home page.." }
         driver.get(homePageUrl)
     }

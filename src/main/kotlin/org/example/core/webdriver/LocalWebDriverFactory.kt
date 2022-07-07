@@ -13,16 +13,16 @@ import org.openqa.selenium.firefox.FirefoxProfile
 
 class LocalWebDriverFactory : WebDriverFactory() {
     
-    override fun getDriver(browser: String): WebDriver? {
+    override fun getDriver(browserName: String): WebDriver? {
         var driver: WebDriver? = null
         try {
             driver =
-                when (browser) {
+                when (browserName) {
                     Browser.CHROME.value -> getChromeDriver()
                     Browser.FIREFOX.value -> getFirefoxDriver()
                     Browser.EDGE.value -> getEdgeDriver()
                     Browser.OPERA.value -> getOperaDriver()
-                    else -> throw LocalWebDriverException("can't create local web driver for $browser browser")
+                    else -> throw LocalWebDriverException("can't create local web driver for $browserName browser")
                 }
         } catch (e: Exception) {
             logger.error(e.message)

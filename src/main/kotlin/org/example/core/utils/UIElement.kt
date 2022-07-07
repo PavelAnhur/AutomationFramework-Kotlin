@@ -1,7 +1,7 @@
 package org.example.core.utils
 
 import mu.KotlinLogging
-import org.example.core.webdriver.WebDriverFactoryConst.DEFAULT_TIMEOUT_IN_SEC
+import org.example.core.webdriver.WebDriverConst.DEFAULT_TIMEOUT_IN_SEC
 import org.example.core.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
