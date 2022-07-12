@@ -17,3 +17,7 @@ _Selenium Grid + Docker:_
    (all needed instructions in docker-compose.yml file)
 
 Available browsers: `remoteChrome`, `remoteFirefox`, `remoteEdge`
+ *********
+_Tests execution using command line:_\
+gradle test -Dbrowser=${browser} --info
+

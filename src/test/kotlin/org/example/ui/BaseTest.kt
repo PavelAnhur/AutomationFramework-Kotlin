@@ -2,26 +2,18 @@ package org.example.ui
 
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.configuration.property.ConfigManager
 import org.example.core.webdriver.WebDriverSingleton
 import org.openqa.selenium.WebDriver
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.AfterTest
-import org.testng.annotations.BeforeClass
 import org.testng.annotations.BeforeMethod
 import java.util.Optional
 
-open class BaseTest(private val driver: WebDriver = WebDriverSingleton.instanceOf(),
-                    private val homePageUrl: String? = ConfigManager.configuration().homePageUrl(),
-                    protected val logger: KLogger = KotlinLogging.logger {}
+open class BaseTest(
+    protected val logger: KLogger = KotlinLogging.logger {},
+    private val driver: WebDriver? = WebDriverSingleton.instance
 ) {
-    @BeforeClass(alwaysRun = true)
-    fun before() {
-        logger.info { "opening 'My Store' home page.." }
-        driver.get(homePageUrl)
-    }
-    
     @BeforeMethod(alwaysRun = true)
     open fun beforeMethod(result: ITestResult) {
         logger.info("****************************************************************")
@@ -48,6 +40,6 @@ open class BaseTest(private val driver: WebDriver = WebDriverSingleton.instanceO
     @AfterTest(alwaysRun = true)
     fun tearDown() {
         logger.info { "closing browser and web driver.." }
-        driver.quit()
+        driver?.quit()
     }
 }
