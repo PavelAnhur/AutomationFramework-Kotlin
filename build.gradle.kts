@@ -20,14 +20,16 @@ dependencies {
     implementation("org.aeonbits.owner:owner:1.0.12")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
+    implementation("org.testng:testng:7.6.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.0")
-    testImplementation("org.testng:testng:7.6.0")
     testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha16")
 }
 
 tasks.test {
+    val browser = System.getProperty("browser")
+    systemProperties = mapOf("browser" to browser)
     useTestNG {
-        suiteXmlFiles = listOf(file("src/test/resources/testng-all.xml"))
+        suites("src/test/resources/testng-all.xml")
     }
 }
 

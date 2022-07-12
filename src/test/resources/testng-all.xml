@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
+<suite name="All Test Suite" parallel="classes" thread-count="2">
+    <listeners>
+        <listener class-name="org.example.core.utils.retry.RetryListener"/>
+    </listeners>
     <test name="My Store Test">
         <packages>
             <package name="org.example.ui"/>

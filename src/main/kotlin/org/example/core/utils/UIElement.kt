@@ -18,7 +18,7 @@ class UIElement(
     private val description: String
 ) {
     private val logger = KotlinLogging.logger {}
-    private val driver = WebDriverSingleton.instanceOf()
+    private val driver = WebDriverSingleton.instance
     private val jsExecutor = driver as JavascriptExecutor
     
     constructor(by: By) : this(by, by.toString())
@@ -34,7 +34,7 @@ class UIElement(
     
     fun getAttribute(attribute: String): String? {
         logger.info("getting attribute of element: $this")
-        return getElement().getAttribute(attribute)
+        return getElement()?.getAttribute(attribute)
     }
     
     fun click() {
@@ -42,10 +42,10 @@ class UIElement(
         try {
             scrollToElement()
             waitForClickable()
-            getElement().click()
+            getElement()?.click()
         } catch (e: Exception) {
             logger.error { "Failed clicking on the element $this: ${e.message}" }
-            error("${e.message}")
+            error(e.message.toString())
         }
     }
     
@@ -63,5 +63,5 @@ class UIElement(
         WebDriverWait(driver, Duration.ofSeconds(timeout)).until(expectedCondition)
     }
     
-    private fun getElement(): WebElement = driver.findElement(by)
+    private fun getElement(): WebElement? = driver?.findElement(by)
 }
