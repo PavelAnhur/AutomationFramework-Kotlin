@@ -19,4 +19,6 @@ _Selenium Grid + Docker:_
 Available browsers: `remoteChrome`, `remoteFirefox`, `remoteEdge`
  *********
 _Tests execution using command line:_\
-`gradle test -Dbrowser=${browser} --info`
+`gradle test -Dbrowser=${browser} --info` or\
+`gradle test -Dbrowser=${browser} -Dsuite=${suite} --info`\
+`suite` is optional and if it's null, all tests will be executed using `testng-all.xml`
