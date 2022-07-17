@@ -1,6 +1,7 @@
 package org.example.core.utils
 
 import mu.KotlinLogging
+import org.example.core.utils.retry.WaitUtil
 import org.example.core.webdriver.WebDriverConst.DEFAULT_TIMEOUT_IN_SEC
 import org.example.core.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
@@ -11,10 +12,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable
 import org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated
 import org.openqa.selenium.support.ui.WebDriverWait
 import java.time.Duration
+import java.util.function.Supplier
+
+private const val NUMBER_OF_ATTEMPTS = 15
 
 @Suppress("unused")
-class UIElement(
-    private val by: By,
+open class UIElement(
+    val by: By,
     private val description: String
 ) {
     private val logger = KotlinLogging.logger {}
@@ -47,6 +51,30 @@ class UIElement(
             logger.error { "Failed clicking on the element $this: ${e.message}" }
             error(e.message.toString())
         }
+    }
+    
+    fun getText(): String {
+        logger.info { "getting text of element.." }
+        return getElement()?.text ?: "element $this doesn't contain test"
+    }
+    
+    fun waitForDisappear() {
+        logger.info { "waiting for element $this to disappear.." }
+        val isElementDisappeared = Supplier<Boolean> {
+            try {
+                getElement()?.isDisplayed
+                logger.info { "element $this is visible" }
+                false
+            } catch (e: org.openqa.selenium.NoSuchElementException) {
+                logger.info { "element $this disappeared" }
+                true
+            }
+        }
+        WaitUtil.waitForTrue(
+            isElementDisappeared,
+            NUMBER_OF_ATTEMPTS,
+            "element $this is visible after $NUMBER_OF_ATTEMPTS retries"
+        )
     }
     
     private fun scrollToElement() {

@@ -1,10 +1,22 @@
 package org.example.core.pageobjects
 
+import org.example.core.model.Product
+import org.example.core.utils.Locator.Companion.getSortLocatorAttributeValue
+import org.example.core.utils.Locator.Companion.getViewLocatorId
 import org.example.core.utils.UIElement
+import org.example.core.utils.UIElementList
 import org.openqa.selenium.By
+
+private const val PRODUCT_XPATH_PREFIX = "//*[@class='product_list row list']/li"
 
 class WomenPage : BasePage() {
     private val sortDropdown = UIElement(By.id("productsSortForm"), "sort order dropdown")
+    private val loadingSpinner = UIElement(By.xpath("//ul//br"))
+    private val productRows = UIElementList(By.xpath(PRODUCT_XPATH_PREFIX), "product rows")
+    private val productNameXPath = "$PRODUCT_XPATH_PREFIX[%d]//a[@class='product-name']"
+    private val productCostXpath =
+        "$PRODUCT_XPATH_PREFIX[%d]//*[starts-with(@class,'right-block')]//*[@class='price product-price']"
+    private val productDescXpath = "$PRODUCT_XPATH_PREFIX[%d]//*[@class='product-desc']"
     
     fun selectSortOrder(sortOrder: String): WomenPage {
         logger.info { "Sorting products.." }
@@ -13,16 +25,8 @@ class WomenPage : BasePage() {
             By.xpath("//*[@value='${getSortLocatorAttributeValue(sortOrder)}']"),
             "order from sort dropdown"
         ).click()
-            .also { return this }
-    }
-    
-    private fun getSortLocatorAttributeValue(sortOrder: String): String? {
-        var value: String? = null
-        when {
-            sortOrder.lowercase().startsWith("desc") -> value = "price:desc"
-            sortOrder.lowercase().startsWith("asc") -> value = "price:asc"
-        }
-        return value
+        loadingSpinner.waitForDisappear()
+        return this
     }
     
     fun selectCollectionView(view: String): WomenPage {
@@ -31,20 +35,47 @@ class WomenPage : BasePage() {
             By.id("${getViewLocatorId(view)}"),
             "product view"
         ).click()
-            .also { return this }
-    }
-    
-    private fun getViewLocatorId(view: String): String? {
-        var idValue: String? = null
-        when {
-            view.lowercase() == "list" -> idValue = "list"
-            view.lowercase() == "grid" -> idValue = "grid"
-        }
-        return idValue
+        return this
     }
     
     fun collectProductsInfo(): WomenPage {
-        //TODO: implement DB storing
+        val products = ArrayList<Product>()
+        productRows.waitForDisplayed()
+        val productRowsNumber: Int = productRows.size()!!
+        for (i in 1..productRowsNumber) {
+            val product = Product.Builder()
+                .name(productName(i))
+                .cost(productCost(i))
+                .description(productDescription(i))
+                .build()
+            
+            products.add(product)
+        }
+        logger.info { "products:\n$products" }
+
+//        DBManager().connectToDb()
+//            .insertIntoIfNotExists()
         return this
+    }
+    
+    private fun productName(rowNumber: Int): String {
+        val name = UIElement(By.xpath(String.format(productNameXPath, rowNumber)), "product name").getText()
+        logger.info { "product name of '$rowNumber' row: $name" }
+        return name
+    }
+    
+    private fun productCost(rowNumber: Int): Double {
+        val cost = UIElement(By.xpath(String.format(productCostXpath, rowNumber)), "product price")
+            .getText()
+            .filter { it.isDigit() || it == '.' }
+        logger.info { "product cost of '$rowNumber' row: $cost" }
+        return cost.toDouble()
+    }
+    
+    private fun productDescription(rowNumber: Int): String {
+        val description = UIElement(By.xpath(String.format(productDescXpath, rowNumber)), "product description")
+            .getText()
+        logger.info { "product description of '$rowNumber' row: $description" }
+        return description
     }
 }

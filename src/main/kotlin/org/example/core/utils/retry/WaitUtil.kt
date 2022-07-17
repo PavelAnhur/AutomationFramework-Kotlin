@@ -4,34 +4,31 @@ import mu.KotlinLogging
 import java.util.concurrent.TimeUnit
 import java.util.function.Supplier
 
-object WaitUtilConst {
-    const val RETRY_TIMOUT_SEC = 5L
-}
+const val RETRY_TIMOUT_SEC = 5L
 
 class WaitUtil {
     
-    private val logger = KotlinLogging.logger {}
-    
-    fun waitForTrue(
-        supplier: Supplier<Boolean>,
-        numberOfAttempts: Int,
-        errorMessage: String
-    ) {
-        var counter = 0
-        while (counter < numberOfAttempts && !supplier.get()) {
-            counter++
-            sleep(WaitUtilConst.RETRY_TIMOUT_SEC)
-            logger.info { "number of attempt: $counter" }
-        }
-        if (counter == numberOfAttempts) {
-            error(errorMessage)
-        }
-    }
-    
     companion object {
+        private val logger = KotlinLogging.logger {}
+        fun waitForTrue(
+            supplier: Supplier<Boolean>,
+            numberOfAttempts: Int,
+            errorMessage: String
+        ) {
+            var counter = 0
+            while (counter < numberOfAttempts && !supplier.get()) {
+                counter++
+                logger.info { "number of retry: $counter" }
+                sleep(RETRY_TIMOUT_SEC)
+            }
+            if (counter == numberOfAttempts) {
+                error(errorMessage)
+            }
+        }
+        
         fun sleep(timeoutInSec: Long) =
             try {
-                KotlinLogging.logger {}.info { "sleep $timeoutInSec seconds.." }
+                KotlinLogging.logger {}.info { "sleeping $timeoutInSec seconds.." }
                 TimeUnit.SECONDS.sleep(timeoutInSec)
             } catch (e: InterruptedException) {
                 throw InterruptedException("${e.message}")

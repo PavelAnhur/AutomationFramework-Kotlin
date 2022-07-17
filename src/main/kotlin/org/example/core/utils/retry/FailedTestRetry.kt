@@ -1,7 +1,6 @@
 package org.example.core.utils.retry
 
 import mu.KotlinLogging
-import org.example.core.utils.retry.WaitUtilConst.RETRY_TIMOUT_SEC
 import org.testng.IRetryAnalyzer
 import org.testng.ITestResult
 

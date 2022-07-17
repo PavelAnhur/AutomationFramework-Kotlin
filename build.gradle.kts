@@ -21,6 +21,7 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
     implementation("org.testng:testng:7.6.0")
+    implementation("org.postgresql:postgresql:42.4.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.0")
     testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha16")
 }
