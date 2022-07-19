@@ -26,6 +26,9 @@ interface Configuration : Config {
     
     @Config.Key("db.password.path")
     fun dbPasswordPath(): String?
+    
+    @Config.Key("db.table.name")
+    fun dbTableName(): String?
 }
 
 class ConfigManager {

@@ -3,6 +3,7 @@ package org.example.core.db
 import mu.KotlinLogging
 import org.example.core.configuration.property.ConfigManager
 import org.example.core.file.FileReader
+import org.example.core.model.Product
 import java.sql.Connection
 import java.sql.DriverManager
 
@@ -23,7 +24,12 @@ class DBManager(private var connection: Connection? = null) {
         return this
     }
     
-//    fun insertIntoIfNotExists(product: Product) {
-//        connection?.let { DBQueries(it).insertInto(product.name, product.cost, product.description) }
-//    }
+    fun insertIntoIfNotExists(product: Product) {
+        connection?.let { DBQueries(it).insertInto(product.name, product.cost, product.description) }
+    }
+    
+    fun closeDb() {
+        logger.info { "closing database connection.." }
+        connection?.close()
+    }
 }

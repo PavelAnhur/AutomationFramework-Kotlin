@@ -1,15 +1,18 @@
 package org.example.core.pageobjects
 
+import org.example.core.db.DBManager
 import org.example.core.model.Product
 import org.example.core.utils.Locator.Companion.getSortLocatorAttributeValue
 import org.example.core.utils.Locator.Companion.getViewLocatorId
 import org.example.core.utils.UIElement
 import org.example.core.utils.UIElementList
 import org.openqa.selenium.By
+import org.postgresql.util.PSQLException
 
 private const val PRODUCT_XPATH_PREFIX = "//*[@class='product_list row list']/li"
 
 class WomenPage : BasePage() {
+    private val dbManager = DBManager()
     private val sortDropdown = UIElement(By.id("productsSortForm"), "sort order dropdown")
     private val loadingSpinner = UIElement(By.xpath("//ul//br"))
     private val productRows = UIElementList(By.xpath(PRODUCT_XPATH_PREFIX), "product rows")
@@ -48,15 +51,23 @@ class WomenPage : BasePage() {
                 .cost(productCost(i))
                 .description(productDescription(i))
                 .build()
-            
+            fillDataInDb(product)
             products.add(product)
         }
         logger.info { "products:\n$products" }
-
-//        DBManager().connectToDb()
-//            .insertIntoIfNotExists()
+        
         return this
     }
+    
+    private fun fillDataInDb(product: Product) =
+        try {
+            dbManager.connectToDb()
+                .insertIntoIfNotExists(product)
+        } catch (e: PSQLException) {
+            error(e.message.toString())
+        } finally {
+            dbManager.closeDb()
+        }
     
     private fun productName(rowNumber: Int): String {
         val name = UIElement(By.xpath(String.format(productNameXPath, rowNumber)), "product name").getText()

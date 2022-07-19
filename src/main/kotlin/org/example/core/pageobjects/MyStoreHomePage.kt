@@ -7,13 +7,13 @@ import org.example.core.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 
 class MyStoreHomePage : BasePage() {
-    
     private val logo = UIElement(By.xpath("//*[@id='header_logo']/a"), "homepage logo")
     private val womenTitle = UIElement(By.xpath("//a[@title='Women']"), "'Women' title")
+    private val driver = WebDriverSingleton.instance
     
     fun openHomePage(homePageUrl: String? = ConfigManager.configuration().homePageUrl()): MyStoreHomePage {
         logger.info { "opening 'My Store' home page.." }
-        WebDriverSingleton.instance?.get(homePageUrl)
+        driver?.get(homePageUrl)
         return this
     }
     
@@ -26,7 +26,16 @@ class MyStoreHomePage : BasePage() {
     
     fun clickWomenTitle(): WomenPage {
         logger.info { "Click on 'Women' title" }
-        womenTitle.click()
+        try {
+            womenTitle.click()
+        } catch (e: Exception) {
+            logger.warn {
+                """${e.message}
+                    |need to refresh the page""".trimMargin()
+            }
+            driver?.navigate()?.refresh()
+            womenTitle.click()
+        }
         return WomenPage()
     }
 }
