@@ -26,7 +26,7 @@ class DBQueries(private val connection: Connection) {
             "INSERT INTO $tableName (name,cost,description) " +
                     "VALUES ('${productName.prepareString()}',$cost,'${description.prepareString()}')" +
                     " ON CONFLICT (name) DO UPDATE SET cost = $cost;"
-        connection.prepareStatement(query, intArrayOf(1, 3)).execute()
+        connection.prepareStatement(query).execute()
         statement.closeOnCompletion()
     }
     
