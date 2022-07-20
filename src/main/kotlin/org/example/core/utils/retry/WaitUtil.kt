@@ -4,10 +4,9 @@ import mu.KotlinLogging
 import java.util.concurrent.TimeUnit
 import java.util.function.Supplier
 
-const val RETRY_TIMOUT_SEC = 5L
+const val RETRY_TIMOUT_SEC = 3L
 
 class WaitUtil {
-    
     companion object {
         private val logger = KotlinLogging.logger {}
         fun waitForTrue(

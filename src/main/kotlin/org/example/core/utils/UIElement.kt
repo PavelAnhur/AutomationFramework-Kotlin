@@ -1,8 +1,9 @@
 package org.example.core.utils
 
 import mu.KotlinLogging
+import org.example.core.utils.constants.ProjectConst.EXPLICIT_TIMEOUT_SEC
+import org.example.core.utils.constants.ProjectConst.NUMBER_OF_ATTEMPTS
 import org.example.core.utils.retry.WaitUtil
-import org.example.core.webdriver.WebDriverConst.DEFAULT_TIMEOUT_IN_SEC
 import org.example.core.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
@@ -13,8 +14,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLoca
 import org.openqa.selenium.support.ui.WebDriverWait
 import java.time.Duration
 import java.util.function.Supplier
-
-private const val NUMBER_OF_ATTEMPTS = 15
 
 @Suppress("unused")
 open class UIElement(
@@ -31,7 +30,7 @@ open class UIElement(
         return "locator=$by"
     }
     
-    fun waitForDisplayed(timeout: Long = DEFAULT_TIMEOUT_IN_SEC) {
+    fun waitForDisplayed(timeout: Long = EXPLICIT_TIMEOUT_SEC) {
         logger.info { "waiting for element is displayed: $this" }
         waitForCondition(timeout, visibilityOfElementLocated(by))
     }
@@ -82,7 +81,7 @@ open class UIElement(
         jsExecutor.executeScript("arguments[0].scrollIntoView();", getElement())
     }
     
-    private fun waitForClickable(timeout: Long = DEFAULT_TIMEOUT_IN_SEC) {
+    private fun waitForClickable(timeout: Long = EXPLICIT_TIMEOUT_SEC) {
         logger.info("waiting for element is clickable: $this")
         waitForCondition(timeout, elementToBeClickable(by))
     }

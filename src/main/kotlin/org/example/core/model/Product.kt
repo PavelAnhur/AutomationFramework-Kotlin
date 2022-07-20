@@ -18,8 +18,8 @@ class Product private constructor(
     }
     
     override fun toString(): String {
-        return """Product(
-            |name=$name,
+        return """|
+            |Product(name=$name,
             |cost=$cost,
             |description=$description)""".trimMargin()
     }

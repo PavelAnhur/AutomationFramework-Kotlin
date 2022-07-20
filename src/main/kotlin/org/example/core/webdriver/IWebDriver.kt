@@ -4,9 +4,9 @@ import mu.KLogger
 import mu.KotlinLogging
 import org.openqa.selenium.WebDriver
 
-abstract class WebDriverFactory {
+interface IWebDriver {
     val logger: KLogger
         get() = KotlinLogging.logger {}
     
-    abstract fun getDriver(browserName: String): WebDriver?
+    fun getDriver(browserName: String): WebDriver?
 }

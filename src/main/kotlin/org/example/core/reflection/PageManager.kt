@@ -9,12 +9,8 @@ class PageManager {
     private var mapOfPages: MutableMap<String, Any?>? = null
     
     fun <T> getPage(clazz: Class<T>): T? {
-        if (null == mapOfPages) {
-            mapOfPages = mutableMapOf()
-        }
-        if (null == mapOfPages!![clazz.name]) {
-            mapOfPages!![clazz.name] = createPage(clazz)
-        }
+        if (null == mapOfPages) mapOfPages = HashMap()
+        if (null == mapOfPages!![clazz.name]) mapOfPages!![clazz.name] = createPage(clazz)
         return mapOfPages!![clazz.name] as T?
     }
     

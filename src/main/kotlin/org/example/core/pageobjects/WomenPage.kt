@@ -8,10 +8,13 @@ import org.example.core.utils.UIElement
 import org.example.core.utils.UIElementList
 import org.openqa.selenium.By
 import org.postgresql.util.PSQLException
+import kotlin.streams.toList
 
 private const val PRODUCT_XPATH_PREFIX = "//*[@class='product_list row list']/li"
 
 class WomenPage : BasePage() {
+    var actualPriceList: MutableList<Double> = ArrayList()
+    var expectedPriceList: MutableList<Double> = ArrayList()
     private val dbManager = DBManager()
     private val sortDropdown = UIElement(By.id("productsSortForm"), "sort order dropdown")
     private val loadingSpinner = UIElement(By.xpath("//ul//br"))
@@ -20,6 +23,7 @@ class WomenPage : BasePage() {
     private val productCostXpath =
         "$PRODUCT_XPATH_PREFIX[%d]//*[starts-with(@class,'right-block')]//*[@class='price product-price']"
     private val productDescXpath = "$PRODUCT_XPATH_PREFIX[%d]//*[@class='product-desc']"
+    private lateinit var products: List<Product>
     
     fun selectSortOrder(sortOrder: String): WomenPage {
         logger.info { "Sorting products.." }
@@ -42,7 +46,7 @@ class WomenPage : BasePage() {
     }
     
     fun collectProductsInfo(): WomenPage {
-        val products = ArrayList<Product>()
+        products = ArrayList()
         productRows.waitForDisplayed()
         val productRowsNumber: Int = productRows.size()!!
         for (i in 1..productRowsNumber) {
@@ -51,15 +55,33 @@ class WomenPage : BasePage() {
                 .cost(productCost(i))
                 .description(productDescription(i))
                 .build()
-            fillDataInDb(product)
-            products.add(product)
+            storeDb(product)
+            (products as ArrayList<Product>).add(product)
         }
-        logger.info { "products:\n$products" }
-        
+        products.stream()
+            .map { it.cost }
+            .toList().toMutableList()
+            .also { expectedPriceList = it }
         return this
     }
     
-    private fun fillDataInDb(product: Product) =
+    fun getPriceListFromDb() {
+        try {
+            dbManager.connectToDb()
+                .selectByColumn("cost")
+            logger.info { "price list from DB:\n$actualPriceList" }
+        } catch (e: PSQLException) {
+            error(e.message.toString())
+        } finally {
+            dbManager.closeDb()
+        }
+    }
+    
+    fun isProductPricesOrdered(): Boolean {
+        return actualPriceList == expectedPriceList
+    }
+    
+    private fun storeDb(product: Product) =
         try {
             dbManager.connectToDb()
                 .insertIntoIfNotExists(product)
