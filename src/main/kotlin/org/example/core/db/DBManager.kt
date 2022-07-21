@@ -43,7 +43,7 @@ class DBManager : IDBManager {
     }
     
     fun insertIntoIfNotExists(product: Product) {
-        connection.let { DBQueries(it).insertInto(product.name, product.cost, product.description) }
+        connection.let { DBQueries(it).insertInto(product.name, product.price, product.description) }
     }
     
     fun selectByColumn(column: String) {

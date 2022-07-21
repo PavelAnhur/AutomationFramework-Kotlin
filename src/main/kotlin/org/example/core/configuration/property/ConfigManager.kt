@@ -8,7 +8,6 @@ import org.aeonbits.owner.ConfigCache
 @LoadPolicy(Config.LoadType.MERGE)
 @Sources("system:properties", "classpath:configuration.properties")
 interface Configuration : Config {
-
     @Config.Key("browser")
     fun browser(): String?
     

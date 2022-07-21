@@ -10,22 +10,22 @@ class DBQueries(private val connection: Connection) {
     
     fun insertInto(
         productName: String,
-        cost: Double,
-        description: String
+        price: Double,
+        description: String,
     ) {
         logger.info {
             """executing query:
-            | INSERT INTO $tableName (name,cost,description)
-            | VALUES ('${productName.prepareString()}', $cost, '${description.prepareString()}')
+            | INSERT INTO $tableName (name,price,description)
+            | VALUES ('${productName.prepareString()}', $price, '${description.prepareString()}')
             | ON CONFLICT (name) DO UPDATE
-            | SET cost = $cost;
+            | SET price = $price;
             """.trimMargin()
         }
         val statement = connection.createStatement()
         val query =
-            "INSERT INTO $tableName (name,cost,description) " +
-                    "VALUES ('${productName.prepareString()}',$cost,'${description.prepareString()}')" +
-                    " ON CONFLICT (name) DO UPDATE SET cost = $cost;"
+            "INSERT INTO $tableName (name,price,description) " +
+                    "VALUES ('${productName.prepareString()}',$price,'${description.prepareString()}')" +
+                    " ON CONFLICT (name) DO UPDATE SET price = $price;"
         connection.prepareStatement(query).execute()
         statement.closeOnCompletion()
     }
@@ -38,6 +38,7 @@ class DBQueries(private val connection: Connection) {
         logger.info {
             """executing query:
             | SELECT $column FROM $tableName;
-        """.trimMargin() }
+        """.trimMargin()
+        }
     }
 }

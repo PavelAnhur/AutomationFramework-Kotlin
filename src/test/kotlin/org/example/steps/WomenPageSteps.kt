@@ -46,7 +46,7 @@ class WomenPageSteps(
         return isSortedDescending
     }
     
-    private fun actualPriceList(): List<Double> = womenPage.products.map { it.cost }
+    private fun actualPriceList(): List<Double> = womenPage.products.map { it.price }
     
     private fun storeDb() =
         try {
@@ -63,7 +63,7 @@ class WomenPageSteps(
     private fun getPriceListFromDb() {
         try {
             dbManager.connectToDb()
-            dbManager.selectByColumn("cost")
+            dbManager.selectByColumn("price")
         } catch (e: PSQLException) {
             error(e.message.toString())
         } finally {

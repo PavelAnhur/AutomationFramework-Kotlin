@@ -15,7 +15,7 @@ class WomenPage : BasePage() {
     private val loadingSpinner = UIElement(By.xpath("//ul//br"))
     private val productRows = UIElementList(By.xpath(PRODUCT_XPATH_PREFIX), "product rows")
     private val productNameXPath = "$PRODUCT_XPATH_PREFIX[%d]//a[@class='product-name']"
-    private val productCostXpath =
+    private val productpriceXpath =
         "$PRODUCT_XPATH_PREFIX[%d]//*[starts-with(@class,'right-block')]//*[@class='price product-price']"
     private val productDescXpath = "$PRODUCT_XPATH_PREFIX[%d]//*[@class='product-desc']"
     
@@ -43,7 +43,7 @@ class WomenPage : BasePage() {
         for (i in 1..productRowsNumber) {
             val product = Product.Builder()
                 .name(productName(i))
-                .cost(productPrice(i))
+                .price(productPrice(i))
                 .description(productDescription(i))
                 .build()
             products.add(product)
@@ -57,7 +57,7 @@ class WomenPage : BasePage() {
     }
     
     private fun productPrice(rowNumber: Int): Double {
-        val price = UIElement(By.xpath(String.format(productCostXpath, rowNumber)), "product price")
+        val price = UIElement(By.xpath(String.format(productpriceXpath, rowNumber)), "product price")
             .getText()
             .filter { it.isDigit() || it == '.' }
         logger.info { "product #$rowNumber price= $price" }

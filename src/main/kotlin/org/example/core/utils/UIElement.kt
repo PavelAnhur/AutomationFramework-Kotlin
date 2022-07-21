@@ -41,7 +41,7 @@ open class UIElement(
     }
     
     fun click() {
-        logger.info { "click on the element: $description" }
+        logger.info { "clicking on the element: $description" }
         try {
             scrollToElement()
             waitForClickable()
@@ -53,7 +53,7 @@ open class UIElement(
     }
     
     fun getText(): String {
-        logger.info { "getting text of element.." }
+        logger.info { "getting text of element: $this" }
         return getElement()?.text ?: "element $this doesn't contain test"
     }
     
