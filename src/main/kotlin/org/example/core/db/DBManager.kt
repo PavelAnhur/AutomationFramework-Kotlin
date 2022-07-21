@@ -16,7 +16,7 @@ interface IDBManager {
     val dbPasswordPath: String?
     val dbPassword: String?
     
-    fun connectToDb(): IDBManager
+    fun connectToDb()
     fun closeDb()
 }
 
@@ -28,14 +28,13 @@ class DBManager : IDBManager {
     override val dbPasswordPath = ConfigManager.configuration().dbPasswordPath()
     override val dbPassword = dbPasswordPath?.let { FileReader.readLineFromFile(it) }
     
-    override fun connectToDb(): DBManager {
+    override fun connectToDb() {
         connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)
         if (connection.isValid(0)) {
             logger.info { "connection is established" }
         } else {
             logger.info { "connection is failed" }
         }
-        return this
     }
     
     override fun closeDb() {

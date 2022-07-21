@@ -4,17 +4,17 @@ import mu.KotlinLogging
 import java.lang.reflect.InvocationTargetException
 
 @Suppress("UNCHECKED_CAST")
-class PageManager {
+class StepsManager {
     private val logger = KotlinLogging.logger {}
-    private var mapOfPages: MutableMap<String, Any?>? = null
+    private var stepMap: MutableMap<String, Any?>? = null
     
-    fun <T> getPage(clazz: Class<T>): T? {
-        if (null == mapOfPages) mapOfPages = HashMap()
-        if (null == mapOfPages!![clazz.name]) mapOfPages!![clazz.name] = createPage(clazz)
-        return mapOfPages!![clazz.name] as T?
+    fun <T> getStepClass(clazz: Class<T>): T? {
+        if (null == stepMap) stepMap = HashMap()
+        if (null == stepMap!![clazz.name]) stepMap!![clazz.name] = createStepClass(clazz)
+        return stepMap!![clazz.name] as T?
     }
     
-    private fun <T> createPage(clazz: Class<T>): T? {
+    private fun <T> createStepClass(clazz: Class<T>): T? {
         var page: T? = null
         try {
             page = clazz.getConstructor().newInstance()

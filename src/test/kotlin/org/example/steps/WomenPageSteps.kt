@@ -1,0 +1,73 @@
+package org.example.steps
+
+import mu.KLogger
+import mu.KotlinLogging
+import org.example.core.db.DBManager
+import org.example.core.pageobjects.WomenPage
+import org.postgresql.util.PSQLException
+
+class WomenPageSteps(
+    private val womenPage: WomenPage = WomenPage(),
+    private val logger: KLogger = KotlinLogging.logger {},
+    private val dbManager: DBManager = DBManager(),
+) {
+    val actualProductPricesList: List<Double>
+        get() {
+            return this.actualPriceList()
+        }
+    
+    fun changeProductTableView(
+        sortOrder: String,
+        collectionView: String,
+    ): WomenPageSteps {
+        logger.info { "Sorting products.." }
+        womenPage.selectSortOrder(sortOrder)
+        logger.info { "Changing product collection view.." }
+        womenPage.selectCollectionView(collectionView)
+        return this
+    }
+    
+    fun storeProductInfoInDB() {
+        logger.info { "collecting products info.." }
+        womenPage.collectProductsInfo()
+        logger.info { "filling DB.." }
+        storeDb()
+    }
+    
+    fun isProductPriceListInDescOrder(): Boolean {
+        logger.info { "verifying price list.." }
+        var isSortedDescending = false
+        for (i in 0 until actualProductPricesList.size - 1) {
+            if (actualProductPricesList[i] < actualProductPricesList[i + 1]) {
+                isSortedDescending = true
+            }
+        }
+        if (isSortedDescending) logger.info { "price list in descending order" }
+        return isSortedDescending
+    }
+    
+    private fun actualPriceList(): List<Double> = womenPage.products.map { it.cost }
+    
+    private fun storeDb() =
+        try {
+            dbManager.connectToDb()
+            for (product in womenPage.products) {
+                dbManager.insertIntoIfNotExists(product)
+            }
+        } catch (e: PSQLException) {
+            error(e.message.toString())
+        } finally {
+            dbManager.closeDb()
+        }
+    
+    private fun getPriceListFromDb() {
+        try {
+            dbManager.connectToDb()
+            dbManager.selectByColumn("cost")
+        } catch (e: PSQLException) {
+            error(e.message.toString())
+        } finally {
+            dbManager.closeDb()
+        }
+    }
+}

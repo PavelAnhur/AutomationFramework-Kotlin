@@ -6,7 +6,7 @@
     </listeners>
     <test name="My Store Test">
         <packages>
-            <package name="org.example.ui"/>
+            <package name="org.example.tests.ui"/>
         </packages>
         <!--        <classes>-->
         <!--            <class name="org.example.ui.WomenCollectionsTest"/>-->

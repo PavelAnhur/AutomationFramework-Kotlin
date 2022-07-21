@@ -1,5 +1,7 @@
 package org.example.core.webdriver
 
+import mu.KLogger
+import mu.KotlinLogging
 import org.example.core.browser.Browser
 import org.example.core.configuration.property.ConfigManager
 import org.example.core.exceptions.RemoteWebDriverException
@@ -15,7 +17,9 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
-class RemoteWebDriverFactory : IWebDriver {
+class RemoteWebDriverFactory(
+    override val logger: KLogger = KotlinLogging.logger {},
+) : IWebDriver {
     override fun getDriver(browserName: String): WebDriver? {
         val virtualUrl = ConfigManager.configuration().virtualUrl()
         var driver: RemoteWebDriver? = null
