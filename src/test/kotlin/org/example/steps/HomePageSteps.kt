@@ -14,7 +14,7 @@ class HomePageSteps(
         return this
     }
     
-    fun openWomenCollectionsPage() {
+    fun openWomenPage() {
         logger.info { "Click on 'Women' title" }
         homePage.clickWomenTitle()
     }
