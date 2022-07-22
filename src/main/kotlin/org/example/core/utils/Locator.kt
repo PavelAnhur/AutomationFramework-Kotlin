@@ -10,7 +10,7 @@ class Locator {
             }
             return value
         }
-    
+        
         fun getViewLocatorId(view: String): String? {
             var idValue: String? = null
             when {

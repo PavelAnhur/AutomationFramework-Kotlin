@@ -17,7 +17,7 @@ open class BaseTest(
     protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
     protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!,
     protected val logger: KLogger = KotlinLogging.logger {},
-    private val driver: WebDriver? = WebDriverSingleton.instance
+    private val driver: WebDriver? = WebDriverSingleton.instance,
 ) {
     @BeforeMethod(alwaysRun = true)
     open fun beforeMethod(result: ITestResult) {

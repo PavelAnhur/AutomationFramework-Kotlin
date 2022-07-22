@@ -13,7 +13,7 @@ interface IBrowser {
 }
 
 enum class Browser(
-    val value: String
+    val value: String,
 ) {
     CHROME("chrome"),
     FIREFOX("firefox"),

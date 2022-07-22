@@ -7,7 +7,10 @@ import java.lang.reflect.Method
 
 class RetryListener : IAnnotationTransformer {
     override fun transform(
-        annotation: ITestAnnotation, testClass: Class<*>?, testConstructor: Constructor<*>?, testMethod: Method
+        annotation: ITestAnnotation,
+        testClass: Class<*>?,
+        testConstructor: Constructor<*>?,
+        testMethod: Method,
     ) {
         annotation.setRetryAnalyzer(FailedTestRetry::class.java)
     }

@@ -14,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxOptions
 import org.openqa.selenium.firefox.FirefoxProfile
 
 class LocalWebDriverFactory(
-    override val logger: KLogger = KotlinLogging.logger {}
+    override val logger: KLogger = KotlinLogging.logger {},
 ) : IWebDriver {
     override fun getDriver(browserName: String): WebDriver? {
         var driver: WebDriver? = null

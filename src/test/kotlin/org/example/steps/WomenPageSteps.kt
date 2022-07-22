@@ -13,7 +13,7 @@ class WomenPageSteps(
 ) {
     val actualProductPricesList: List<Double>
         get() {
-            return this.actualPriceList()
+            return this.womenPage.products.map { it.price }
         }
     
     fun changeProductTableView(
@@ -45,8 +45,6 @@ class WomenPageSteps(
         if (isSortedDescending) logger.info { "price list in descending order" }
         return isSortedDescending
     }
-    
-    private fun actualPriceList(): List<Double> = womenPage.products.map { it.price }
     
     private fun storeDb() =
         try {

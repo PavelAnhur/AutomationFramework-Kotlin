@@ -1,9 +1,9 @@
 package org.example.core.utils
 
 import mu.KotlinLogging
-import org.example.core.utils.constants.ProjectConst.EXPLICIT_TIMEOUT_SEC
-import org.example.core.utils.constants.ProjectConst.NUMBER_OF_ATTEMPTS
+import org.example.core.utils.retry.NUMBER_OF_ATTEMPTS
 import org.example.core.utils.retry.WaitUtil
+import org.example.core.webdriver.EXPLICIT_TIMEOUT_SEC
 import org.example.core.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
@@ -18,7 +18,7 @@ import java.util.function.Supplier
 @Suppress("unused")
 open class UIElement(
     val by: By,
-    private val description: String
+    private val description: String,
 ) {
     private val logger = KotlinLogging.logger {}
     private val driver = WebDriverSingleton.instance
@@ -70,9 +70,8 @@ open class UIElement(
             }
         }
         WaitUtil.waitForTrue(
-            isElementDisappeared,
-            NUMBER_OF_ATTEMPTS,
-            "element $this is visible after $NUMBER_OF_ATTEMPTS retries"
+            supplier = isElementDisappeared,
+            errorMessage = "element $this is visible after $NUMBER_OF_ATTEMPTS retries"
         )
     }
     

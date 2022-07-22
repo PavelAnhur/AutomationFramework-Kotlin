@@ -5,7 +5,6 @@ import mu.KotlinLogging
 import org.example.core.browser.Browser
 import org.example.core.configuration.property.ConfigManager
 import org.example.core.exceptions.RemoteWebDriverException
-import org.example.core.utils.constants.ProjectConst.BROWSER_PREFIX_REMOTE
 import org.openqa.selenium.Platform
 import org.openqa.selenium.UnexpectedAlertBehaviour
 import org.openqa.selenium.WebDriver

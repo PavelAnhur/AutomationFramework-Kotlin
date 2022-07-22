@@ -16,7 +16,7 @@ class FailedTestRetry : IRetryAnalyzer {
         if (retryCount < MAX_RETRY_COUNT) {
             retryCount++
             logger.info("Retrying ${iTestResult.name} and count of retries is $retryCount")
-            WaitUtil.sleep(RETRY_TIMOUT_SEC)
+            WaitUtil.sleep()
             true
         } else false
 }
