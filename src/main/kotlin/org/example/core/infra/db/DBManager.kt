@@ -1,9 +1,9 @@
-package org.example.core.db
+package org.example.core.infra.db
 
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.configuration.property.ConfigManager
-import org.example.core.file.FileReader
+import org.example.core.infra.property.PropertyManager
+import org.example.core.infra.file.FileReader
 import org.example.core.model.Product
 import java.sql.Connection
 import java.sql.DriverManager
@@ -23,9 +23,9 @@ interface IDBManager {
 class DBManager : IDBManager {
     override lateinit var connection: Connection
     override val logger = KotlinLogging.logger {}
-    override val jdbcUrl = ConfigManager.configuration().dbUrl()
-    override val dbUser = ConfigManager.configuration().dbUser()
-    override val dbPasswordPath = ConfigManager.configuration().dbPasswordPath()
+    override val jdbcUrl = PropertyManager.config().dbUrl()
+    override val dbUser = PropertyManager.config().dbUser()
+    override val dbPasswordPath = PropertyManager.config().dbPasswordPath()
     override val dbPassword = dbPasswordPath?.let { FileReader.readLineFromFile(it) }
     
     override fun connectToDb() {

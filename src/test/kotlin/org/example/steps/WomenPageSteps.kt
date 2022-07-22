@@ -2,7 +2,7 @@ package org.example.steps
 
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.db.DBManager
+import org.example.core.infra.db.DBManager
 import org.example.core.pageobjects.WomenPage
 import org.postgresql.util.PSQLException
 
@@ -58,7 +58,7 @@ class WomenPageSteps(
             dbManager.closeDb()
         }
     
-    private fun getPriceListFromDb() {
+    private fun getPriceListFromDb() =
         try {
             dbManager.connectToDb()
             dbManager.selectByColumn("price")
@@ -67,5 +67,4 @@ class WomenPageSteps(
         } finally {
             dbManager.closeDb()
         }
-    }
 }

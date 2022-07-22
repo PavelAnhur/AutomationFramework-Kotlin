@@ -1,4 +1,4 @@
-package org.example.core.utils.retry
+package org.example.core.infra.retry
 
 import mu.KotlinLogging
 import java.util.concurrent.TimeUnit

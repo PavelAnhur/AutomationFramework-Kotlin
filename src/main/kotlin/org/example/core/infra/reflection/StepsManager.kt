@@ -1,4 +1,4 @@
-package org.example.core.reflection
+package org.example.core.infra.reflection
 
 import mu.KotlinLogging
 import java.lang.reflect.InvocationTargetException

@@ -1,11 +1,11 @@
-package org.example.core.webdriver
+package org.example.core.infra.webdriver
 
 import io.github.bonigarcia.wdm.WebDriverManager
 import io.github.bonigarcia.wdm.managers.OperaDriverManager
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.browser.Browser
-import org.example.core.exceptions.LocalWebDriverException
+import org.example.core.infra.browser.Browser
+import org.example.core.infra.exceptions.LocalWebDriverException
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.edge.EdgeDriver

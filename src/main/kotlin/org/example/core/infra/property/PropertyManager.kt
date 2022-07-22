@@ -1,4 +1,4 @@
-package org.example.core.configuration.property
+package org.example.core.infra.property
 
 import org.aeonbits.owner.Config
 import org.aeonbits.owner.Config.LoadPolicy
@@ -30,9 +30,9 @@ interface Configuration : Config {
     fun dbTableName(): String?
 }
 
-class ConfigManager {
+class PropertyManager {
     companion object {
-        fun configuration(): Configuration {
+        fun config(): Configuration {
             return ConfigCache.getOrCreate(Configuration::class.java)
         }
     }

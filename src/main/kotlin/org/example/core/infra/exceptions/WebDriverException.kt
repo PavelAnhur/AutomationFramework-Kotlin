@@ -1,4 +1,4 @@
-package org.example.core.exceptions
+package org.example.core.infra.exceptions
 
 class LocalWebDriverException(message: String?) : RuntimeException(message)
 

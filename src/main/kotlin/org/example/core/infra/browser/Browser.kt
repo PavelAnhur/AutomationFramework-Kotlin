@@ -1,13 +1,13 @@
-package org.example.core.browser
+package org.example.core.infra.browser
 
-import org.example.core.configuration.property.ConfigManager
+import org.example.core.infra.property.PropertyManager
 
 interface IBrowser {
     fun getBrowser(): String?
     
     class BaseImpl : IBrowser {
         override fun getBrowser(): String? {
-            return ConfigManager.configuration().browser()
+            return PropertyManager.config().browser()
         }
     }
 }

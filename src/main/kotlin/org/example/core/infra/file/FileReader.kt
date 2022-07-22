@@ -1,4 +1,4 @@
-package org.example.core.file
+package org.example.core.infra.file
 
 import mu.KotlinLogging
 import java.io.File

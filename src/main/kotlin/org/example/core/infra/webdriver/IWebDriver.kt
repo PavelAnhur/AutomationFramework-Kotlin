@@ -1,4 +1,4 @@
-package org.example.core.webdriver
+package org.example.core.infra.webdriver
 
 import mu.KLogger
 import org.openqa.selenium.WebDriver

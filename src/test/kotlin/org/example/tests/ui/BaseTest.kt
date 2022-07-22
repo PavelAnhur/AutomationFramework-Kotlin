@@ -2,8 +2,8 @@ package org.example.tests.ui
 
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.reflection.StepsManager
-import org.example.core.webdriver.WebDriverSingleton
+import org.example.core.infra.reflection.StepsManager
+import org.example.core.infra.webdriver.WebDriverSingleton
 import org.example.steps.HomePageSteps
 import org.example.steps.WomenPageSteps
 import org.openqa.selenium.WebDriver

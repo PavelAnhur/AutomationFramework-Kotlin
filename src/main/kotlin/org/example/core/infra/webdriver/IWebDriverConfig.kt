@@ -1,6 +1,6 @@
-package org.example.core.webdriver
+package org.example.core.infra.webdriver
 
-import org.example.core.browser.IBrowser
+import org.example.core.infra.browser.IBrowser
 import org.openqa.selenium.WebDriver
 import java.time.Duration
 

@@ -1,6 +1,6 @@
-package org.example.core.utils
+package org.example.core.ui
 
-import org.example.core.webdriver.WebDriverSingleton
+import org.example.core.infra.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 

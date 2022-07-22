@@ -1,8 +1,8 @@
 package org.example.core.pageobjects
 
-import org.example.core.configuration.property.ConfigManager
-import org.example.core.utils.UIElement
-import org.example.core.webdriver.WebDriverSingleton
+import org.example.core.infra.property.PropertyManager
+import org.example.core.ui.UIElement
+import org.example.core.infra.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 
 class HomePage : BasePage() {
@@ -11,7 +11,7 @@ class HomePage : BasePage() {
     private val driver = WebDriverSingleton.instance
     
     fun openHomePage(
-        homePageUrl: String? = ConfigManager.configuration().homePageUrl(),
+        homePageUrl: String? = PropertyManager.config().homePageUrl(),
     ): HomePage {
         driver?.get(homePageUrl)
         return this

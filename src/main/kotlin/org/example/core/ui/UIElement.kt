@@ -1,10 +1,10 @@
-package org.example.core.utils
+package org.example.core.ui
 
 import mu.KotlinLogging
-import org.example.core.utils.retry.NUMBER_OF_ATTEMPTS
-import org.example.core.utils.retry.WaitUtil
-import org.example.core.webdriver.EXPLICIT_TIMEOUT_SEC
-import org.example.core.webdriver.WebDriverSingleton
+import org.example.core.infra.retry.NUMBER_OF_ATTEMPTS
+import org.example.core.infra.retry.WaitUtil
+import org.example.core.infra.webdriver.EXPLICIT_TIMEOUT_SEC
+import org.example.core.infra.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebElement

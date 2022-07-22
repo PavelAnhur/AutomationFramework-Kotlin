@@ -1,12 +1,12 @@
-package org.example.core.db
+package org.example.core.infra.db
 
 import mu.KotlinLogging
-import org.example.core.configuration.property.ConfigManager
+import org.example.core.infra.property.PropertyManager
 import java.sql.Connection
 
 class DBQueries(private val connection: Connection) {
     private val logger = KotlinLogging.logger {}
-    private val tableName = ConfigManager.configuration().dbTableName()
+    private val tableName = PropertyManager.config().dbTableName()
     
     fun insertInto(
         productName: String,

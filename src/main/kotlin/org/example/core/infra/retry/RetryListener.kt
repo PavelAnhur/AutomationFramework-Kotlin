@@ -1,4 +1,4 @@
-package org.example.core.utils.retry
+package org.example.core.infra.retry
 
 import org.testng.IAnnotationTransformer
 import org.testng.annotations.ITestAnnotation
