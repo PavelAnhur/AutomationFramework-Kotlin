@@ -3,7 +3,7 @@ package org.example.core.ui
 import mu.KotlinLogging
 import org.example.core.infra.retry.NUMBER_OF_ATTEMPTS
 import org.example.core.infra.retry.WaitUtil
-import org.example.core.infra.webdriver.EXPLICIT_TIMEOUT_SEC
+import org.example.core.infra.webdriver.IWebDriverConfig.Companion.EXPLICIT_TIMEOUT_SEC
 import org.example.core.infra.webdriver.WebDriverSingleton
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
@@ -36,24 +36,24 @@ open class UIElement(
     }
     
     fun getAttribute(attribute: String): String? {
-        logger.info("getting attribute of element: $this")
+        logger.info("getting attribute of the element: $this")
         return getElement()?.getAttribute(attribute)
     }
     
     fun click() {
-        logger.info { "clicking on the element: $description" }
+        logger.info { "clicking on the element: $this" }
         try {
             scrollToElement()
             waitForClickable()
             getElement()?.click()
         } catch (e: Exception) {
-            logger.error { "Failed clicking on the element $this: ${e.message}" }
+            logger.error { "Failed clicking on element $this: ${e.message}" }
             error(e.message.toString())
         }
     }
     
     fun getText(): String {
-        logger.info { "getting text of element: $this" }
+        logger.info { "getting text of the element: $this" }
         return getElement()?.text ?: "element $this doesn't contain test"
     }
     
@@ -65,7 +65,7 @@ open class UIElement(
                 logger.info { "element $this is visible" }
                 false
             } catch (e: org.openqa.selenium.NoSuchElementException) {
-                logger.info { "element $this disappeared" }
+                logger.info { "unable to locate element $this" }
                 true
             }
         }
@@ -81,7 +81,7 @@ open class UIElement(
     }
     
     private fun waitForClickable(timeout: Long = EXPLICIT_TIMEOUT_SEC) {
-        logger.info("waiting for element is clickable: $this")
+        logger.info("waiting for the element is clickable: $this")
         waitForCondition(timeout, elementToBeClickable(by))
     }
     

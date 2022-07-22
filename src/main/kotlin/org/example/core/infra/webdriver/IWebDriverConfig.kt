@@ -4,10 +4,6 @@ import org.example.core.infra.browser.IBrowser
 import org.openqa.selenium.WebDriver
 import java.time.Duration
 
-const val EXPLICIT_TIMEOUT_SEC = 20L
-const val IMPLICIT_TIMEOUT_SEC = 3L
-const val BROWSER_PREFIX_REMOTE = "remote"
-
 interface IWebDriverConfig {
     var driver: WebDriver?
     fun setupWebDriver(): WebDriver
@@ -29,5 +25,12 @@ interface IWebDriverConfig {
                 driver = LocalWebDriverFactory().getDriver(browserName)
             }
         }
+    }
+    
+    companion object {
+        const val EXPLICIT_TIMEOUT_SEC = 20L
+        const val IMPLICIT_TIMEOUT_SEC = 3L
+        const val BROWSER_PREFIX_REMOTE = "remote"
+        
     }
 }

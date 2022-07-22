@@ -39,8 +39,8 @@ class WomenPage : BasePage() {
     
     fun collectProductsInfo() {
         productRows.waitForDisplayed()
-        val productRowsNumber: Int = productRows.size()!!
-        for (i in 1..productRowsNumber) {
+        val productRowsNumber: Int? = productRows.size()
+        for (i in 1..productRowsNumber!!) {
             val product = Product.Builder()
                 .name(productName(i))
                 .price(productPrice(i))
