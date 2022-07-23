@@ -23,6 +23,7 @@ open class UIElement(
     private val logger = KotlinLogging.logger {}
     private val driver = WebDriverSingleton.instance
     private val jsExecutor = driver as JavascriptExecutor
+    private val highlighter = IElementHighlighter.BaseImpl()
     
     constructor(by: By) : this(by, by.toString())
     
@@ -45,6 +46,7 @@ open class UIElement(
         try {
             scrollToElement()
             waitForClickable()
+            highlighter.highlightAndUnhighlightElement(this)
             getElement()?.click()
         } catch (e: Exception) {
             logger.error { "Failed clicking on element $this: ${e.message}" }
@@ -62,6 +64,7 @@ open class UIElement(
         val isElementDisappeared = Supplier<Boolean> {
             try {
                 getElement()?.isDisplayed
+                highlighter.highlightAndUnhighlightElement(this)
                 logger.info { "element $this is visible" }
                 false
             } catch (e: org.openqa.selenium.NoSuchElementException) {
@@ -74,6 +77,8 @@ open class UIElement(
             errorMessage = "element $this is visible after $NUMBER_OF_ATTEMPTS retries"
         )
     }
+    
+    fun getElement(): WebElement? = driver?.findElement(by)
     
     private fun scrollToElement() {
         logger.info { "scrolling to the element: $this" }
@@ -88,6 +93,4 @@ open class UIElement(
     private fun waitForCondition(timeout: Long, expectedCondition: ExpectedCondition<WebElement>) {
         WebDriverWait(driver, Duration.ofSeconds(timeout)).until(expectedCondition)
     }
-    
-    private fun getElement(): WebElement? = driver?.findElement(by)
 }
