@@ -8,16 +8,16 @@ import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebElement
 
 interface IElementHighlighter {
-    fun highlightAndUnhighlightElement(element: UIElement)
+    fun highlightAndUnhighlight()
     
-    class BaseImpl : IElementHighlighter {
+    class Impl(private val element: UIElement) : IElementHighlighter {
         private var lastElem: WebElement? = null
         private var lastBorder: String? = null
         private val jsExecutor = WebDriverSingleton.instance as JavascriptExecutor
         
-        override fun highlightAndUnhighlightElement(element: UIElement) {
+        override fun highlightAndUnhighlight() {
             element.getElement()?.run { highlightElement(this) }
-            WaitUtil.sleep(timeoutInMillisecond = 50L)
+            WaitUtil.sleep(timeoutInMillisecond = 100L)
             unhighlightLast()
         }
         

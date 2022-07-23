@@ -23,7 +23,7 @@ open class UIElement(
     private val logger = KotlinLogging.logger {}
     private val driver = WebDriverSingleton.instance
     private val jsExecutor = driver as JavascriptExecutor
-    private val highlighter by lazy { IElementHighlighter.BaseImpl() }
+    private val highlighter by lazy { IElementHighlighter.Impl(this) }
     
     constructor(by: By) : this(by, by.toString())
     
@@ -38,16 +38,16 @@ open class UIElement(
     
     fun getAttribute(attribute: String): String? {
         logger.info("getting attribute of the element: $this")
-        highlighter.highlightAndUnhighlightElement(this)
+        highlighter.highlightAndUnhighlight()
         return getElement()?.getAttribute(attribute)
     }
     
     fun click() {
-        logger.info { "clicking on the element: $this" }
         try {
             scrollToElement()
             waitForClickable()
-            highlighter.highlightAndUnhighlightElement(this)
+            highlighter.highlightAndUnhighlight()
+            logger.info { "clicking on the element: $this" }
             getElement()?.click()
         } catch (e: Exception) {
             logger.error { "Failed clicking on element $this: ${e.message}" }
@@ -57,7 +57,7 @@ open class UIElement(
     
     fun getText(): String {
         logger.info { "getting text of the element: $this" }
-        highlighter.highlightAndUnhighlightElement(this)
+        highlighter.highlightAndUnhighlight()
         return getElement()?.text ?: "element $this doesn't contain test"
     }
     

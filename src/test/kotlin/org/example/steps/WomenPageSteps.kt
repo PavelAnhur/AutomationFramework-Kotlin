@@ -28,14 +28,14 @@ class WomenPageSteps(
     }
     
     fun storeProductInfoInDB() {
-        logger.info { "collecting products info.." }
+        logger.info { "Collecting products info.." }
         womenPage.collectProductsInfo()
         logger.info { "filling DB.." }
         storeDb()
     }
     
     fun isProductPriceListInDescOrder(): Boolean {
-        logger.info { "verifying price list.." }
+        logger.info { "Verifying price list.." }
         var isSortedDescending = false
         for (i in 0 until actualProductPricesList.size - 1) {
             if (actualProductPricesList[i] < actualProductPricesList[i + 1]) {
