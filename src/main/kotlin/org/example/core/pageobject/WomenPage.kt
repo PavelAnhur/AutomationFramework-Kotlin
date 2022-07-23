@@ -1,10 +1,10 @@
-package org.example.core.pageobjects
+package org.example.core.pageobject
 
 import org.example.core.model.Product
-import org.example.core.ui.Locator.Companion.getSortLocatorAttributeValue
-import org.example.core.ui.Locator.Companion.getViewLocatorId
-import org.example.core.ui.UIElement
-import org.example.core.ui.UIElementList
+import org.example.core.ui.element.Locator.Companion.getSortLocatorAttributeValue
+import org.example.core.ui.element.Locator.Companion.getViewLocatorId
+import org.example.core.ui.element.UIElement
+import org.example.core.ui.element.UIElementList
 import org.openqa.selenium.By
 
 private const val PRODUCT_XPATH_PREFIX = "//*[@class='product_list row list']/li"

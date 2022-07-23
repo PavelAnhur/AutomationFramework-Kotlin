@@ -15,9 +15,11 @@ class WomenCollectionsTest : BaseTest() {
             .changeProductTableView(sortOrder = "desc", collectionView = "list")
             .storeProductInfoInDB()
         
-        Assert.assertTrue(womenPageSteps.isProductPriceListInDescOrder(),
+        Assert.assertTrue(
+            womenPageSteps.isProductPriceListInDescOrder(),
             """The price list isn't in descending order
                 |Actual price list: ${womenPageSteps.actualProductPricesList}
-                """.trimMargin())
+                """.trimMargin()
+        )
     }
 }

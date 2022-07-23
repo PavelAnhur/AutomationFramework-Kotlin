@@ -2,8 +2,8 @@ package org.example.core.infra.db
 
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.infra.property.PropertyManager
 import org.example.core.infra.file.FileReader
+import org.example.core.infra.property.PropertyManager
 import org.example.core.model.Product
 import java.sql.Connection
 import java.sql.DriverManager

@@ -1,8 +1,8 @@
-package org.example.core.pageobjects
+package org.example.core.pageobject
 
 import org.example.core.infra.property.PropertyManager
-import org.example.core.ui.UIElement
 import org.example.core.infra.webdriver.WebDriverSingleton
+import org.example.core.ui.element.UIElement
 import org.openqa.selenium.By
 
 class HomePage : BasePage() {

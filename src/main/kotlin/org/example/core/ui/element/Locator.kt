@@ -1,4 +1,4 @@
-package org.example.core.ui
+package org.example.core.ui.element
 
 class Locator {
     companion object {

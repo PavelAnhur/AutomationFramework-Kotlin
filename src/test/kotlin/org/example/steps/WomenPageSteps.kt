@@ -3,7 +3,7 @@ package org.example.steps
 import mu.KLogger
 import mu.KotlinLogging
 import org.example.core.infra.db.DBManager
-import org.example.core.pageobjects.WomenPage
+import org.example.core.pageobject.WomenPage
 import org.postgresql.util.PSQLException
 
 class WomenPageSteps(

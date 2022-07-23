@@ -1,4 +1,4 @@
-package org.example.core.pageobjects
+package org.example.core.pageobject
 
 import mu.KotlinLogging
 

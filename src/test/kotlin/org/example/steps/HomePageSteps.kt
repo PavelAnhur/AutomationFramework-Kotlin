@@ -2,7 +2,7 @@ package org.example.steps
 
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.pageobjects.HomePage
+import org.example.core.pageobject.HomePage
 
 class HomePageSteps(
     private val homePage: HomePage = HomePage(),
@@ -15,7 +15,7 @@ class HomePageSteps(
     }
     
     fun openWomenPage() {
-        logger.info { "Click on 'Women' title" }
+        logger.info { "click on 'Women' title" }
         homePage.clickWomenTitle()
     }
     

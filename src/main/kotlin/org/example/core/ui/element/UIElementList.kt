@@ -1,4 +1,4 @@
-package org.example.core.ui
+package org.example.core.ui.element
 
 import org.example.core.infra.webdriver.WebDriverSingleton
 import org.openqa.selenium.By

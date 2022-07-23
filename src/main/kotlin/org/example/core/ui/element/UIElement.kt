@@ -1,4 +1,4 @@
-package org.example.core.ui
+package org.example.core.ui.element
 
 import mu.KotlinLogging
 import org.example.core.infra.retry.NUMBER_OF_ATTEMPTS
@@ -23,7 +23,7 @@ open class UIElement(
     private val logger = KotlinLogging.logger {}
     private val driver = WebDriverSingleton.instance
     private val jsExecutor = driver as JavascriptExecutor
-    private val highlighter = IElementHighlighter.BaseImpl()
+    private val highlighter by lazy { IElementHighlighter.BaseImpl() }
     
     constructor(by: By) : this(by, by.toString())
     
@@ -38,6 +38,7 @@ open class UIElement(
     
     fun getAttribute(attribute: String): String? {
         logger.info("getting attribute of the element: $this")
+        highlighter.highlightAndUnhighlightElement(this)
         return getElement()?.getAttribute(attribute)
     }
     
@@ -56,6 +57,7 @@ open class UIElement(
     
     fun getText(): String {
         logger.info { "getting text of the element: $this" }
+        highlighter.highlightAndUnhighlightElement(this)
         return getElement()?.text ?: "element $this doesn't contain test"
     }
     
@@ -64,7 +66,6 @@ open class UIElement(
         val isElementDisappeared = Supplier<Boolean> {
             try {
                 getElement()?.isDisplayed
-                highlighter.highlightAndUnhighlightElement(this)
                 logger.info { "element $this is visible" }
                 false
             } catch (e: org.openqa.selenium.NoSuchElementException) {
