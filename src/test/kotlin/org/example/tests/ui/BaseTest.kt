@@ -1,7 +1,7 @@
 package org.example.tests.ui
 
 import mu.KLogger
-import org.example.core.infra.ObjectManager
+import mu.KotlinLogging
 import org.example.core.infra.reflection.StepsManager
 import org.example.core.infra.webdriver.WebDriverSingleton
 import org.example.steps.HomePageSteps
@@ -17,7 +17,7 @@ open class BaseTest(
     private val driver: WebDriver? = WebDriverSingleton.instance,
     protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
     protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!,
-    protected val logger: KLogger = ObjectManager.logger
+    protected val logger: KLogger = KotlinLogging.logger {}
 ) {
     @BeforeMethod(alwaysRun = true)
     open fun beforeMethod(result: ITestResult) {

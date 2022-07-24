@@ -1,12 +1,12 @@
 package org.example.steps
 
 import mu.KLogger
-import org.example.core.infra.ObjectManager
+import mu.KotlinLogging
 import org.example.core.pageobject.HomePage
 
 class HomePageSteps(
     private val homePage: HomePage = HomePage(),
-    private val logger: KLogger = ObjectManager.logger,
+    private val logger: KLogger = KotlinLogging.logger {}
 ) {
     fun openHomePage(): HomePageSteps {
         logger.info { "Opening 'My Store' home page.." }

@@ -1,14 +1,14 @@
 package org.example.steps
 
 import mu.KLogger
-import org.example.core.infra.ObjectManager
+import mu.KotlinLogging
 import org.example.core.infra.db.DBManager
 import org.example.core.pageobject.WomenPage
 import org.postgresql.util.PSQLException
 
 class WomenPageSteps(
     private val womenPage: WomenPage = WomenPage(),
-    private val logger: KLogger = ObjectManager.logger,
+    private val logger: KLogger = KotlinLogging.logger {},
     private val dbManager: DBManager = DBManager(),
 ) {
     val actualProductPricesList: List<Double>

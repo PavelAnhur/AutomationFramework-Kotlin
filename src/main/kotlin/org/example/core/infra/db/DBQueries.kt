@@ -1,11 +1,11 @@
 package org.example.core.infra.db
 
-import org.example.core.infra.ObjectManager
+import mu.KotlinLogging
 import org.example.core.infra.property.PropertyManager
 import java.sql.Connection
 
 class DBQueries(private val connection: Connection) {
-    private val logger = ObjectManager.logger
+    private val logger = KotlinLogging.logger {}
     private val tableName = PropertyManager.config().dbTableName()
 
     fun insertInto(

@@ -1,6 +1,7 @@
 package org.example.core.infra.webdriver
 
 import org.example.core.infra.browser.IBrowser
+import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import java.time.Duration
 
@@ -11,7 +12,7 @@ interface IWebDriverConfig<out T : WebDriver> {
         override fun setupWebDriver(): WebDriver? {
             val browserName = IBrowser.BaseImpl().getBrowser()
             val driver: WebDriver? = browserName?.let { createWebDriver(it) }
-            driver?.manage()?.window()?.maximize()
+            driver?.manage()?.window()?.size = Dimension(1294, 906)
             driver?.manage()?.timeouts()?.implicitlyWait(Duration.ofSeconds(IMPLICIT_TIMEOUT_SEC))
             return driver
         }

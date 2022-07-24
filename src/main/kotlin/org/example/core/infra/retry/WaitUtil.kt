@@ -1,6 +1,6 @@
 package org.example.core.infra.retry
 
-import org.example.core.infra.ObjectManager
+import mu.KotlinLogging
 import java.util.concurrent.TimeUnit
 import java.util.function.Supplier
 
@@ -9,7 +9,7 @@ const val NUMBER_OF_ATTEMPTS = 15
 
 class WaitUtil {
     companion object {
-        private val logger = ObjectManager.logger
+        private val logger = KotlinLogging.logger {}
         fun waitForTrue(
             supplier: Supplier<Boolean>,
             errorMessage: String,
@@ -28,7 +28,7 @@ class WaitUtil {
 
         fun sleepSecond(timeoutInSec: Long = RETRY_TIMOUT_SEC) =
             try {
-                ObjectManager.logger.info { "sleeping $timeoutInSec seconds.." }
+                KotlinLogging.logger {}.info { "sleeping $timeoutInSec seconds.." }
                 TimeUnit.SECONDS.sleep(timeoutInSec)
             } catch (e: InterruptedException) {
                 throw InterruptedException("${e.message}")

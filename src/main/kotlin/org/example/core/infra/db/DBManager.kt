@@ -1,7 +1,7 @@
 package org.example.core.infra.db
 
 import mu.KLogger
-import org.example.core.infra.ObjectManager
+import mu.KotlinLogging
 import org.example.core.infra.file.FileReader
 import org.example.core.infra.property.PropertyManager
 import org.example.core.model.Product
@@ -22,7 +22,7 @@ interface IDBManager {
 
 class DBManager : IDBManager {
     override lateinit var connection: Connection
-    override val logger = ObjectManager.logger
+    override val logger = KotlinLogging.logger {}
     override val jdbcUrl = PropertyManager.config().dbUrl()
     override val dbUser = PropertyManager.config().dbUser()
     override val dbPasswordPath = PropertyManager.config().dbPasswordPath()
