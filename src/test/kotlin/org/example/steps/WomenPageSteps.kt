@@ -15,7 +15,7 @@ class WomenPageSteps(
         get() {
             return this.womenPage.products.map { it.price }
         }
-    
+
     fun changeProductTableView(
         sortOrder: String,
         collectionView: String,
@@ -26,14 +26,14 @@ class WomenPageSteps(
         womenPage.selectCollectionView(collectionView)
         return this
     }
-    
+
     fun storeProductInfoInDB() {
         logger.info { "Collecting products info.." }
         womenPage.collectProductsInfo()
         logger.info { "filling DB.." }
         storeDb()
     }
-    
+
     fun isProductPriceListInDescOrder(): Boolean {
         logger.info { "Verifying price list.." }
         var isSortedDescending = false
@@ -45,7 +45,7 @@ class WomenPageSteps(
         if (isSortedDescending) logger.info { "price list in descending order" }
         return isSortedDescending
     }
-    
+
     private fun storeDb() =
         try {
             dbManager.connectToDb()
@@ -57,7 +57,7 @@ class WomenPageSteps(
         } finally {
             dbManager.closeDb()
         }
-    
+
     private fun getPriceListFromDb() =
         try {
             dbManager.connectToDb()

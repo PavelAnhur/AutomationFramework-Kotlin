@@ -7,6 +7,6 @@ class UIElementList(
     by: By,
     description: String,
 ) : UIElement(by, description) {
-    
+
     fun size() = WebDriverSingleton.instance?.findElements(by)?.size
 }

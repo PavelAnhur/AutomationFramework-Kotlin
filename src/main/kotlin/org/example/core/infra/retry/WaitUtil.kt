@@ -4,7 +4,7 @@ import mu.KotlinLogging
 import java.util.concurrent.TimeUnit
 import java.util.function.Supplier
 
-const val RETRY_TIMOUT_SEC = 3
+const val RETRY_TIMOUT_SEC = 3L
 const val NUMBER_OF_ATTEMPTS = 15
 
 class WaitUtil {
@@ -19,22 +19,22 @@ class WaitUtil {
             while (counter < numberOfAttempts && !supplier.get()) {
                 counter++
                 logger.info { "number of retry: $counter" }
-                sleep()
+                sleepSecond()
             }
             if (counter == numberOfAttempts) {
                 error(errorMessage)
             }
         }
-        
-        fun sleep(timeoutInSec: Int = RETRY_TIMOUT_SEC) =
+
+        fun sleepSecond(timeoutInSec: Long = RETRY_TIMOUT_SEC) =
             try {
                 KotlinLogging.logger {}.info { "sleeping $timeoutInSec seconds.." }
-                TimeUnit.SECONDS.sleep(timeoutInSec.toLong())
+                TimeUnit.SECONDS.sleep(timeoutInSec)
             } catch (e: InterruptedException) {
                 throw InterruptedException("${e.message}")
             }
-        
-        fun sleep(timeoutInMillisecond: Long) {
+
+        fun sleepMillisecond(timeoutInMillisecond: Long) {
             try {
                 TimeUnit.MILLISECONDS.sleep(timeoutInMillisecond)
             } catch (e: InterruptedException) {

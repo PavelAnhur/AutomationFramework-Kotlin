@@ -5,8 +5,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.6.20"
     id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
+    id("io.qameta.allure-adapter") version "2.10.0"
 }
 
+allure {
+    adapter.autoconfigure
+    adapter.aspectjWeaver
+}
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
@@ -22,6 +27,11 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
     implementation("org.testng:testng:7.6.0")
     implementation("org.postgresql:postgresql:42.4.0")
+    implementation("io.qameta.allure:allure-kotlin-model:2.4.0")
+    implementation("io.qameta.allure:allure-kotlin-commons:2.4.0")
+    implementation("io.qameta.allure:allure-commandline:2.18.1")
+    implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+    implementation("io.qameta.allure:allure-testng:2.18.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.0")
     testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha16")
 }
@@ -33,6 +43,7 @@ tasks.test {
     useTestNG {
         suites("src/test/resources/TestXMLs/$suite")
     }
+    testLogging { showStandardStreams = true }
 }
 
 tasks.withType<KotlinCompile> {
@@ -48,7 +59,14 @@ buildscript {
     }
     dependencies {
         classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+        classpath("io.qameta.allure.gradle.adapter:allure-adapter-plugin:2.10.0")
+    }
+    repositories {
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
     }
 }
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
+apply(plugin = "io.qameta.allure-adapter")

@@ -14,10 +14,10 @@ import org.testng.annotations.BeforeMethod
 import java.util.Optional
 
 open class BaseTest(
+    private val driver: WebDriver? = WebDriverSingleton.instance,
     protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
     protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!,
-    protected val logger: KLogger = KotlinLogging.logger {},
-    private val driver: WebDriver? = WebDriverSingleton.instance,
+    protected val logger: KLogger = KotlinLogging.logger {}
 ) {
     @BeforeMethod(alwaysRun = true)
     open fun beforeMethod(result: ITestResult) {
@@ -25,13 +25,13 @@ open class BaseTest(
         logger.info("Starting new test: ${result.method.methodName}")
         logger.info("****************************************************************")
     }
-    
+
     @AfterMethod(alwaysRun = true)
     fun afterMethod(result: ITestResult) {
         val throwableText = Optional.ofNullable<Throwable>(result.throwable)
             .map { throwable -> "${throwable.message}" }
             .orElse("")
-        
+
         val status = when (result.status) {
             ITestResult.SUCCESS -> "passed"
             ITestResult.FAILURE -> "failed: $throwableText"
@@ -41,7 +41,7 @@ open class BaseTest(
         logger.info("Test: ${result.method.methodName} $status")
         logger.info("****************************************************************")
     }
-    
+
     @AfterTest(alwaysRun = true)
     fun tearDown() {
         logger.info { "closing browser and web driver.." }

@@ -15,7 +15,8 @@ import org.openqa.selenium.firefox.FirefoxProfile
 
 class LocalWebDriverFactory(
     override val logger: KLogger = KotlinLogging.logger {},
-) : IWebDriver {
+) : IWebDriver<WebDriver> {
+
     override fun getDriver(browserName: String): WebDriver? {
         var driver: WebDriver? = null
         try {
@@ -32,13 +33,13 @@ class LocalWebDriverFactory(
         }
         return driver
     }
-    
+
     private fun getChromeDriver(): WebDriver {
         WebDriverManager.chromedriver().setup()
         logger.info { "chrome web driver ready" }
         return ChromeDriver()
     }
-    
+
     private fun getFirefoxDriver(): WebDriver {
         WebDriverManager.firefoxdriver().setup()
         val profile = FirefoxProfile()
@@ -50,13 +51,13 @@ class LocalWebDriverFactory(
         logger.info { "firefox web driver ready" }
         return FirefoxDriver(firefoxOptionsLocal)
     }
-    
+
     private fun getEdgeDriver(): WebDriver {
         WebDriverManager.edgedriver().setup()
         logger.info { "edge web driver ready" }
         return EdgeDriver()
     }
-    
+
     private fun getOperaDriver(): WebDriver {
         WebDriverManager.operadriver().setup()
         logger.info { "opera web driver ready" }

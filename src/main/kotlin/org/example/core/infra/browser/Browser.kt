@@ -4,7 +4,7 @@ import org.example.core.infra.property.PropertyManager
 
 interface IBrowser {
     fun getBrowser(): String?
-    
+
     class BaseImpl : IBrowser {
         override fun getBrowser(): String? {
             return PropertyManager.config().browser()

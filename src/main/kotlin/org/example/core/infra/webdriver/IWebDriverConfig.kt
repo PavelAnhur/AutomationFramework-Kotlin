@@ -4,33 +4,28 @@ import org.example.core.infra.browser.IBrowser
 import org.openqa.selenium.WebDriver
 import java.time.Duration
 
-interface IWebDriverConfig {
-    var driver: WebDriver?
-    fun setupWebDriver(): WebDriver
-    
-    class BaseImpl(override var driver: WebDriver? = null) : IWebDriverConfig {
-        override fun setupWebDriver(): WebDriver {
+interface IWebDriverConfig<out T : WebDriver> {
+    fun setupWebDriver(): T?
+
+    class BaseImpl : IWebDriverConfig<WebDriver> {
+        override fun setupWebDriver(): WebDriver? {
             val browserName = IBrowser.BaseImpl().getBrowser()
-            browserName?.let { webDriver(it) }
+            val driver: WebDriver? = browserName?.let { createWebDriver(it) }
             driver?.manage()?.window()?.maximize()
             driver?.manage()?.timeouts()?.implicitlyWait(Duration.ofSeconds(IMPLICIT_TIMEOUT_SEC))
-            return driver!!
+            return driver
         }
-        
-        private fun webDriver(browserName: String) = when {
-            browserName.startsWith(BROWSER_PREFIX_REMOTE) -> {
-                driver = RemoteWebDriverFactory().getDriver(browserName)
+
+        private fun createWebDriver(browserName: String): WebDriver? =
+            when {
+                browserName.startsWith(BROWSER_PREFIX_REMOTE) -> RemoteWebDriverFactory().getDriver(browserName)
+                else -> LocalWebDriverFactory().getDriver(browserName)
             }
-            else -> {
-                driver = LocalWebDriverFactory().getDriver(browserName)
-            }
-        }
     }
-    
+
     companion object {
         const val EXPLICIT_TIMEOUT_SEC = 20L
         const val IMPLICIT_TIMEOUT_SEC = 3L
         const val BROWSER_PREFIX_REMOTE = "remote"
-        
     }
 }

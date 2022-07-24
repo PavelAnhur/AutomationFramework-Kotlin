@@ -24,48 +24,51 @@ open class UIElement(
     private val driver = WebDriverSingleton.instance
     private val jsExecutor = driver as JavascriptExecutor
     private val highlighter by lazy { IElementHighlighter.Impl(this) }
-    
+    internal val webElement: WebElement?
+        get() = driver?.findElement(by)
+
     constructor(by: By) : this(by, by.toString())
-    
+
     override fun toString(): String {
         return "locator=$by"
     }
-    
+
     fun waitForDisplayed(timeout: Long = EXPLICIT_TIMEOUT_SEC) {
         logger.info { "waiting for element is displayed: $this" }
         waitForCondition(timeout, visibilityOfElementLocated(by))
     }
-    
+
     fun getAttribute(attribute: String): String? {
         logger.info("getting attribute of the element: $this")
         highlighter.highlightAndUnhighlight()
-        return getElement()?.getAttribute(attribute)
+        return webElement?.getAttribute(attribute)
     }
-    
+
     fun click() {
         try {
             scrollToElement()
             waitForClickable()
             highlighter.highlightAndUnhighlight()
             logger.info { "clicking on the element: $this" }
-            getElement()?.click()
+            webElement?.click()
         } catch (e: Exception) {
             logger.error { "Failed clicking on element $this: ${e.message}" }
             error(e.message.toString())
         }
     }
-    
+
     fun getText(): String {
+        scrollToElement()
         logger.info { "getting text of the element: $this" }
         highlighter.highlightAndUnhighlight()
-        return getElement()?.text ?: "element $this doesn't contain test"
+        return webElement?.text ?: "element $this doesn't contain test"
     }
-    
+
     fun waitForDisappear() {
         logger.info { "waiting for element $this to disappear.." }
         val isElementDisappeared = Supplier<Boolean> {
             try {
-                getElement()?.isDisplayed
+                webElement?.isDisplayed
                 logger.info { "element $this is visible" }
                 false
             } catch (e: org.openqa.selenium.NoSuchElementException) {
@@ -78,19 +81,17 @@ open class UIElement(
             errorMessage = "element $this is visible after $NUMBER_OF_ATTEMPTS retries"
         )
     }
-    
-    fun getElement(): WebElement? = driver?.findElement(by)
-    
+
     private fun scrollToElement() {
         logger.info { "scrolling to the element: $this" }
-        jsExecutor.executeScript("arguments[0].scrollIntoView();", getElement())
+        jsExecutor.executeScript("arguments[0].scrollIntoView(true);", webElement)
     }
-    
+
     private fun waitForClickable(timeout: Long = EXPLICIT_TIMEOUT_SEC) {
         logger.info("waiting for the element is clickable: $this")
         waitForCondition(timeout, elementToBeClickable(by))
     }
-    
+
     private fun waitForCondition(timeout: Long, expectedCondition: ExpectedCondition<WebElement>) {
         WebDriverWait(driver, Duration.ofSeconds(timeout)).until(expectedCondition)
     }

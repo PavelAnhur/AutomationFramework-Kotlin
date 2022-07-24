@@ -18,7 +18,7 @@ class WomenPage : BasePage() {
     private val productPriceXpath =
         "$PRODUCT_XPATH_PREFIX[%d]//*[starts-with(@class,'right-block')]//*[@class='price product-price']"
     private val productDescXpath = "$PRODUCT_XPATH_PREFIX[%d]//*[@class='product-desc']"
-    
+
     fun selectSortOrder(sortOrder: String): WomenPage {
         sortDropdown.click()
         UIElement(
@@ -28,7 +28,7 @@ class WomenPage : BasePage() {
         loadingSpinner.waitForDisappear()
         return this
     }
-    
+
     fun selectCollectionView(view: String): WomenPage {
         UIElement(
             By.id("${getViewLocatorId(view)}"),
@@ -36,7 +36,7 @@ class WomenPage : BasePage() {
         ).click()
         return this
     }
-    
+
     fun collectProductsInfo() {
         productRows.waitForDisplayed()
         val productRowsNumber: Int? = productRows.size()
@@ -49,13 +49,13 @@ class WomenPage : BasePage() {
             products.add(product)
         }
     }
-    
+
     private fun productName(rowNumber: Int): String {
         val name = UIElement(By.xpath(String.format(productNameXPath, rowNumber)), "product name").getText()
         logger.info { "product #$rowNumber name= $name" }
         return name
     }
-    
+
     private fun productPrice(rowNumber: Int): Double {
         val price = UIElement(By.xpath(String.format(productPriceXpath, rowNumber)), "product price")
             .getText()
@@ -63,7 +63,7 @@ class WomenPage : BasePage() {
         logger.info { "product #$rowNumber price= $price" }
         return price.toDouble()
     }
-    
+
     private fun productDescription(rowNumber: Int): String {
         val description = UIElement(By.xpath(String.format(productDescXpath, rowNumber)), "product description")
             .getText()

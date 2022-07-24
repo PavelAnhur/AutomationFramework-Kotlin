@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="classes" thread-count="1">
+<suite name="All Test Suite" parallel="classes" thread-count="2">
     <listeners>
         <listener class-name="org.example.core.infra.retry.RetryListener"/>
     </listeners>
@@ -8,8 +8,5 @@
         <packages>
             <package name="org.example.tests.ui"/>
         </packages>
-        <!--        <classes>-->
-        <!--            <class name="org.example.ui.WomenCollectionsTest"/>-->
-        <!--        </classes>-->
     </test>
 </suite>

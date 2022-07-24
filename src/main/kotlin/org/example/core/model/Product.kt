@@ -15,27 +15,27 @@ class Product private constructor(
         fun description(description: String) = apply { this.description = description }
         fun build() = Product(name, price, description)
     }
-    
+
     override fun toString(): String {
         return """|
             |Product(name=$name,
             |price=$price,
             |description=$description)""".trimMargin()
     }
-    
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-        
+
         other as Product
-        
+
         if (name != other.name) return false
         if (price != other.price) return false
         if (description != other.description) return false
-        
+
         return true
     }
-    
+
     override fun hashCode(): Int {
         var result = name.hashCode()
         result = 31 * result + price.hashCode()

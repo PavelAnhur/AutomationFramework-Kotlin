@@ -13,12 +13,12 @@ class HomePageSteps(
         homePage.openHomePage()
         return this
     }
-    
+
     fun openWomenPage() {
         logger.info { "Click on 'Women' title" }
         homePage.clickWomenTitle()
     }
-    
+
     fun isLogoTitle(logo: String): Boolean {
         logger.info { "Verifying logo title.." }
         return logo == homePage.getLogoTitle()

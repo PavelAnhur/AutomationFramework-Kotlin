@@ -7,13 +7,13 @@ import java.lang.reflect.InvocationTargetException
 class StepsManager {
     private val logger = KotlinLogging.logger {}
     private var stepMap: MutableMap<String, Any?>? = null
-    
+
     fun <T> getStepClass(clazz: Class<T>): T? {
         if (null == stepMap) stepMap = HashMap()
         if (null == stepMap!![clazz.name]) stepMap!![clazz.name] = createStepClass(clazz)
         return stepMap!![clazz.name] as T?
     }
-    
+
     private fun <T> createStepClass(clazz: Class<T>): T? {
         var page: T? = null
         try {
