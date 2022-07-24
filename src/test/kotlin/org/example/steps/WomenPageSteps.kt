@@ -34,7 +34,7 @@ class WomenPageSteps(
         storeDb()
     }
 
-    fun isProductPriceListInDescOrder(): Boolean {
+    fun isProductPricesInDescOrder(): Boolean {
         logger.info { "Verifying price list.." }
         var isSortedDescending = false
         for (i in 0 until actualProductPricesList.size - 1) {

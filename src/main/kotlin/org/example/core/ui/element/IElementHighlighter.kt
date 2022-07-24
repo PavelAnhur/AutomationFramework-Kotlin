@@ -2,12 +2,12 @@ package org.example.core.ui.element
 
 import mu.KotlinLogging
 import org.example.core.infra.file.FileReader
-import org.example.core.infra.retry.WaitUtil
+import org.example.core.infra.retry.WaitUtil.Companion.sleep
 import org.example.core.infra.webdriver.WebDriverSingleton
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebElement
 
-private const val HIGHLIGHT_VISIBILITY_TIMEOUT_MILLISECOND = 100L
+private const val HIGHLIGHT_VISIBILITY_TIMEOUT_MILLISECOND = 100
 
 interface IElementHighlighter {
     fun highlightAndUnhighlight()
@@ -19,7 +19,7 @@ interface IElementHighlighter {
 
         override fun highlightAndUnhighlight() {
             this.element.webElement?.let { highlightElement(it) }
-            WaitUtil.sleepMillisecond(HIGHLIGHT_VISIBILITY_TIMEOUT_MILLISECOND)
+            sleep(HIGHLIGHT_VISIBILITY_TIMEOUT_MILLISECOND)
             unhighlightLast()
         }
 

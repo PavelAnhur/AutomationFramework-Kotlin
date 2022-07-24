@@ -1,11 +1,9 @@
-package org.example.core.infra.webdriver
+package org.example.core.infra.webdriver.factory
 
-import mu.KLogger
-import mu.KotlinLogging
 import org.example.core.infra.browser.Browser
 import org.example.core.infra.exceptions.RemoteWebDriverException
 import org.example.core.infra.property.PropertyManager
-import org.example.core.infra.webdriver.IWebDriverConfig.Companion.BROWSER_PREFIX_REMOTE
+import org.example.core.infra.webdriver.config.WebDriverConfig.Companion.BROWSER_PREFIX_REMOTE
 import org.openqa.selenium.Platform
 import org.openqa.selenium.UnexpectedAlertBehaviour
 import org.openqa.selenium.chrome.ChromeOptions
@@ -16,9 +14,7 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
-class RemoteWebDriverFactory(
-    override val logger: KLogger = KotlinLogging.logger {}
-) : IWebDriver<RemoteWebDriver> {
+class RemoteWebDriverFactory : IWebDriver<RemoteWebDriver> {
 
     override fun getDriver(browserName: String): RemoteWebDriver? {
         val virtualUrl = PropertyManager.config().virtualUrl()

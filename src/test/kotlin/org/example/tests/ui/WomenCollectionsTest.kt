@@ -16,7 +16,7 @@ class WomenCollectionsTest : BaseTest() {
             .storeProductInfoInDB()
 
         Assert.assertTrue(
-            womenPageSteps.isProductPriceListInDescOrder(),
+            womenPageSteps.isProductPricesInDescOrder(),
             """The price list isn't in descending order
                 |Actual price list: ${womenPageSteps.actualProductPricesList}
                 """.trimMargin()

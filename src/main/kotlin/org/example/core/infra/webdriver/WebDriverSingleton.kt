@@ -1,12 +1,12 @@
 package org.example.core.infra.webdriver
 
-import mu.KotlinLogging
-import org.openqa.selenium.WebDriver
+import mu.KotlinLogging.logger
+import org.example.core.infra.webdriver.config.WebDriverConfig
 
 object WebDriverSingleton {
     init {
-        KotlinLogging.logger {}.info { "web driver initialization.." }
+        logger {}.info { "web driver initialization.." }
     }
 
-    val instance: WebDriver? = IWebDriverConfig.BaseImpl().setupWebDriver()
+    val instance = WebDriverConfig().setupWebDriver()
 }

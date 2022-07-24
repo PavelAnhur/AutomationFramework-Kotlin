@@ -3,8 +3,8 @@ package org.example.core.ui.element
 import mu.KotlinLogging
 import org.example.core.infra.retry.NUMBER_OF_ATTEMPTS
 import org.example.core.infra.retry.WaitUtil
-import org.example.core.infra.webdriver.IWebDriverConfig.Companion.EXPLICIT_TIMEOUT_SEC
 import org.example.core.infra.webdriver.WebDriverSingleton
+import org.example.core.infra.webdriver.config.WebDriverConfig.Companion.EXPLICIT_TIMEOUT_SEC
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebElement

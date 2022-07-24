@@ -9,6 +9,7 @@ class HomePageLogoTest : BaseTest() {
     fun homePageLogoTest() {
         logger.info { "<<<Validate 'My Store' home page title>>>" }
         homePageSteps.openHomePage()
+
         Assert.assertTrue(homePageSteps.isLogoTitle(logo = "My Store"), "Invalid logo title")
     }
 }
