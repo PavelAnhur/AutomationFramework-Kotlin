@@ -1,6 +1,6 @@
 package org.example.core.ui.element
 
-import mu.KotlinLogging
+import org.example.core.infra.ObjectManager
 import org.example.core.infra.retry.NUMBER_OF_ATTEMPTS
 import org.example.core.infra.retry.WaitUtil
 import org.example.core.infra.webdriver.IWebDriverConfig.Companion.EXPLICIT_TIMEOUT_SEC
@@ -20,7 +20,7 @@ open class UIElement(
     val by: By,
     private val description: String,
 ) {
-    private val logger = KotlinLogging.logger {}
+    private val logger = ObjectManager.logger
     private val driver = WebDriverSingleton.instance
     private val jsExecutor = driver as JavascriptExecutor
     private val highlighter by lazy { IElementHighlighter.Impl(this) }

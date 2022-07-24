@@ -3,7 +3,7 @@ package org.example.core.infra.webdriver
 import io.github.bonigarcia.wdm.WebDriverManager
 import io.github.bonigarcia.wdm.managers.OperaDriverManager
 import mu.KLogger
-import mu.KotlinLogging
+import org.example.core.infra.ObjectManager
 import org.example.core.infra.browser.Browser
 import org.example.core.infra.exceptions.LocalWebDriverException
 import org.openqa.selenium.WebDriver
@@ -14,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxOptions
 import org.openqa.selenium.firefox.FirefoxProfile
 
 class LocalWebDriverFactory(
-    override val logger: KLogger = KotlinLogging.logger {},
+    override val logger: KLogger = ObjectManager.logger,
 ) : IWebDriver<WebDriver> {
 
     override fun getDriver(browserName: String): WebDriver? {

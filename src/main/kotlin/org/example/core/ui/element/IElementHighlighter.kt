@@ -1,6 +1,6 @@
 package org.example.core.ui.element
 
-import mu.KotlinLogging
+import org.example.core.infra.ObjectManager
 import org.example.core.infra.file.FileReader
 import org.example.core.infra.retry.WaitUtil
 import org.example.core.infra.webdriver.WebDriverSingleton
@@ -28,7 +28,7 @@ interface IElementHighlighter {
                 lastElem = element
                 lastBorder = jsExecutor.executeScript(scriptGetElementBorder, lastElem) as String
             } catch (e: Exception) {
-                KotlinLogging.logger {}.info { "Could not highlight element $e" }
+                ObjectManager.logger.info { "Could not highlight element $e" }
             }
         }
 

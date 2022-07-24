@@ -1,11 +1,11 @@
 package org.example.core.infra.reflection
 
-import mu.KotlinLogging
+import org.example.core.infra.ObjectManager
 import java.lang.reflect.InvocationTargetException
 
 @Suppress("UNCHECKED_CAST")
 class StepsManager {
-    private val logger = KotlinLogging.logger {}
+    private val logger = ObjectManager.logger
     private var stepMap: MutableMap<String, Any?>? = null
 
     fun <T> getStepClass(clazz: Class<T>): T? {
