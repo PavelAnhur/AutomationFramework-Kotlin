@@ -8,7 +8,7 @@ import org.postgresql.util.PSQLException
 
 class WomenPageSteps(
     private val womenPage: WomenPage = WomenPage(),
-    private val logger: KLogger = KotlinLogging.logger {},
+    private val log: KLogger = KotlinLogging.logger {},
     private val dbManager: DBManager = DBManager(),
 ) {
     val actualProductPricesList: List<Double>
@@ -20,29 +20,29 @@ class WomenPageSteps(
         sortOrder: String,
         collectionView: String,
     ): WomenPageSteps {
-        logger.info { "Sorting products.." }
+        log.info { "Sorting products.." }
         womenPage.selectSortOrder(sortOrder)
-        logger.info { "Changing product collection view.." }
+        log.info { "Changing product collection view.." }
         womenPage.selectCollectionView(collectionView)
         return this
     }
 
     fun storeProductInfoInDB() {
-        logger.info { "Collecting products info.." }
+        log.info { "Collecting products info.." }
         womenPage.collectProductsInfo()
-        logger.info { "filling DB.." }
+        log.info { "filling DB.." }
         storeDb()
     }
 
     fun isProductPricesInDescOrder(): Boolean {
-        logger.info { "Verifying price list.." }
+        log.info { "Verifying price list.." }
         var isSortedDescending = false
         for (i in 0 until actualProductPricesList.size - 1) {
             if (actualProductPricesList[i] < actualProductPricesList[i + 1]) {
                 isSortedDescending = true
             }
         }
-        if (isSortedDescending) logger.info { "price list in descending order" }
+        if (isSortedDescending) log.info { "price list in descending order" }
         return isSortedDescending
     }
 

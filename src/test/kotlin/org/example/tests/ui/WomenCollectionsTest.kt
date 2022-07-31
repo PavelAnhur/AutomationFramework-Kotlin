@@ -1,13 +1,15 @@
 package org.example.tests.ui
 
+import org.springframework.boot.test.context.SpringBootTest
 import org.testng.Assert
 import org.testng.annotations.Test
 
+@SpringBootTest(classes = [WomenCollectionsTest::class])
 class WomenCollectionsTest : BaseTest() {
 
     @Test(description = "Women collections compering")
     fun womenCollectionsComperingTest() {
-        logger.info { "<<<Compare women collections by price order>>>" }
+        log.info { "<<<Compare women collections by price order>>>" }
         homePageSteps
             .openHomePage()
             .openWomenPage()

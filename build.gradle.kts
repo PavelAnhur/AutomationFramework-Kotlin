@@ -28,7 +28,6 @@ dependencies {
     implementation("io.github.bonigarcia:webdrivermanager:5.2.0")
     implementation("org.aeonbits.owner:owner:1.0.12")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
-    implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
     implementation("org.testng:testng:7.6.0")
     implementation("org.postgresql:postgresql:42.4.0")
     implementation("io.qameta.allure:allure-kotlin-model:2.4.0")
@@ -37,16 +36,17 @@ dependencies {
     implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
     implementation("io.qameta.allure:allure-testng:2.18.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.0")
-    testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha16")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-logging:2.7.2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    runtimeOnly("io.github.microutils:kotlin-logging-jvm:2.1.23")
 }
 
 tasks.test {

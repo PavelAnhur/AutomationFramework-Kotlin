@@ -7,6 +7,7 @@ import org.example.core.infra.webdriver.WebDriverSingleton
 import org.example.steps.HomePageSteps
 import org.example.steps.WomenPageSteps
 import org.openqa.selenium.WebDriver
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.AfterTest
@@ -17,13 +18,13 @@ open class BaseTest(
     private val driver: WebDriver? = WebDriverSingleton.instance,
     protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
     protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!,
-    protected val logger: KLogger = KotlinLogging.logger {}
-) {
+    protected val log: KLogger = KotlinLogging.logger {}
+) : AbstractTestNGSpringContextTests() {
     @BeforeMethod(alwaysRun = true)
     open fun beforeMethod(result: ITestResult) {
-        logger.info("****************************************************************")
-        logger.info("Starting new test: ${result.method.methodName}")
-        logger.info("****************************************************************")
+        log.info("****************************************************************")
+        log.info("Starting new test: ${result.method.methodName}")
+        log.info("****************************************************************")
     }
 
     @AfterMethod(alwaysRun = true)
@@ -37,14 +38,14 @@ open class BaseTest(
             ITestResult.FAILURE -> "failed: $throwableText"
             else -> "skipped: $throwableText"
         }
-        logger.info("****************************************************************")
-        logger.info("Test: ${result.method.methodName} $status")
-        logger.info("****************************************************************")
+        log.info("****************************************************************")
+        log.info("Test: ${result.method.methodName} $status")
+        log.info("****************************************************************")
     }
 
     @AfterTest(alwaysRun = true)
     fun tearDown() {
-        logger.info { "closing browser and web driver.." }
+        log.info { "closing browser and web driver.." }
         driver?.quit()
     }
 }

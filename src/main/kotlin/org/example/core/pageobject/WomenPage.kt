@@ -52,7 +52,7 @@ class WomenPage : BasePage() {
 
     private fun productName(rowNumber: Int): String {
         val name = UIElement(By.xpath(String.format(productNameXPath, rowNumber)), "product name").getText()
-        logger.info { "product #$rowNumber name= $name" }
+        log.info { "product #$rowNumber name= $name" }
         return name
     }
 
@@ -60,14 +60,14 @@ class WomenPage : BasePage() {
         val price = UIElement(By.xpath(String.format(productPriceXpath, rowNumber)), "product price")
             .getText()
             .filter { it.isDigit() || it == '.' }
-        logger.info { "product #$rowNumber price= $price" }
+        log.info { "product #$rowNumber price= $price" }
         return price.toDouble()
     }
 
     private fun productDescription(rowNumber: Int): String {
         val description = UIElement(By.xpath(String.format(productDescXpath, rowNumber)), "product description")
             .getText()
-        logger.info { "product #$rowNumber description= $description" }
+        log.info { "product #$rowNumber description= $description" }
         return description
     }
 }

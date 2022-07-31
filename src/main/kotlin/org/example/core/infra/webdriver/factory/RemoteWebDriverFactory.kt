@@ -29,7 +29,7 @@ class RemoteWebDriverFactory : IWebDriver<RemoteWebDriver> {
                     else -> throw RemoteWebDriverException("can't create remote web driver for $browser browser")
                 }
         } catch (e: Exception) {
-            logger.error(e.message)
+            log.error(e.message)
         }
         return driver
     }
@@ -44,7 +44,7 @@ class RemoteWebDriverFactory : IWebDriver<RemoteWebDriver> {
         cap.setCapability(ChromeOptions.CAPABILITY, chromeOptions)
         chromeOptions.addArguments("--disable-notifications")
         chromeOptions.addArguments("--no-sandbox")
-        logger.info { "remote chrome driver ready" }
+        log.info { "remote chrome driver ready" }
         return RemoteWebDriver(URL(virtualUrl), chromeOptions)
     }
 
@@ -53,14 +53,14 @@ class RemoteWebDriverFactory : IWebDriver<RemoteWebDriver> {
         firefoxOptions.setAcceptInsecureCerts(true)
         firefoxOptions.addArguments("--disable-notifications")
         firefoxOptions.setCapability("platformName", Platform.ANY)
-        logger.info { "remote firefox driver ready" }
+        log.info { "remote firefox driver ready" }
         return RemoteWebDriver(URL(virtualUrl), firefoxOptions)
     }
 
     private fun getRemoteEdgeWebDriver(virtualUrl: String?): RemoteWebDriver {
         val options = EdgeOptions()
         options.setAcceptInsecureCerts(true)
-        logger.info { "remote edge driver ready" }
+        log.info { "remote edge driver ready" }
         return RemoteWebDriver(URL(virtualUrl), options)
     }
 }

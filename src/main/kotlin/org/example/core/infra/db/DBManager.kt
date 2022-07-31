@@ -10,7 +10,7 @@ import java.sql.DriverManager
 
 interface IDBManager {
     var connection: Connection
-    val logger: KLogger
+    val log: KLogger
     val jdbcUrl: String?
     val dbUser: String?
     val dbPasswordPath: String?
@@ -22,7 +22,7 @@ interface IDBManager {
 
 class DBManager : IDBManager {
     override lateinit var connection: Connection
-    override val logger = KotlinLogging.logger {}
+    override val log = KotlinLogging.logger {}
     override val jdbcUrl = PropertyManager.config().dbUrl()
     override val dbUser = PropertyManager.config().dbUser()
     override val dbPasswordPath = PropertyManager.config().dbPasswordPath()
@@ -31,14 +31,14 @@ class DBManager : IDBManager {
     override fun connectToDb() {
         connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)
         if (connection.isValid(0)) {
-            logger.info { "connection is established" }
+            log.info { "connection is established" }
         } else {
-            logger.info { "connection is failed" }
+            log.info { "connection is failed" }
         }
     }
 
     override fun closeDb() {
-        logger.info { "closing database connection.." }
+        log.info { "closing database connection.." }
         connection.close()
     }
 

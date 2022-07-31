@@ -5,7 +5,7 @@ import org.example.core.infra.property.PropertyManager
 import java.sql.Connection
 
 class DBQueries(private val connection: Connection) {
-    private val logger = KotlinLogging.logger {}
+    private val log = KotlinLogging.logger {}
     private val tableName = PropertyManager.config().dbTableName()
 
     fun insertInto(
@@ -13,7 +13,7 @@ class DBQueries(private val connection: Connection) {
         price: Double,
         description: String,
     ) {
-        logger.info {
+        log.info {
             """executing query:
             | INSERT INTO $tableName (name,price,description)
             | VALUES ('${productName.prepareString()}', $price, '${description.prepareString()}')
@@ -34,7 +34,7 @@ class DBQueries(private val connection: Connection) {
     }
 
     fun select(column: String) {
-        logger.info {
+        log.info {
             """executing query:
             | SELECT $column FROM $tableName;
         """.trimMargin()

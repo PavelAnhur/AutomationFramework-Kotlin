@@ -5,7 +5,7 @@ import mu.KotlinLogging
 import org.openqa.selenium.WebDriver
 
 interface IWebDriver<out T : WebDriver> {
-    val logger: KLogger
+    val log: KLogger
         get() = KotlinLogging.logger {}
 
     fun getDriver(browserName: String): T?

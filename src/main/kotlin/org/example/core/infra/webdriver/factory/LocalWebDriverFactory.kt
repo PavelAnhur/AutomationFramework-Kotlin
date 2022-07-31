@@ -25,14 +25,14 @@ class LocalWebDriverFactory : IWebDriver<WebDriver> {
                     else -> throw LocalWebDriverException("can't create local web driver for $browserName browser")
                 }
         } catch (e: Exception) {
-            logger.error(e.message)
+            log.error(e.message)
         }
         return driver
     }
 
     private fun getChromeDriver(): WebDriver {
         WebDriverManager.chromedriver().setup()
-        logger.info { "chrome web driver ready" }
+        log.info { "chrome web driver ready" }
         return ChromeDriver()
     }
 
@@ -44,19 +44,19 @@ class LocalWebDriverFactory : IWebDriver<WebDriver> {
         profile.setPreference("fission.bfcacheInParent", false)
         val firefoxOptionsLocal = FirefoxOptions()
         firefoxOptionsLocal.profile = profile
-        logger.info { "firefox web driver ready" }
+        log.info { "firefox web driver ready" }
         return FirefoxDriver(firefoxOptionsLocal)
     }
 
     private fun getEdgeDriver(): WebDriver {
         WebDriverManager.edgedriver().setup()
-        logger.info { "edge web driver ready" }
+        log.info { "edge web driver ready" }
         return EdgeDriver()
     }
 
     private fun getOperaDriver(): WebDriver {
         WebDriverManager.operadriver().setup()
-        logger.info { "opera web driver ready" }
+        log.info { "opera web driver ready" }
         return OperaDriverManager.operadriver().create()
     }
 }

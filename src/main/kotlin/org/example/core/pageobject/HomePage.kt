@@ -15,7 +15,7 @@ class HomePage : BasePage() {
     fun getLogoTitle(): String {
         logo.waitForDisplayed()
         val title = logo.getAttribute("title") ?: "Title element doesn't exist"
-        logger.info { "title= '$title'" }
+        log.info { "title= '$title'" }
         return title
     }
 
@@ -23,7 +23,7 @@ class HomePage : BasePage() {
         try {
             womenTitle.click()
         } catch (e: Exception) {
-            logger.warn {
+            log.warn {
                 """${e.message}
                     |need to refresh the page""".trimMargin()
             }

@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException
 
 @Suppress("UNCHECKED_CAST")
 class StepsManager {
-    private val logger = KotlinLogging.logger {}
+    private val log = KotlinLogging.logger {}
     private var stepMap: MutableMap<String, Any?>? = null
 
     fun <T> getStepClass(clazz: Class<T>): T? {
@@ -19,13 +19,13 @@ class StepsManager {
         try {
             page = clazz.getConstructor().newInstance()
         } catch (e: InstantiationException) {
-            logger.error(e.message)
+            log.error(e.message)
         } catch (e: IllegalAccessException) {
-            logger.error(e.message)
+            log.error(e.message)
         } catch (e: NoSuchMethodException) {
-            logger.error(e.message)
+            log.error(e.message)
         } catch (e: InvocationTargetException) {
-            logger.error(e.message)
+            log.error(e.message)
         }
         return page
     }

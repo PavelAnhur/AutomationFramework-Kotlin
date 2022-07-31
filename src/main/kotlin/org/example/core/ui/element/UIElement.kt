@@ -20,7 +20,7 @@ open class UIElement(
     val by: By,
     private val description: String,
 ) {
-    private val logger = KotlinLogging.logger {}
+    private val log = KotlinLogging.logger {}
     private val driver = WebDriverSingleton.instance
     private val jsExecutor = driver as JavascriptExecutor
     private val highlighter by lazy { IElementHighlighter.Impl(this) }
@@ -34,12 +34,12 @@ open class UIElement(
     }
 
     fun waitForDisplayed(timeout: Long = EXPLICIT_TIMEOUT_SEC) {
-        logger.info { "waiting for element is displayed: $this" }
+        log.info { "waiting for element is displayed: $this" }
         waitForCondition(timeout, visibilityOfElementLocated(by))
     }
 
     fun getAttribute(attribute: String): String? {
-        logger.info("getting attribute of the element: $this")
+        log.info("getting attribute of the element: $this")
         highlighter.highlightAndUnhighlight()
         return webElement?.getAttribute(attribute)
     }
@@ -49,30 +49,30 @@ open class UIElement(
             scrollToElement()
             waitForClickable()
             highlighter.highlightAndUnhighlight()
-            logger.info { "clicking on the element: $this" }
+            log.info { "clicking on the element: $this" }
             webElement?.click()
         } catch (e: Exception) {
-            logger.error { "Failed clicking on element $this: ${e.message}" }
+            log.error { "Failed clicking on element $this: ${e.message}" }
             error(e.message.toString())
         }
     }
 
     fun getText(): String {
         scrollToElement()
-        logger.info { "getting text of the element: $this" }
+        log.info { "getting text of the element: $this" }
         highlighter.highlightAndUnhighlight()
         return webElement?.text ?: "element $this doesn't contain test"
     }
 
     fun waitForDisappear() {
-        logger.info { "waiting for element $this to disappear.." }
+        log.info { "waiting for element $this to disappear.." }
         val isElementDisappeared = Supplier<Boolean> {
             try {
                 webElement?.isDisplayed
-                logger.info { "element $this is visible" }
+                log.info { "element $this is visible" }
                 false
             } catch (e: org.openqa.selenium.NoSuchElementException) {
-                logger.info { "unable to locate element $this" }
+                log.info { "unable to locate element $this" }
                 true
             }
         }
@@ -83,12 +83,12 @@ open class UIElement(
     }
 
     private fun scrollToElement() {
-        logger.info { "scrolling to the element: $this" }
+        log.info { "scrolling to the element: $this" }
         jsExecutor.executeScript("arguments[0].scrollIntoView(true);", webElement)
     }
 
     private fun waitForClickable(timeout: Long = EXPLICIT_TIMEOUT_SEC) {
-        logger.info("waiting for the element is clickable: $this")
+        log.info("waiting for the element is clickable: $this")
         waitForCondition(timeout, elementToBeClickable(by))
     }
 

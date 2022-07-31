@@ -21,8 +21,9 @@ _Selenium Grid + Docker:_\
 Available browsers: `remoteChrome`, `remoteFirefox`, `remoteEdge`
  *********
 _Ktlint checks our code styling and also helps us to format our code and make it better for understanding_\
-`./gradlew ktlintCheck` to actually check your code’s formatting\
-`./gradlew ktlintFormat` to automatically fix any errors which are reported by ktlintCheck
+_run the command from the project directory_\
+`gradlew ktlintCheck` to actually check your code’s formatting\
+`gradlew ktlintFormat` to automatically fix any errors which are reported by ktlintCheck
 **********
 _PostgreSQL is added_\
 all properties are stored in the `configuration.properties` file except the password ;)
