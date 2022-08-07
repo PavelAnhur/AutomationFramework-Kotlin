@@ -1,10 +1,22 @@
 package org.example.core.model
 
-class Product private constructor(
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.Table
+
+@Entity
+@Table(name = "product")
+open class Product private constructor(
+    @Column
     val name: String,
+    @Column
     val price: Double,
+    @Column
     val description: String,
-) {
+) : java.io.Serializable {
     data class Builder(
         var name: String = "",
         var price: Double = 0.0,
@@ -15,6 +27,11 @@ class Product private constructor(
         fun description(description: String) = apply { this.description = description }
         fun build() = Product(name, price, description)
     }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "product_id", nullable = false)
+    open var id: Int? = null
 
     override fun toString(): String {
         return """|

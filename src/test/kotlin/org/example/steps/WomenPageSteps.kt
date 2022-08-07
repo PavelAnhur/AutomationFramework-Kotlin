@@ -57,14 +57,4 @@ class WomenPageSteps(
         } finally {
             dbManager.closeDb()
         }
-
-    private fun getPriceListFromDb() =
-        try {
-            dbManager.connectToDb()
-            dbManager.selectByColumn("price")
-        } catch (e: PSQLException) {
-            error(e.message.toString())
-        } finally {
-            dbManager.closeDb()
-        }
 }

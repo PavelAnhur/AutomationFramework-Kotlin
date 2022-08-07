@@ -7,7 +7,6 @@ import org.example.core.infra.webdriver.WebDriverSingleton
 import org.example.steps.HomePageSteps
 import org.example.steps.WomenPageSteps
 import org.openqa.selenium.WebDriver
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.AfterTest
@@ -16,12 +15,13 @@ import java.util.Optional
 
 open class BaseTest(
     private val driver: WebDriver? = WebDriverSingleton.instance,
+    protected val log: KLogger = KotlinLogging.logger {},
     protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
-    protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!,
-    protected val log: KLogger = KotlinLogging.logger {}
-) : AbstractTestNGSpringContextTests() {
+    protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!
+) {
+
     @BeforeMethod(alwaysRun = true)
-    open fun beforeMethod(result: ITestResult) {
+    fun beforeMethod(result: ITestResult) {
         log.info("****************************************************************")
         log.info("Starting new test: ${result.method.methodName}")
         log.info("****************************************************************")

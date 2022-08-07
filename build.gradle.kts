@@ -47,6 +47,7 @@ dependencies {
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     runtimeOnly("io.github.microutils:kotlin-logging-jvm:2.1.23")
+    implementation("org.springframework:spring-context:5.3.22")
 }
 
 tasks.test {
