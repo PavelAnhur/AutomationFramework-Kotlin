@@ -25,7 +25,7 @@ open class UIElement(
     private val jsExecutor = driver as JavascriptExecutor
     private val highlighter by lazy { IElementHighlighter.Impl(this) }
     internal val webElement: WebElement?
-        get() = driver?.findElement(by)
+        get() = driver.findElement(by)
 
     constructor(by: By) : this(by, by.toString())
 
@@ -49,13 +49,16 @@ open class UIElement(
             scrollToElement()
             waitForClickable()
             highlighter.highlightAndUnhighlight()
-            log.info { "clicking on the element: $this" }
+            log.info { "clicking on the element: $this ${getCoordinates()}" }
             webElement?.click()
         } catch (e: Exception) {
-            log.error { "Failed clicking on element $this: ${e.message}" }
+            log.error { "failed clicking on element $this: ${e.message}" }
             error(e.message.toString())
         }
     }
+
+    private fun getCoordinates(): String =
+        "(${webElement?.location?.x}, ${webElement?.location?.y})"
 
     fun getText(): String {
         scrollToElement()

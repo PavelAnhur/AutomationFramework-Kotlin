@@ -11,8 +11,8 @@ class WebDriverConfig : IWebDriverConfig<WebDriver> {
     override fun setupWebDriver(): WebDriver {
         val browserName = BrowserImpl().getBrowser()
         val driver = createWebDriver(browserName)
-        driver.manage().window()?.size = Dimension(1294, 906)
-        driver.manage().timeouts()?.implicitlyWait(Duration.ofSeconds(IMPLICIT_TIMEOUT_SEC))
+        driver.manage().window().size = Dimension(1294, 906)
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_TIMEOUT_SEC))
         return driver
     }
 

@@ -8,7 +8,7 @@ class HomePage : BasePage() {
     private val womenTitle = UIElement(By.xpath("//a[@title='Women']"), "'Women' title")
 
     fun openHomePage(): HomePage {
-        driver?.get(homePageUrl)
+        driver.get(homePageUrl)
         return this
     }
 
@@ -27,7 +27,7 @@ class HomePage : BasePage() {
                 """${e.message}
                     |need to refresh the page""".trimMargin()
             }
-            driver?.navigate()?.refresh()
+            driver.navigate().refresh()
             womenTitle.click()
         }
         return WomenPage()
