@@ -16,7 +16,7 @@ import java.net.URL
 
 class RemoteWebDriverFactory : IWebDriver<RemoteWebDriver> {
 
-    override fun getDriver(browserName: String): RemoteWebDriver? {
+    override fun getDriver(browserName: String): RemoteWebDriver {
         val virtualUrl = PropertyManager.config().virtualUrl()
         var driver: RemoteWebDriver? = null
         val browser = browserName.removePrefix(BROWSER_PREFIX_REMOTE).lowercase()
@@ -31,7 +31,7 @@ class RemoteWebDriverFactory : IWebDriver<RemoteWebDriver> {
         } catch (e: Exception) {
             log.error(e.message)
         }
-        return driver
+        return driver ?: throw RuntimeException("web driver creation process failed")
     }
 
     private fun getRemoteChromeDriver(virtualUrl: String?): RemoteWebDriver {

@@ -4,7 +4,7 @@ import java.io.File
 
 class FileReader {
     companion object {
-        fun readLineFromFile(filePath: String): String? {
+        fun readLineFromFile(filePath: String): String {
             return File(getAbsolutePath(filePath)).bufferedReader().readLine()
         }
 

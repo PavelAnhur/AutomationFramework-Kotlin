@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxProfile
 
 class LocalWebDriverFactory : IWebDriver<WebDriver> {
 
-    override fun getDriver(browserName: String): WebDriver? {
+    override fun getDriver(browserName: String): WebDriver {
         var driver: WebDriver? = null
         try {
             driver =
@@ -27,7 +27,7 @@ class LocalWebDriverFactory : IWebDriver<WebDriver> {
         } catch (e: Exception) {
             log.error(e.message)
         }
-        return driver
+        return driver ?: throw RuntimeException("local web driver creation process failed")
     }
 
     private fun getChromeDriver(): WebDriver {
