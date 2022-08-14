@@ -10,7 +10,9 @@ import org.openqa.selenium.By
 private const val PRODUCT_XPATH_PREFIX = "//*[@class='product_list row list']/li"
 
 class WomenPage : BasePage() {
-    val products: MutableList<Product> = ArrayList()
+    val products: MutableList<Product> by lazy {
+        ArrayList()
+    }
     private val sortDropdown = UIElement(By.id("productsSortForm"), "sort order dropdown")
     private val loadingSpinner = UIElement(By.xpath("//ul//br"))
     private val productRows = UIElementList(By.xpath(PRODUCT_XPATH_PREFIX), "product rows")

@@ -1,14 +1,7 @@
 package org.example.core.model
 
 import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.Table
 
-@Entity
-@Table(name = "product")
 open class Product private constructor(
     @Column
     val name: String,
@@ -27,11 +20,6 @@ open class Product private constructor(
         fun description(description: String) = apply { this.description = description }
         fun build() = Product(name, price, description)
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "product_id", nullable = false)
-    open var id: Int? = null
 
     override fun toString(): String {
         return """|

@@ -1,7 +1,6 @@
-package org.example.tests.spring
+package org.example.spring
 
 import org.springframework.boot.SpringBootConfiguration
 
 @SpringBootConfiguration
-class SpringConfiguration {
-}
+open class SpringConfiguration

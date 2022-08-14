@@ -3,51 +3,43 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.21"
+    id("org.jetbrains.kotlin.jvm") version "1.7.20-Beta"
     id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
     id("io.qameta.allure-adapter") version "2.10.0"
-    kotlin("plugin.jpa") version "1.6.21"
-    id("org.springframework.boot") version "2.7.1"
+    id("org.springframework.boot") version "2.7.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("plugin.spring") version "1.6.21"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.7.20-Beta"
 }
 
-allure {
-    adapter.autoconfigure
-    adapter.aspectjWeaver
-}
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    implementation("org.seleniumhq.selenium:selenium-java:4.2.1")
-    implementation("io.github.bonigarcia:webdrivermanager:5.2.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.3.0")
+    implementation("io.github.bonigarcia:webdrivermanager:5.2.2")
     implementation("org.aeonbits.owner:owner:1.0.12")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
-    implementation("org.testng:testng:7.6.0")
+    implementation("org.testng:testng:7.6.1")
     implementation("org.postgresql:postgresql:42.4.0")
-    implementation("io.qameta.allure:allure-kotlin-model:2.4.0")
-    implementation("io.qameta.allure:allure-kotlin-commons:2.4.0")
-    implementation("io.qameta.allure:allure-commandline:2.18.1")
     implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
-    implementation("io.qameta.allure:allure-testng:2.18.1")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-mustache")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-mustache:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.2")
     implementation("org.springframework.boot:spring-boot-starter-logging:2.7.2")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("org.springframework.boot:spring-boot-devtools")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    runtimeOnly("io.github.microutils:kotlin-logging-jvm:2.1.23")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.2")
     implementation("org.springframework:spring-context:5.3.22")
+    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.10")
+    runtimeOnly("com.h2database:h2:2.1.214")
+    runtimeOnly("io.github.microutils:kotlin-logging-jvm:2.1.23")
 }
 
 tasks.test {
@@ -76,7 +68,7 @@ buildscript {
     }
     dependencies {
         classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
-        classpath("io.qameta.allure.gradle.adapter:allure-adapter-plugin:2.10.0")
+        classpath("org.jetbrains.kotlin:kotlin-noarg:1.7.20-Beta")
     }
     repositories {
         maven {
@@ -86,4 +78,4 @@ buildscript {
 }
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
-apply(plugin = "io.qameta.allure-adapter")
+apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
