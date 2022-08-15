@@ -14,8 +14,11 @@ class FileReader {
 
         private fun getAbsolutePath(relativePath: String): String {
             val pathPrefix = "src/main/resources"
-            return if (relativePath.startsWith(pathPrefix)) relativePath
-            else "$pathPrefix/$relativePath"
+            return if (relativePath.startsWith(pathPrefix)) {
+                relativePath
+            } else {
+                "$pathPrefix/$relativePath"
+            }
         }
     }
 }

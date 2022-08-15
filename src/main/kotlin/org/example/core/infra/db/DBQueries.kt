@@ -32,12 +32,4 @@ class DBQueries(private val connection: Connection) {
     private fun String.prepareString(): String {
         return this.replace("'", "`")
     }
-
-    fun select(column: String) {
-        log.info {
-            """executing query:
-            | SELECT $column FROM $tableName;
-        """.trimMargin()
-        }
-    }
 }
