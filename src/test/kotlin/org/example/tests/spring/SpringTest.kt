@@ -19,16 +19,22 @@ import org.testng.annotations.Test
 @EnableJpaRepositories("org.example.spring.repository")
 @ContextConfiguration(classes = [SpringConfiguration::class])
 @SpringBootTest
-open class SpringTest: AbstractTestNGSpringContextTests() {
-
+open class SpringTest : AbstractTestNGSpringContextTests() {
     @Autowired
     lateinit var productRepository: ProductRepository
+    private val certainPrice = 20.0
+    private val counter = 2
 
     @Test
     fun springTest() {
-        val products = productRepository.findAll()
-        logger.info("Product list:\n$products")
-
-        Assert.assertTrue(true)
+        productRepository.findAll()
+            .also { logger.info("product list:\n$it") }
+            .count { it.price!! < certainPrice }
+            .also {
+                Assert.assertTrue(
+                    it == counter,
+                    "count of products with price lower than $certainPrice = $it"
+                )
+            }
     }
 }

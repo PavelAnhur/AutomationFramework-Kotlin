@@ -30,12 +30,12 @@ open class ProductEntity {
 
 
     override fun toString(): String =
-        "Entity of type: ${javaClass.name} ( " +
-                "productId = $productId " +
-                "name = $name " +
-                "price = $price " +
-                "description = $description " +
-                ")"
+        """ |
+            |Entity of type: ${javaClass.name} 
+            | (productId = $productId
+            |  name = $name
+            |  price = $price
+            |  description = $description)""".trimMargin()
 
     // constant value returned to avoid entity inequality to itself before and after it's update/merge
     override fun hashCode(): Int = 42
