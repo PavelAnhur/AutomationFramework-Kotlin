@@ -49,7 +49,7 @@ open class UIElement(
             scrollToElement()
             waitForClickable()
             highlighter.highlightAndUnhighlight()
-            log.info { "clicking on the element: $this ${getCoordinates()}" }
+            log.info { "clicking on the element: $this ${elementCoords()}" }
             webElement?.click()
         } catch (e: Exception) {
             log.error { "failed clicking on element $this: ${e.message}" }
@@ -57,7 +57,7 @@ open class UIElement(
         }
     }
 
-    private fun getCoordinates(): String =
+    private fun elementCoords(): String =
         "(${webElement?.location?.x}, ${webElement?.location?.y})"
 
     fun getText(): String {
