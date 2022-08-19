@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.20-Beta"
     id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
-    id("io.qameta.allure-adapter") version "2.10.0"
     id("org.springframework.boot") version "2.7.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.jetbrains.kotlin.plugin.jpa") version "1.7.20-Beta"
@@ -16,7 +15,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
@@ -35,11 +33,10 @@ dependencies {
     implementation("org.springframework:spring-context:5.3.22")
     runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20-Beta")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20-Beta")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.20-Beta")
     runtimeOnly("com.h2database:h2:2.1.214")
-    runtimeOnly("io.github.microutils:kotlin-logging-jvm:2.1.23")
 }
 
 tasks.test {

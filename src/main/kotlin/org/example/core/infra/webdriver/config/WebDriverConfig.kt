@@ -28,4 +28,3 @@ class WebDriverConfig : IWebDriverConfig<WebDriver> {
         const val BROWSER_PREFIX_REMOTE = "remote"
     }
 }
-

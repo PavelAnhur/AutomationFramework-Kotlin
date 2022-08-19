@@ -1,4 +1,3 @@
 package org.example.core.infra.exceptions
 
-class BrowserException(message: String): RuntimeException(message) {
-}
+class BrowserException(message: String) : RuntimeException(message)

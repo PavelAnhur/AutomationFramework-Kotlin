@@ -28,7 +28,6 @@ open class ProductEntity {
     @Column(name = "description", nullable = true)
     open var description: String? = null
 
-
     override fun toString(): String =
         """ |
             |Entity of type: ${javaClass.name} 
