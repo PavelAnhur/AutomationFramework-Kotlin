@@ -1,9 +1,9 @@
 package org.example.core.infra.webdriver.factory
 
 import org.example.core.infra.browser.Browser
+import org.example.core.infra.browser.BrowserImpl.Companion.BROWSER_PREFIX_REMOTE
 import org.example.core.infra.exceptions.RemoteWebDriverException
 import org.example.core.infra.property.PropertyManager
-import org.example.core.infra.webdriver.config.WebDriverConfig.Companion.BROWSER_PREFIX_REMOTE
 import org.openqa.selenium.Platform
 import org.openqa.selenium.UnexpectedAlertBehaviour
 import org.openqa.selenium.chrome.ChromeOptions

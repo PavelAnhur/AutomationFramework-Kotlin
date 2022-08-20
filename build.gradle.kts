@@ -42,7 +42,7 @@ dependencies {
 tasks.test {
     val browser = System.getProperty("browser")
     systemProperties = mapOf("browser" to browser)
-    val suite = System.getProperty("suite", "testng-all.xml")
+    val suite = System.getProperty("suite", "all-ui-tests.xml")
     useTestNG {
         suites("src/test/resources/TestXMLs/$suite")
     }
