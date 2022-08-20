@@ -9,5 +9,6 @@ object WebDriverSingleton {
     init {
         KotlinLogging.logger {}.info { "web driver initialization.." }
     }
+
     val instance = WebDriverConfigImpl(WebDriverCreatorImpl(BrowserImpl())).config()
 }

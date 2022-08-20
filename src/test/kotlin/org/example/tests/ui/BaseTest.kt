@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeMethod
 import java.util.Optional
 
 open class BaseTest(
-    private val driver: WebDriver? = WebDriverSingleton.instance,
+    private val driver: WebDriver = WebDriverSingleton.instance,
     protected val log: KLogger = KotlinLogging.logger {},
     protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
     protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!
@@ -46,6 +46,6 @@ open class BaseTest(
     @AfterTest(alwaysRun = true)
     fun tearDown() {
         log.info { "closing browser and web driver.." }
-        driver?.quit()
+        driver.quit()
     }
 }

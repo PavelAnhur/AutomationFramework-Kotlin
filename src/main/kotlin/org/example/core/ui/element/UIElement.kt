@@ -23,8 +23,8 @@ open class UIElement(
     private val log = KotlinLogging.logger {}
     private val driver = WebDriverSingleton.instance
     private val jsExecutor = driver as JavascriptExecutor
-    private val highlighter by lazy { IElementHighlighter.Impl(this) }
-    internal val webElement: WebElement?
+    private val highlighter by lazy { ElementHighlighterImpl(this) }
+    internal val webElement: WebElement
         get() = driver.findElement(by)
 
     constructor(by: By) : this(by, by.toString())
@@ -41,7 +41,7 @@ open class UIElement(
     fun getAttribute(attribute: String): String? {
         log.info("getting attribute of the element: $this")
         highlighter.highlightAndUnhighlight()
-        return webElement?.getAttribute(attribute)
+        return webElement.getAttribute(attribute)
     }
 
     fun click() {
@@ -50,7 +50,7 @@ open class UIElement(
             waitForClickable()
             highlighter.highlightAndUnhighlight()
             log.info { "clicking on the element: $this ${elementCoords()}" }
-            webElement?.click()
+            webElement.click()
         } catch (e: Exception) {
             log.error { "failed clicking on element $this: ${e.message}" }
             error(e.message.toString())
@@ -58,20 +58,20 @@ open class UIElement(
     }
 
     private fun elementCoords(): String =
-        "(${webElement?.location?.x}, ${webElement?.location?.y})"
+        "(${webElement.location.x}, ${webElement.location.y})"
 
     fun getText(): String {
         scrollToElement()
         log.info { "getting text of the element: $this" }
         highlighter.highlightAndUnhighlight()
-        return webElement?.text ?: "element $this doesn't contain test"
+        return webElement.text ?: "element $this doesn't contain test"
     }
 
     fun waitForDisappear() {
         log.info { "waiting for element $this to disappear.." }
         val isElementDisappeared = Supplier<Boolean> {
             try {
-                webElement?.isDisplayed
+                webElement.isDisplayed
                 log.info { "element $this is visible" }
                 false
             } catch (e: org.openqa.selenium.NoSuchElementException) {

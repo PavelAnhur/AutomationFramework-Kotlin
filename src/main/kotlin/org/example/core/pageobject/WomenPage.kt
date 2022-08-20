@@ -14,7 +14,7 @@ class WomenPage : BasePage() {
         ArrayList()
     }
     private val sortDropdown = UIElement(By.id("productsSortForm"), "sort order dropdown")
-    private val loadingSpinner = UIElement(By.xpath("//ul//br"))
+    private val loadingSpinner = UIElement(By.xpath("//ul//br"), "loading spinner")
     private val productRows = UIElementList(By.xpath(PRODUCT_XPATH_PREFIX), "product rows")
     private val productNameXPath = "$PRODUCT_XPATH_PREFIX[%d]//a[@class='product-name']"
     private val productPriceXpath =
