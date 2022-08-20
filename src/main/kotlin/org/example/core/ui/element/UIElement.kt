@@ -22,7 +22,7 @@ open class UIElement(
 ) {
     private val log = KotlinLogging.logger {}
     private val driver = WebDriverSingleton.instance
-    private val jsExecutor = driver as JavascriptExecutor
+    private val jsExecutor by lazy { driver as JavascriptExecutor }
     private val highlighter by lazy { ElementHighlighterImpl(this) }
     internal val webElement: WebElement
         get() = driver.findElement(by)
@@ -52,7 +52,7 @@ open class UIElement(
             log.info { "clicking on the element: $this ${elementCoords()}" }
             webElement.click()
         } catch (e: Exception) {
-            log.error { "failed clicking on element $this: ${e.message}" }
+            log.error { "failed click on the element $this: ${e.message}" }
             error(e.message.toString())
         }
     }
