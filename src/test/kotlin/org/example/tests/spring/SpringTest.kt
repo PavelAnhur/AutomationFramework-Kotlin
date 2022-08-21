@@ -22,17 +22,20 @@ import org.testng.annotations.Test
 open class SpringTest : AbstractTestNGSpringContextTests() {
     @Autowired
     lateinit var productRepository: ProductRepository
-    private val certainPrice = 20.0
-    private val counter = 2
+    private val testData = mapOf<String, Number>(
+        "certainPrice" to 20.0,
+        "counter" to 2
+    )
 
     @Test
     fun springTest() {
+        val certainPrice: Double = testData["certainPrice"] as Double
         productRepository.findAll()
             .also { logger.info("product list:\n$it") }
             .count { it.price!! < certainPrice }
             .also {
                 Assert.assertTrue(
-                    it == counter,
+                    it == testData["counter"],
                     "count of products with price lower than $certainPrice = $it"
                 )
             }
