@@ -1,15 +1,18 @@
 package org.example.steps
 
+import com.google.common.collect.Comparators.isInOrder
 import mu.KLogger
 import mu.KotlinLogging
 import org.example.core.infra.db.DBManager
+import org.example.core.infra.db.DBService
+import org.example.core.infra.db.IDBManager
 import org.example.core.pageobject.WomenPage
 import org.postgresql.util.PSQLException
 
 class WomenPageSteps(
-    private val womenPage: WomenPage = WomenPage(),
     private val log: KLogger = KotlinLogging.logger {},
-    private val dbManager: DBManager = DBManager(),
+    private val womenPage: WomenPage = WomenPage(),
+    private val dbManager: IDBManager = DBManager()
 ) {
     val actualProductPricesList: List<Double>
         get() {
@@ -34,27 +37,29 @@ class WomenPageSteps(
         storeDb()
     }
 
-    fun isProductPricesInDescOrder(): Boolean {
-        log.info { "Verifying price list.." }
-        var isSortedDescending = false
-        for (i in 0 until actualProductPricesList.size - 1) {
-            if (actualProductPricesList[i] < actualProductPricesList[i + 1]) {
-                isSortedDescending = true
-            }
+    fun isProductPricesInOrder(order: String): Boolean {
+        log.info { "Verifying price list order.." }
+        var isSorted = false
+        when {
+            order.lowercase().startsWith("asc") -> isSorted = isInOrder(actualProductPricesList, naturalOrder())
+            order.lowercase().startsWith("desc") -> isSorted = isInOrder(actualProductPricesList, reverseOrder())
         }
-        if (isSortedDescending) log.info { "price list in descending order" }
-        return isSortedDescending
+        if (isSorted) log.info { "price list in $order order" }
+        return isSorted
     }
 
-    private fun storeDb() =
+    private fun storeDb() {
+        val connection = dbManager.connectToDb()
         try {
-            dbManager.connectToDb()
+
+            val dbService = DBService(connection)
             for (product in womenPage.products) {
-                dbManager.insertIntoIfNotExists(product)
+                dbService.insertIfNotExists(product)
             }
         } catch (e: PSQLException) {
             error(e.message.toString())
         } finally {
-            dbManager.closeDb()
+            dbManager.closeDb(connection)
         }
+    }
 }

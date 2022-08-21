@@ -37,6 +37,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20-Beta")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.20-Beta")
     runtimeOnly("com.h2database:h2:2.1.214")
+    implementation("com.google.guava:guava:31.1-jre")
 }
 
 tasks.test {

@@ -1,9 +1,11 @@
 package org.example.tests.ui
 
+import org.example.core.infra.property.PropertyManager
 import org.testng.Assert
 import org.testng.annotations.Test
 
 class WomenCollectionsTest : BaseTest() {
+    private val sortOrder = PropertyManager.config().productSortOrder().toString()
 
     @Test(description = "Women collections compering")
     fun womenCollectionsComperingTest() {
@@ -12,12 +14,12 @@ class WomenCollectionsTest : BaseTest() {
             .openHomePage()
             .openWomenPage()
         womenPageSteps
-            .changeProductTableView(sortOrder = "desc", collectionView = "list")
+            .changeProductTableView(sortOrder, collectionView = "list")
             .storeProductInfoInDB()
 
         Assert.assertTrue(
-            womenPageSteps.isProductPricesInDescOrder(),
-            """The price list isn't in descending order
+            womenPageSteps.isProductPricesInOrder(sortOrder),
+            """The price list isn't in $sortOrder order
                 |Actual price list: ${womenPageSteps.actualProductPricesList}
                 """.trimMargin()
         )

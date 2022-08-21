@@ -1,8 +1,8 @@
 package org.example.core.pageobject
 
 import org.example.core.model.Product
-import org.example.core.ui.element.Locator.Companion.getSortLocatorAttributeValue
-import org.example.core.ui.element.Locator.Companion.getViewLocatorId
+import org.example.core.ui.element.Locator.Companion.sortLocatorAttributeValue
+import org.example.core.ui.element.Locator.Companion.viewLocatorId
 import org.example.core.ui.element.UIElement
 import org.example.core.ui.element.UIElementList
 import org.openqa.selenium.By
@@ -10,9 +10,7 @@ import org.openqa.selenium.By
 private const val PRODUCT_XPATH_PREFIX = "//*[@class='product_list row list']/li"
 
 class WomenPage : BasePage() {
-    val products: MutableList<Product> by lazy {
-        ArrayList()
-    }
+    lateinit var products: MutableList<Product>
     private val sortDropdown = UIElement(By.id("productsSortForm"), "sort order dropdown")
     private val loadingSpinner = UIElement(By.xpath("//ul//br"), "loading spinner")
     private val productRows = UIElementList(By.xpath(PRODUCT_XPATH_PREFIX), "product rows")
@@ -24,7 +22,7 @@ class WomenPage : BasePage() {
     fun selectSortOrder(sortOrder: String): WomenPage {
         sortDropdown.click()
         UIElement(
-            By.xpath("//*[@value='${getSortLocatorAttributeValue(sortOrder)}']"),
+            By.xpath("//*[@value='${sortLocatorAttributeValue(sortOrder)}']"),
             "order from sort dropdown"
         ).click()
         loadingSpinner.waitForDisappear()
@@ -33,23 +31,25 @@ class WomenPage : BasePage() {
 
     fun selectCollectionView(view: String): WomenPage {
         UIElement(
-            By.id("${getViewLocatorId(view)}"),
+            By.id("${viewLocatorId(view)}"),
             "product view"
         ).click()
         return this
     }
 
     fun collectProductsInfo() {
+        products = ArrayList()
         productRows.waitForDisplayed()
-        val productRowsNumber: Int = productRows.size()
-        for (i in 1..productRowsNumber) {
-            val product = Product.Builder()
-                .name(productName(i))
-                .price(productPrice(i))
-                .description(productDescription(i))
-                .build()
-            products.add(product)
-        }
+        (1..productRows.size())
+            .asSequence()
+            .map {
+                Product.Builder()
+                    .name(productName(it))
+                    .price(productPrice(it))
+                    .description(productDescription(it))
+                    .build()
+            }
+            .forEach { products.add(it) }
     }
 
     private fun productName(rowNumber: Int): String {

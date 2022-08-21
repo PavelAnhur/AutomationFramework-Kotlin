@@ -1,48 +1,36 @@
 package org.example.core.infra.db
 
-import mu.KLogger
 import mu.KotlinLogging
+import org.example.core.infra.exceptions.DBManagerException
 import org.example.core.infra.file.FileReader
 import org.example.core.infra.property.PropertyManager
-import org.example.core.model.Product
 import java.sql.Connection
 import java.sql.DriverManager
 
 interface IDBManager {
-    var connection: Connection
-    val log: KLogger
-    val jdbcUrl: String?
-    val dbUser: String?
-    val dbPasswordPath: String?
-    val dbPassword: String?
-
-    fun connectToDb()
-    fun closeDb()
+    fun connectToDb(): Connection
+    fun closeDb(connection: Connection)
 }
 
 class DBManager : IDBManager {
-    override lateinit var connection: Connection
-    override val log = KotlinLogging.logger {}
-    override val jdbcUrl = PropertyManager.config().dbUrl()
-    override val dbUser = PropertyManager.config().dbUser()
-    override val dbPasswordPath = PropertyManager.config().dbPasswordPath()
-    override val dbPassword = dbPasswordPath?.let { FileReader.readLineFromFile(it) }
+    private val log = KotlinLogging.logger {}
+    private val jdbcUrl = PropertyManager.config().dbUrl()
+    private val dbUser = PropertyManager.config().dbUser()
+    private val dbPasswordPath = PropertyManager.config().dbPasswordPath()
+    private val dbPassword = dbPasswordPath?.let { FileReader.readLineFromFile(it) }
 
-    override fun connectToDb() {
-        connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)
-        if (connection.isValid(0)) {
+    override fun connectToDb(): Connection {
+        val connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)
+        return if (connection.isValid(0)) {
             log.info { "connection is established" }
+            connection
         } else {
-            log.info { "connection is failed" }
+            throw DBManagerException("connection is failed")
         }
     }
 
-    override fun closeDb() {
+    override fun closeDb(connection: Connection) {
         log.info { "closing database connection.." }
         connection.close()
-    }
-
-    fun insertIntoIfNotExists(product: Product) {
-        connection.let { DBQueries(it).insertInto(product.name, product.price, product.description) }
     }
 }

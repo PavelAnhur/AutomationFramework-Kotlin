@@ -2,7 +2,7 @@ package org.example.core.ui.element
 
 class Locator {
     companion object {
-        fun getSortLocatorAttributeValue(sortOrder: String): String? {
+        fun sortLocatorAttributeValue(sortOrder: String): String? {
             var value: String? = null
             when {
                 sortOrder.lowercase().startsWith("desc") -> value = "price:desc"
@@ -11,7 +11,7 @@ class Locator {
             return value
         }
 
-        fun getViewLocatorId(view: String): String? {
+        fun viewLocatorId(view: String): String? {
             var idValue: String? = null
             when {
                 view.lowercase() == "list" -> idValue = "list"

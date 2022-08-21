@@ -28,6 +28,12 @@ interface Configuration : Config {
 
     @Config.Key("db.table.name")
     fun dbTableName(): String?
+
+    @Config.Key("logo.title")
+    fun logoTitle(): String?
+
+    @Config.Key("product.sort.order")
+    fun productSortOrder(): String?
 }
 
 class PropertyManager {
