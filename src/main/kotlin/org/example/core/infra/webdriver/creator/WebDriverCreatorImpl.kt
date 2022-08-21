@@ -10,7 +10,7 @@ class WebDriverCreatorImpl(
     private val browser: IBrowser
 ) : IWebDriverCreator<WebDriver> {
     override fun create(): WebDriver {
-        val browserName = browser.browser()
+        val browserName = browser.getBrowser()
         return when {
             browserName.startsWith(BROWSER_PREFIX_REMOTE) -> RemoteWebDriverFactory().getDriver(browserName)
             else -> LocalWebDriverFactory().getDriver(browserName)

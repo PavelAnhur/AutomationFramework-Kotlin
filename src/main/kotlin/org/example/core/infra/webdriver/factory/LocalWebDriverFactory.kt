@@ -11,7 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxOptions
 import org.openqa.selenium.firefox.FirefoxProfile
 
-class LocalWebDriverFactory : IWebDriver<WebDriver> {
+class LocalWebDriverFactory : IWebDriverFactory<WebDriver> {
 
     override fun getDriver(browserName: String): WebDriver {
         var driver: WebDriver? = null

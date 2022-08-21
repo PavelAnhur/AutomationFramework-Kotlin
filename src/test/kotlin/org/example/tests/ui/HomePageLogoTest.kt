@@ -1,13 +1,13 @@
 package org.example.tests.ui
 
-import org.example.core.infra.property.PropertyManager
+import org.example.core.infra.property.PropertyService
 import org.springframework.boot.test.context.SpringBootTest
 import org.testng.Assert
 import org.testng.annotations.Test
 
 @SpringBootTest(classes = [HomePageLogoTest::class])
 class HomePageLogoTest : BaseTest() {
-    private val logo = PropertyManager.config().logoTitle().toString()
+    private val logo = PropertyService.getProperty().logoTitle().toString()
 
     @Test(description = "Validate logo title")
     fun homePageLogoTest() {

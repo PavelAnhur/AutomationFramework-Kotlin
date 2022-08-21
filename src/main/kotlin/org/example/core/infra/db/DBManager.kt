@@ -3,7 +3,7 @@ package org.example.core.infra.db
 import mu.KotlinLogging
 import org.example.core.infra.exceptions.DBManagerException
 import org.example.core.infra.file.FileReader
-import org.example.core.infra.property.PropertyManager
+import org.example.core.infra.property.PropertyService
 import java.sql.Connection
 import java.sql.DriverManager
 
@@ -14,9 +14,9 @@ interface IDBManager {
 
 class DBManager : IDBManager {
     private val log = KotlinLogging.logger {}
-    private val jdbcUrl = PropertyManager.config().dbUrl()
-    private val dbUser = PropertyManager.config().dbUser()
-    private val dbPasswordPath = PropertyManager.config().dbPasswordPath()
+    private val jdbcUrl = PropertyService.getProperty().dbUrl()
+    private val dbUser = PropertyService.getProperty().dbUser()
+    private val dbPasswordPath = PropertyService.getProperty().dbPasswordPath()
     private val dbPassword = dbPasswordPath?.let { FileReader.readLineFromFile(it) }
 
     override fun connectToDb(): Connection {

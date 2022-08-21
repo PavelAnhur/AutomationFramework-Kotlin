@@ -3,7 +3,7 @@ package org.example.core.infra.webdriver.factory
 import org.example.core.infra.browser.Browser
 import org.example.core.infra.browser.BrowserImpl.Companion.BROWSER_PREFIX_REMOTE
 import org.example.core.infra.exceptions.RemoteWebDriverException
-import org.example.core.infra.property.PropertyManager
+import org.example.core.infra.property.PropertyService
 import org.openqa.selenium.Platform
 import org.openqa.selenium.UnexpectedAlertBehaviour
 import org.openqa.selenium.chrome.ChromeOptions
@@ -14,10 +14,10 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
-class RemoteWebDriverFactory : IWebDriver<RemoteWebDriver> {
+class RemoteWebDriverFactory : IWebDriverFactory<RemoteWebDriver> {
 
     override fun getDriver(browserName: String): RemoteWebDriver {
-        val virtualUrl = PropertyManager.config().virtualUrl()
+        val virtualUrl = PropertyService.getProperty().virtualUrl()
         var driver: RemoteWebDriver? = null
         val browser = browserName.removePrefix(BROWSER_PREFIX_REMOTE).lowercase()
         try {

@@ -17,7 +17,7 @@ class WomenPage : BasePage() {
     private val productNameXPath = "$PRODUCT_XPATH_PREFIX[%d]//a[@class='product-name']"
     private val productPriceXpath =
         "$PRODUCT_XPATH_PREFIX[%d]//*[starts-with(@class,'right-block')]//*[@class='price product-price']"
-    private val productDescXpath = "$PRODUCT_XPATH_PREFIX[%d]//*[@class='product-desc']"
+    private val productDescriptionXpath = "$PRODUCT_XPATH_PREFIX[%d]//*[@class='product-desc']"
 
     fun selectSortOrder(sortOrder: String): WomenPage {
         sortDropdown.click()
@@ -67,7 +67,7 @@ class WomenPage : BasePage() {
     }
 
     private fun productDescription(rowNumber: Int): String {
-        val description = UIElement(By.xpath(String.format(productDescXpath, rowNumber)), "product description")
+        val description = UIElement(By.xpath(String.format(productDescriptionXpath, rowNumber)), "product description")
             .getText()
         log.info { "product #$rowNumber description= $description" }
         return description

@@ -1,15 +1,15 @@
 package org.example.core.infra.browser
 
 import org.example.core.infra.exceptions.BrowserException
-import org.example.core.infra.property.PropertyManager
+import org.example.core.infra.property.PropertyService
 
 interface IBrowser {
-    fun browser(): String
+    fun getBrowser(): String
 }
 
 class BrowserImpl : IBrowser {
-    override fun browser(): String {
-        return PropertyManager.config().browser() ?: throw BrowserException("can't read browser name")
+    override fun getBrowser(): String {
+        return PropertyService.getProperty().browser() ?: throw BrowserException("can't read browser name")
     }
 
     companion object {

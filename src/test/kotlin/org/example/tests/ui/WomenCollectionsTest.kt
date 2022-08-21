@@ -1,11 +1,12 @@
 package org.example.tests.ui
 
-import org.example.core.infra.property.PropertyManager
+import org.example.core.infra.property.PropertyService
 import org.testng.Assert
 import org.testng.annotations.Test
 
 class WomenCollectionsTest : BaseTest() {
-    private val sortOrder = PropertyManager.config().productSortOrder().toString()
+    private val sortOrder = PropertyService.getProperty().productSortOrder().toString()
+    private val collectionView = PropertyService.getProperty().collectionView().toString()
 
     @Test(description = "Women collections compering")
     fun womenCollectionsComperingTest() {
@@ -14,7 +15,7 @@ class WomenCollectionsTest : BaseTest() {
             .openHomePage()
             .openWomenPage()
         womenPageSteps
-            .changeProductTableView(sortOrder, collectionView = "list")
+            .changeProductTableView(sortOrder, collectionView)
             .storeProductInfoInDB()
 
         Assert.assertTrue(

@@ -1,7 +1,7 @@
 package org.example.core.infra.db
 
 import org.example.core.infra.exceptions.DBServiceException
-import org.example.core.infra.property.PropertyManager
+import org.example.core.infra.property.PropertyService
 import org.example.core.model.Product
 import java.sql.Connection
 
@@ -14,7 +14,7 @@ class DBService(
 ) : IDBService {
 
     override fun insertIfNotExists(product: Product) {
-        val tableName = PropertyManager.config().dbTableName() ?: throw DBServiceException("table name not found")
+        val tableName = PropertyService.getProperty().dbTableName() ?: throw DBServiceException("table name not found")
         connection.let { DBQuery(it, product).insertInto(tableName) }
     }
 }

@@ -32,13 +32,16 @@ interface Configuration : Config {
     @Config.Key("logo.title")
     fun logoTitle(): String?
 
+    @Config.Key("collection.view")
+    fun collectionView(): String?
+
     @Config.Key("product.sort.order")
     fun productSortOrder(): String?
 }
 
-class PropertyManager {
+class PropertyService {
     companion object {
-        fun config(): Configuration {
+        fun getProperty(): Configuration {
             return ConfigCache.getOrCreate(Configuration::class.java)
         }
     }

@@ -5,19 +5,19 @@ import java.io.File
 class FileReader {
     companion object {
         fun readLineFromFile(filePath: String): String {
-            return File(getAbsolutePath(filePath)).bufferedReader().readLine()
+            return File(filePath.getAbsolutePath()).bufferedReader().readLine()
         }
 
         fun readTextFromFile(filePath: String): String {
-            return File(getAbsolutePath(filePath)).bufferedReader().readText()
+            return File(filePath.getAbsolutePath()).bufferedReader().readText()
         }
 
-        private fun getAbsolutePath(relativePath: String): String {
+        private fun String.getAbsolutePath(): String {
             val pathPrefix = "src/main/resources"
-            return if (relativePath.startsWith(pathPrefix)) {
-                relativePath
+            return if (this.startsWith(pathPrefix)) {
+                this
             } else {
-                "$pathPrefix/$relativePath"
+                "$pathPrefix/$this"
             }
         }
     }
