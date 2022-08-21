@@ -18,14 +18,13 @@ class DBQuery(
             """executing query:
             | INSERT INTO $tableName (name,price,description)
             | VALUES ('${product.name.prepareString()}', ${product.price}, '${product.description.prepareString()}')
-            | ON CONFLICT (name) DO UPDATE
-            | SET price = ${product.price};
+            | ON CONFLICT DO NOTHING;
             """.trimMargin()
         }
         val statement = connection.createStatement()
         val query = """INSERT INTO $tableName (name,price,description) 
                 |VALUES ('${product.name.prepareString()}',${product.price},'${product.description.prepareString()}') 
-                |ON CONFLICT (name) DO UPDATE SET price = ${product.price};""".trimMargin()
+                |ON CONFLICT DO NOTHING;""".trimMargin()
         connection.prepareStatement(query).execute()
         statement.closeOnCompletion()
     }

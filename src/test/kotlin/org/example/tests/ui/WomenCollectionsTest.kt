@@ -1,10 +1,13 @@
 package org.example.tests.ui
 
+import mu.KLogger
+import mu.KotlinLogging
 import org.example.core.infra.property.PropertyService
 import org.testng.Assert
 import org.testng.annotations.Test
 
 class WomenCollectionsTest : BaseTest() {
+    private val log: KLogger = KotlinLogging.logger {}
     private val sortOrder = PropertyService.getProperty().productSortOrder().toString()
     private val collectionView = PropertyService.getProperty().collectionView().toString()
 

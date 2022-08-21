@@ -1,5 +1,7 @@
 package org.example.core.pageobject
 
+import mu.KLogger
+import mu.KotlinLogging
 import org.example.core.model.Product
 import org.example.core.ui.element.Locator.Companion.sortLocatorAttributeValue
 import org.example.core.ui.element.Locator.Companion.viewLocatorId
@@ -11,6 +13,7 @@ private const val PRODUCT_XPATH_PREFIX = "//*[@class='product_list row list']/li
 
 class WomenPage : BasePage() {
     lateinit var products: MutableList<Product>
+    private val log: KLogger = KotlinLogging.logger {}
     private val sortDropdown = UIElement(By.id("productsSortForm"), "sort order dropdown")
     private val loadingSpinner = UIElement(By.xpath("//ul//br"), "loading spinner")
     private val productRows = UIElementList(By.xpath(PRODUCT_XPATH_PREFIX), "product rows")

@@ -1,9 +1,12 @@
 package org.example.core.pageobject
 
+import mu.KLogger
+import mu.KotlinLogging
 import org.example.core.ui.element.UIElement
 import org.openqa.selenium.By
 
 class HomePage : BasePage() {
+    private val log: KLogger = KotlinLogging.logger {}
     private val logo = UIElement(By.xpath("//*[@id='header_logo']/a"), "homepage logo")
     private val womenTitle = UIElement(By.xpath("//a[@title='Women']"), "'Women' title")
 

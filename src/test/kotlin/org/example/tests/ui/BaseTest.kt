@@ -14,10 +14,10 @@ import org.testng.annotations.BeforeMethod
 import java.util.Optional
 
 open class BaseTest(
-    private val driver: WebDriver = WebDriverSingleton.instance,
-    protected val log: KLogger = KotlinLogging.logger {},
     protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
-    protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!
+    protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!,
+    private val driver: WebDriver = WebDriverSingleton.instance,
+    private val log: KLogger = KotlinLogging.logger {}
 ) {
 
     @BeforeMethod(alwaysRun = true)
