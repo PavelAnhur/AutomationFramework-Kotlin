@@ -3,6 +3,7 @@
 <suite name="All UI Test Suite" parallel="classes" thread-count="2">
     <listeners>
         <listener class-name="org.example.core.infra.retry.RetryListener"/>
+        <listener class-name="org.example.core.infra.listeners.TestListener"/>
     </listeners>
     <test name="My Store Tests">
         <packages>

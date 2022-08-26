@@ -57,8 +57,7 @@ open class UIElement(
         }
     }
 
-    private fun elementCoords(): String =
-        "(${webElement.location.x}, ${webElement.location.y})"
+    private fun elementCoords(): String = "(${webElement.location.x}, ${webElement.location.y})"
 
     fun getText(): String {
         scrollToElement()

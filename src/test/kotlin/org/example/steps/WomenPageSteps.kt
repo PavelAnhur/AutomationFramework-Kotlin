@@ -1,6 +1,7 @@
 package org.example.steps
 
 import com.google.common.collect.Comparators.isInOrder
+import io.qameta.allure.Step
 import mu.KLogger
 import mu.KotlinLogging
 import org.example.core.infra.db.DBManager
@@ -19,6 +20,7 @@ class WomenPageSteps(
             return this.womenPage.products.map { it.price }
         }
 
+    @Step("Change collection table view sorting {0} and {1} view ")
     fun changeProductTableView(sortOrder: String, collectionView: String): WomenPageSteps {
         log.info { "Sorting products.." }
         womenPage.selectSortOrder(sortOrder)
@@ -27,6 +29,7 @@ class WomenPageSteps(
         return this
     }
 
+    @Step("Fill DB table with product info")
     fun storeProductInfoInDB() {
         log.info { "Collecting products info.." }
         womenPage.collectProductsInfo()
@@ -48,6 +51,7 @@ class WomenPageSteps(
         }
     }
 
+    @Step("Verify price list in {0} order")
     fun isProductPricesInOrder(order: String): Boolean {
         log.info { "Verifying price list order.." }
         var isSorted = false
