@@ -2,6 +2,7 @@ package org.example.tests.ui
 
 import mu.KLogger
 import mu.KotlinLogging
+import org.example.core.infra.allure.Reporter
 import org.example.core.infra.reflection.StepsManager
 import org.example.core.infra.webdriver.WebDriverSingleton
 import org.example.steps.HomePageSteps
@@ -16,6 +17,7 @@ import java.util.Optional
 open class BaseTest(
     protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
     protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!,
+    protected val reporter: Reporter = Reporter.instance,
     private val driver: WebDriver = WebDriverSingleton.instance,
     private val log: KLogger = KotlinLogging.logger {}
 ) {
@@ -36,7 +38,7 @@ open class BaseTest(
         val status = when (result.status) {
             ITestResult.SUCCESS -> "passed"
             ITestResult.FAILURE -> "failed: $throwableText"
-            else -> "skipped: $throwableText"
+            else                -> "skipped: $throwableText"
         }
         log.info("****************************************************************")
         log.info("Test: ${result.method.methodName} $status")

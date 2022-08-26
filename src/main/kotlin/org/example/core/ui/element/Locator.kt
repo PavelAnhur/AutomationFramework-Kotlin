@@ -6,7 +6,7 @@ class Locator {
             var value: String? = null
             when {
                 sortOrder.lowercase().startsWith("desc") -> value = "price:desc"
-                sortOrder.lowercase().startsWith("asc") -> value = "price:asc"
+                sortOrder.lowercase().startsWith("asc")  -> value = "price:asc"
             }
             return value
         }

@@ -1,19 +1,18 @@
 package org.example.tests.ui
 
-import mu.KLogger
-import mu.KotlinLogging
+import io.qameta.allure.Description
 import org.example.core.infra.property.PropertyService
 import org.testng.Assert
 import org.testng.annotations.Test
 
 class WomenCollectionsTest : BaseTest() {
-    private val log: KLogger = KotlinLogging.logger {}
     private val sortOrder = PropertyService.getProperty().productSortOrder().toString()
     private val collectionView = PropertyService.getProperty().collectionView().toString()
 
-    @Test(description = "Women collections compering")
+    @Test(description = "Women collections verification")
+    @Description("Women collection price order verification test")
     fun womenCollectionsComperingTest() {
-        log.info { "<<<Compare women collections by price order>>>" }
+        reporter.log("<<<Compare women collections by price order>>>")
         homePageSteps
             .openHomePage()
             .openWomenPage()

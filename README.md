@@ -2,7 +2,7 @@
 
 ## Automation tests for http://automationpractice.com/index.php
 
-### Tool stack: Kotlin + Gradle + TestNG + SpringBoot + Postgresql + Docker
+### Tool stack: Kotlin + Gradle + TestNG + SpringBoot + Postgresql + Docker + Allure
 
  *********
 _UI tests execution using Intellij IDEA:_\
@@ -14,10 +14,13 @@ _Tests execution using command line:_\
 `suite` is optional and if it's null, all tests will be executed using `all-ui-tests.xml`
 **********
 _Available browsers for local run_: `chrome`, `firefox`, `edge`, `opera`
- *********
+**********
+_Building Allure report_\
+To build a report, and browse it use the following command: `gradlew allureServe`
+**********
 _Selenium Grid + Docker:_\
 `docker-compose -f src/main/resources/docker-compose.yml up`\
-   (all needed instructions in docker-compose.yml file)\
+(all needed instructions in docker-compose.yml file)\
 Available browsers: `remoteChrome`, `remoteFirefox`, `remoteEdge`
  *********
 _Static code analysis Ktlint:_\
@@ -30,4 +33,4 @@ _PostgreSQL:_\
 all properties are stored in the `configuration.properties` file except the password ;)
 **********
 _SpringBoot test:_\
-environment variable with name `dbPassword` needed, this is your database connection password 
+environment variable with name `dbPassword` needed, this is your database connection password

@@ -4,6 +4,7 @@ import com.google.common.collect.Comparators.isInOrder
 import io.qameta.allure.Step
 import mu.KLogger
 import mu.KotlinLogging
+import org.example.core.infra.allure.Reporter
 import org.example.core.infra.db.DBManager
 import org.example.core.infra.db.DBService
 import org.example.core.infra.db.IDBManager
@@ -12,6 +13,7 @@ import org.postgresql.util.PSQLException
 
 class WomenPageSteps(
     private val log: KLogger = KotlinLogging.logger {},
+    private val reporter: Reporter = Reporter.instance,
     private val womenPage: WomenPage = WomenPage(),
     private val dbManager: IDBManager = DBManager()
 ) {
@@ -20,12 +22,13 @@ class WomenPageSteps(
             return this.womenPage.products.map { it.price }
         }
 
-    @Step("Change collection table view sorting {0} and {1} view ")
+    @Step("Change collection table view with '{0}' sort and '{1}' view ")
     fun changeProductTableView(sortOrder: String, collectionView: String): WomenPageSteps {
-        log.info { "Sorting products.." }
+        log.info { "sorting products.." }
         womenPage.selectSortOrder(sortOrder)
-        log.info { "Changing product collection view.." }
+        log.info { "changing product collection view.." }
         womenPage.selectCollectionView(collectionView)
+        reporter.log("Products are sorted '$sortOrder' and view is '$collectionView'")
         return this
     }
 
@@ -35,6 +38,7 @@ class WomenPageSteps(
         womenPage.collectProductsInfo()
         log.info { "filling DB.." }
         storeDb()
+        reporter.log("Product info stored in DB")
     }
 
     private fun storeDb() {
@@ -51,15 +55,15 @@ class WomenPageSteps(
         }
     }
 
-    @Step("Verify price list in {0} order")
+    @Step("Verify price list in '{0}' order")
     fun isProductPricesInOrder(order: String): Boolean {
-        log.info { "Verifying price list order.." }
+        log.info { "verifying price list order.." }
         var isSorted = false
         when {
-            order.lowercase().startsWith("asc") -> isSorted = isInOrder(actualProductPricesList, naturalOrder())
+            order.lowercase().startsWith("asc")  -> isSorted = isInOrder(actualProductPricesList, naturalOrder())
             order.lowercase().startsWith("desc") -> isSorted = isInOrder(actualProductPricesList, reverseOrder())
         }
-        if (isSorted) log.info { "price list in $order order" }
+        if (isSorted) reporter.log("price list in $order order")
         return isSorted
     }
 }

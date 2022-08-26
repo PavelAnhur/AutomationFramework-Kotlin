@@ -79,9 +79,12 @@ buildscript {
     }
 }
 
-val allureVersion = "2.17.2"
-
 allure {
+    adapter {
+        frameworks {
+            testng
+        }
+    }
 }
 
 configurations {

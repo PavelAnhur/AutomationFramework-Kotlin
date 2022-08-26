@@ -35,4 +35,6 @@ class HomePage : BasePage() {
         }
         return WomenPage()
     }
+
+    fun homePageUrl() = homePageUrl
 }

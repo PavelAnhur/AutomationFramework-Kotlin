@@ -13,7 +13,7 @@ class WebDriverCreatorImpl(
         val browserName = browser.getBrowser()
         return when {
             browserName.startsWith(BROWSER_PREFIX_REMOTE) -> RemoteWebDriverFactory().getDriver(browserName)
-            else -> LocalWebDriverFactory().getDriver(browserName)
+            else                                          -> LocalWebDriverFactory().getDriver(browserName)
         }
     }
 }

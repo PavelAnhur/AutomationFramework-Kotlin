@@ -18,11 +18,11 @@ class LocalWebDriverFactory : IWebDriverFactory<WebDriver> {
         try {
             driver =
                 when (browserName) {
-                    Browser.CHROME.value -> getChromeDriver()
+                    Browser.CHROME.value  -> getChromeDriver()
                     Browser.FIREFOX.value -> getFirefoxDriver()
-                    Browser.EDGE.value -> getEdgeDriver()
-                    Browser.OPERA.value -> getOperaDriver()
-                    else -> throw LocalWebDriverException("can't create local web driver for $browserName browser")
+                    Browser.EDGE.value    -> getEdgeDriver()
+                    Browser.OPERA.value   -> getOperaDriver()
+                    else                  -> throw LocalWebDriverException("can't create local web driver for $browserName browser")
                 }
         } catch (e: Exception) {
             log.error(e.message)

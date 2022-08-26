@@ -23,10 +23,10 @@ class RemoteWebDriverFactory : IWebDriverFactory<RemoteWebDriver> {
         try {
             driver =
                 when (browser) {
-                    Browser.CHROME.value -> getRemoteChromeDriver(virtualUrl)
+                    Browser.CHROME.value  -> getRemoteChromeDriver(virtualUrl)
                     Browser.FIREFOX.value -> getRemoteFirefoxDriver(virtualUrl)
-                    Browser.EDGE.value -> getRemoteEdgeWebDriver(virtualUrl)
-                    else -> throw RemoteWebDriverException("can't create remote web driver for $browser browser")
+                    Browser.EDGE.value    -> getRemoteEdgeWebDriver(virtualUrl)
+                    else                  -> throw RemoteWebDriverException("can't create remote web driver for $browser browser")
                 }
         } catch (e: Exception) {
             log.error(e.message)
