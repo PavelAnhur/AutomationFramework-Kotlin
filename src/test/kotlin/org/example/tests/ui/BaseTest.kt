@@ -31,14 +31,15 @@ open class BaseTest(
 
     @AfterMethod(alwaysRun = true)
     fun afterMethod(result: ITestResult) {
-        val throwableText = Optional.ofNullable<Throwable>(result.throwable)
-            .map { throwable -> "${throwable.message}" }
-            .orElse("")
+        val throwableText =
+            Optional.ofNullable<Throwable>(result.throwable)
+                .map { throwable -> "${throwable.message}" }
+                .orElse("")
 
         val status = when (result.status) {
             ITestResult.SUCCESS -> "passed"
             ITestResult.FAILURE -> "failed: $throwableText"
-            else                -> "skipped: $throwableText"
+            else -> "skipped: $throwableText"
         }
         log.info("****************************************************************")
         log.info("Test: ${result.method.methodName} $status")

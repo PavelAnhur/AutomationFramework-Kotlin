@@ -6,14 +6,12 @@ import org.example.core.infra.webdriver.factory.LocalWebDriverFactory
 import org.example.core.infra.webdriver.factory.RemoteWebDriverFactory
 import org.openqa.selenium.WebDriver
 
-class WebDriverCreatorImpl(
-    private val browser: IBrowser
-) : IWebDriverCreator<WebDriver> {
+class WebDriverCreatorImpl(private val browser: IBrowser) : IWebDriverCreator<WebDriver> {
     override fun create(): WebDriver {
         val browserName = browser.getBrowser()
         return when {
             browserName.startsWith(BROWSER_PREFIX_REMOTE) -> RemoteWebDriverFactory().getDriver(browserName)
-            else                                          -> LocalWebDriverFactory().getDriver(browserName)
+            else -> LocalWebDriverFactory().getDriver(browserName)
         }
     }
 }

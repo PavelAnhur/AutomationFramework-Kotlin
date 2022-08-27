@@ -10,7 +10,7 @@ class RetryListener : IAnnotationTransformer {
         annotation: ITestAnnotation,
         testClass: Class<*>?,
         testConstructor: Constructor<*>?,
-        testMethod: Method,
+        testMethod: Method
     ) {
         annotation.setRetryAnalyzer(FailedTestRetry::class.java)
     }

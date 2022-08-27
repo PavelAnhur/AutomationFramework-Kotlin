@@ -16,10 +16,8 @@ import java.time.Duration
 import java.util.function.Supplier
 
 @Suppress("unused")
-open class UIElement(
-    val by: By,
-    private val description: String,
-) {
+open class UIElement(val by: By, private val description: String) {
+
     private val log = KotlinLogging.logger {}
     private val driver = WebDriverSingleton.instance
     private val jsExecutor by lazy { driver as JavascriptExecutor }

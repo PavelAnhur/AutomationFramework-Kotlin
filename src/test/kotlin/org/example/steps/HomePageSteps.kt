@@ -11,6 +11,7 @@ class HomePageSteps(
     private val reporter: Reporter = Reporter.instance,
     private val homePage: HomePage = HomePage()
 ) {
+
     @Step("Open {0} web page")
     fun openHomePage(url: String? = homePage.homePageUrl()): HomePageSteps {
         log.info { "opening 'My Store' home page.." }

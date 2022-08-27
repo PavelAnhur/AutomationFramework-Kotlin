@@ -13,15 +13,18 @@ _Tests execution using command line:_\
 `gradle test -Dbrowser=${browser} -Dsuite=${suite}`\
 `suite` is optional and if it's null, all tests will be executed using `all-ui-tests.xml`
 **********
-_Available browsers for local run_: `chrome`, `firefox`, `edge`, `opera`
+_Available browsers for local run_:\
+`chrome`, `firefox`, `edge`, `opera`
 **********
 _Building Allure report_\
-To build a report, and browse it use the following command: `gradlew allureServe`
+To build a report, and browse it use the following command:\
+`gradlew allureServe`
 **********
 _Selenium Grid + Docker:_\
 `docker-compose -f src/main/resources/docker-compose.yml up`\
 (all needed instructions in docker-compose.yml file)\
-Available browsers: `remoteChrome`, `remoteFirefox`, `remoteEdge`
+Available browsers:\
+`remoteChrome`, `remoteFirefox`, `remoteEdge`
  *********
 _Static code analysis Ktlint:_\
 checks the code styling, also helps to format the code and make it better for understanding\

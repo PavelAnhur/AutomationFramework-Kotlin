@@ -19,9 +19,7 @@ class BrowserImpl : IBrowser {
     }
 }
 
-enum class Browser(
-    val value: String,
-) {
+enum class Browser(val value: String) {
     CHROME("chrome"),
     FIREFOX("firefox"),
     OPERA("opera"),

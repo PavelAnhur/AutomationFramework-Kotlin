@@ -17,6 +17,7 @@ class WomenPageSteps(
     private val womenPage: WomenPage = WomenPage(),
     private val dbManager: IDBManager = DBManager()
 ) {
+
     val actualProductPricesList: List<Double>
         get() {
             return this.womenPage.products.map { it.price }
@@ -60,7 +61,7 @@ class WomenPageSteps(
         log.info { "verifying price list order.." }
         var isSorted = false
         when {
-            order.lowercase().startsWith("asc")  -> isSorted = isInOrder(actualProductPricesList, naturalOrder())
+            order.lowercase().startsWith("asc") -> isSorted = isInOrder(actualProductPricesList, naturalOrder())
             order.lowercase().startsWith("desc") -> isSorted = isInOrder(actualProductPricesList, reverseOrder())
         }
         if (isSorted) reporter.log("price list in $order order")

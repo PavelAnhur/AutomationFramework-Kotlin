@@ -22,9 +22,8 @@ class WomenCollectionsTest : BaseTest() {
 
         Assert.assertTrue(
             womenPageSteps.isProductPricesInOrder(sortOrder),
-            """The price list isn't in $sortOrder order
-                |Actual price list: ${womenPageSteps.actualProductPricesList}
-                """.trimMargin()
+            """The price list isn't in $sortOrder order 
+                |Actual price list: ${womenPageSteps.actualProductPricesList}""".trimMargin()
         )
     }
 }

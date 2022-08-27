@@ -3,18 +3,17 @@ package org.example.core.model
 import javax.persistence.Column
 
 open class Product private constructor(
-    @Column
-    val name: String,
-    @Column
-    val price: Double,
-    @Column
-    val description: String,
+    @Column val name: String,
+    @Column val price: Double,
+    @Column val description: String
 ) : java.io.Serializable {
+
     data class Builder(
         var name: String = "",
         var price: Double = 0.0,
-        var description: String = "",
+        var description: String = ""
     ) {
+
         fun name(name: String) = apply { this.name = name }
         fun price(price: Double) = apply { this.price = price }
         fun description(description: String) = apply { this.description = description }

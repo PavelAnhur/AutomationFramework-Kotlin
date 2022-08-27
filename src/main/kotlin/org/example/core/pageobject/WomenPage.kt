@@ -3,8 +3,8 @@ package org.example.core.pageobject
 import mu.KLogger
 import mu.KotlinLogging
 import org.example.core.model.Product
-import org.example.core.ui.element.Locator.Companion.sortLocatorAttributeValue
-import org.example.core.ui.element.Locator.Companion.viewLocatorId
+import org.example.core.ui.element.LocatorAttribute.Companion.sortLocatorAttributeValue
+import org.example.core.ui.element.LocatorAttribute.Companion.viewLocatorId
 import org.example.core.ui.element.UIElement
 import org.example.core.ui.element.UIElementList
 import org.openqa.selenium.By
@@ -24,35 +24,26 @@ class WomenPage : BasePage() {
 
     fun selectSortOrder(sortOrder: String): WomenPage {
         sortDropdown.click()
-        UIElement(
-            By.xpath("//*[@value='${sortLocatorAttributeValue(sortOrder)}']"),
-            "order from sort dropdown"
-        ).click()
+        UIElement(By.xpath("//*[@value='${sortLocatorAttributeValue(sortOrder)}']"), "sort order dropdown").click()
         loadingSpinner.waitForDisappear()
         return this
     }
 
     fun selectCollectionView(view: String): WomenPage {
-        UIElement(
-            By.id("${viewLocatorId(view)}"),
-            "product view"
-        ).click()
+        UIElement(By.id("${viewLocatorId(view)}"), "product view").click()
         return this
     }
 
     fun collectProductsInfo() {
         products = ArrayList()
         productRows.waitForDisplayed()
-        (1..productRows.size())
-            .asSequence()
-            .map {
-                Product.Builder()
-                    .name(productName(it))
-                    .price(productPrice(it))
-                    .description(productDescription(it))
-                    .build()
-            }
-            .forEach { products.add(it) }
+        (1..productRows.size()).asSequence().map {
+            Product.Builder()
+                .name(productName(it))
+                .price(productPrice(it))
+                .description(productDescription(it))
+                .build()
+        }.forEach { products.add(it) }
     }
 
     private fun productName(rowNumber: Int): String {
@@ -62,16 +53,15 @@ class WomenPage : BasePage() {
     }
 
     private fun productPrice(rowNumber: Int): Double {
-        val price = UIElement(By.xpath(String.format(productPriceXpath, rowNumber)), "product price")
-            .getText()
+        val price = UIElement(By.xpath(String.format(productPriceXpath, rowNumber)), "product price").getText()
             .filter { it.isDigit() || it == '.' }
         log.info { "product #$rowNumber price= $price" }
         return price.toDouble()
     }
 
     private fun productDescription(rowNumber: Int): String {
-        val description = UIElement(By.xpath(String.format(productDescriptionXpath, rowNumber)), "product description")
-            .getText()
+        val description =
+            UIElement(By.xpath(String.format(productDescriptionXpath, rowNumber)), "product description").getText()
         log.info { "product #$rowNumber description= $description" }
         return description
     }

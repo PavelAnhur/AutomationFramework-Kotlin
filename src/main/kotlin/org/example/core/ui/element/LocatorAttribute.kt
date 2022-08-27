@@ -1,12 +1,12 @@
 package org.example.core.ui.element
 
-class Locator {
+class LocatorAttribute {
     companion object {
         fun sortLocatorAttributeValue(sortOrder: String): String? {
             var value: String? = null
             when {
                 sortOrder.lowercase().startsWith("desc") -> value = "price:desc"
-                sortOrder.lowercase().startsWith("asc")  -> value = "price:asc"
+                sortOrder.lowercase().startsWith("asc") -> value = "price:asc"
             }
             return value
         }

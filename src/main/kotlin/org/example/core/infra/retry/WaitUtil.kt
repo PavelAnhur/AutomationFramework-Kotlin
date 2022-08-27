@@ -14,7 +14,7 @@ class WaitUtil {
         fun waitForTrue(
             supplier: Supplier<Boolean>,
             errorMessage: String,
-            numberOfAttempts: Int = NUMBER_OF_ATTEMPTS,
+            numberOfAttempts: Int = NUMBER_OF_ATTEMPTS
         ) {
             var counter = 0
             while (counter < numberOfAttempts && !supplier.get()) {
@@ -27,16 +27,15 @@ class WaitUtil {
             }
         }
 
-        fun <T : Number> sleep(timeout: T) =
-            try {
-                if (timeout is Long) {
-                    KotlinLogging.logger {}.info { "sleeping $timeout seconds.." }
-                    TimeUnit.SECONDS.sleep(timeout)
-                } else {
-                    TimeUnit.MILLISECONDS.sleep(timeout.toLong())
-                }
-            } catch (e: InterruptedException) {
-                log.warn { e.stackTrace }
+        fun <T : Number> sleep(timeout: T) = try {
+            if (timeout is Long) {
+                KotlinLogging.logger {}.info { "sleeping $timeout seconds.." }
+                TimeUnit.SECONDS.sleep(timeout)
+            } else {
+                TimeUnit.MILLISECONDS.sleep(timeout.toLong())
             }
+        } catch (e: InterruptedException) {
+            log.warn { e.stackTrace }
+        }
     }
 }

@@ -9,9 +9,7 @@ interface IDBService {
     fun insertIfNotExists(product: Product)
 }
 
-class DBService(
-    private val connection: Connection,
-) : IDBService {
+class DBService(private val connection: Connection) : IDBService {
 
     override fun insertIfNotExists(product: Product) {
         val tableName = PropertyService.getProperty().dbTableName() ?: throw DBServiceException("table name not found")

@@ -21,13 +21,12 @@ class RemoteWebDriverFactory : IWebDriverFactory<RemoteWebDriver> {
         var driver: RemoteWebDriver? = null
         val browser = browserName.removePrefix(BROWSER_PREFIX_REMOTE).lowercase()
         try {
-            driver =
-                when (browser) {
-                    Browser.CHROME.value  -> getRemoteChromeDriver(virtualUrl)
-                    Browser.FIREFOX.value -> getRemoteFirefoxDriver(virtualUrl)
-                    Browser.EDGE.value    -> getRemoteEdgeWebDriver(virtualUrl)
-                    else                  -> throw RemoteWebDriverException("can't create remote web driver for $browser browser")
-                }
+            driver = when (browser) {
+                Browser.CHROME.value -> getRemoteChromeDriver(virtualUrl)
+                Browser.FIREFOX.value -> getRemoteFirefoxDriver(virtualUrl)
+                Browser.EDGE.value -> getRemoteEdgeWebDriver(virtualUrl)
+                else -> throw RemoteWebDriverException("can't create remote web driver for $browser browser")
+            }
         } catch (e: Exception) {
             log.error(e.message)
         }
