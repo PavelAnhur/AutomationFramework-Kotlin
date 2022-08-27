@@ -10,7 +10,7 @@ import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
 class FirefoxLocalDriver : BrowserDriver<WebDriver> {
-    override fun setUp(): WebDriver {
+    override fun getInstance(): WebDriver {
         WebDriverManager.firefoxdriver().setup()
         val profile = FirefoxProfile()
         profile.setPreference("intl.accept_languages", "en")
@@ -24,7 +24,7 @@ class FirefoxLocalDriver : BrowserDriver<WebDriver> {
 }
 
 class FirefoxRemoteDriver(private val virtualUrl: String) : BrowserDriver<RemoteWebDriver> {
-    override fun setUp(): RemoteWebDriver {
+    override fun getInstance(): RemoteWebDriver {
         val firefoxOptions = FirefoxOptions()
         firefoxOptions.setAcceptInsecureCerts(true)
         firefoxOptions.addArguments("--disable-notifications")

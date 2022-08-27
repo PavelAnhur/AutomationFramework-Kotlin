@@ -12,7 +12,7 @@ import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
 class ChromeLocalDriver : BrowserDriver<WebDriver> {
-    override fun setUp(): WebDriver {
+    override fun getInstance(): WebDriver {
         WebDriverManager.chromedriver().setup()
         log.info { "chrome web driver ready" }
         return ChromeDriver()
@@ -20,7 +20,7 @@ class ChromeLocalDriver : BrowserDriver<WebDriver> {
 }
 
 class ChromeRemoteDriver(private val virtualUrl: String) : BrowserDriver<RemoteWebDriver> {
-    override fun setUp(): RemoteWebDriver {
+    override fun getInstance(): RemoteWebDriver {
         val cap = DesiredCapabilities()
         cap.platform = Platform.ANY
         cap.setCapability(CapabilityType.UNHANDLED_PROMPT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE)

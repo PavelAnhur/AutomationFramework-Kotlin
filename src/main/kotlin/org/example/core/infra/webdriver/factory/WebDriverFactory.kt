@@ -29,9 +29,9 @@ class WebDriverFactory : IWebDriverFactory<WebDriver> {
         var driver: RemoteWebDriver? = null
         try {
             driver = when (browser) {
-                Browser.CHROME.value -> ChromeRemoteDriver(virtualUrl).setUp()
-                Browser.FIREFOX.value -> FirefoxRemoteDriver(virtualUrl).setUp()
-                Browser.EDGE.value -> EdgeRemoteDriver(virtualUrl).setUp()
+                Browser.CHROME.value -> ChromeRemoteDriver(virtualUrl).getInstance()
+                Browser.FIREFOX.value -> FirefoxRemoteDriver(virtualUrl).getInstance()
+                Browser.EDGE.value -> EdgeRemoteDriver(virtualUrl).getInstance()
                 else -> throw RemoteWebDriverException("can't create remote web driver for $browser browser")
             }
         } catch (e: Exception) {
@@ -44,10 +44,10 @@ class WebDriverFactory : IWebDriverFactory<WebDriver> {
         var driver: WebDriver? = null
         try {
             driver = when (browserName) {
-                Browser.CHROME.value -> ChromeLocalDriver().setUp()
-                Browser.FIREFOX.value -> FirefoxLocalDriver().setUp()
-                Browser.EDGE.value -> EdgeLocalDriver().setUp()
-                Browser.OPERA.value -> OperaLocalDriver().setUp()
+                Browser.CHROME.value -> ChromeLocalDriver().getInstance()
+                Browser.FIREFOX.value -> FirefoxLocalDriver().getInstance()
+                Browser.EDGE.value -> EdgeLocalDriver().getInstance()
+                Browser.OPERA.value -> OperaLocalDriver().getInstance()
                 else -> throw LocalWebDriverException("can't create local web driver for $browserName browser")
             }
         } catch (e: Exception) {

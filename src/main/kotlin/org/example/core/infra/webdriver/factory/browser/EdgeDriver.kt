@@ -8,7 +8,7 @@ import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
 class EdgeLocalDriver : BrowserDriver<WebDriver> {
-    override fun setUp(): WebDriver {
+    override fun getInstance(): WebDriver {
         WebDriverManager.edgedriver().setup()
         log.info { "edge web driver ready" }
         return EdgeDriver()
@@ -16,7 +16,7 @@ class EdgeLocalDriver : BrowserDriver<WebDriver> {
 }
 
 class EdgeRemoteDriver(private val virtualUrl: String) : BrowserDriver<RemoteWebDriver> {
-    override fun setUp(): RemoteWebDriver {
+    override fun getInstance(): RemoteWebDriver {
         val options = EdgeOptions()
         options.setAcceptInsecureCerts(true)
         log.info { "remote edge driver ready" }

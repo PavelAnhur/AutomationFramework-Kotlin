@@ -7,7 +7,10 @@ import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
 import java.time.Duration
 
-class WebDriverConfigImpl(private val driverCreator: IWebDriverCreator<WebDriver>) : IWebDriverConfig<WebDriver> {
+class WebDriverConfigImpl(
+    private val driverCreator: IWebDriverCreator<WebDriver>
+) : IWebDriverConfig<WebDriver> {
+
     override fun config(): WebDriver {
         val driver = driverCreator.create()
         driver.manage().window().size = Dimension(WINDOW_WIDTH, WINDOW_HEIGHT)

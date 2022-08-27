@@ -4,11 +4,15 @@ import io.qameta.allure.Attachment
 import mu.KotlinLogging
 import org.example.core.infra.exceptions.TestListenerException
 import org.example.core.infra.webdriver.WebDriverSingleton
-import org.openqa.selenium.OutputType
-import org.openqa.selenium.TakesScreenshot
 import org.openqa.selenium.WebDriver
 import org.testng.ITestListener
 import org.testng.ITestResult
+import ru.yandex.qatools.ashot.AShot
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies
+import java.io.ByteArrayOutputStream
+import javax.imageio.ImageIO
+
+private const val SCROLL_TIMEOUT = 100
 
 class TestListener : ITestListener {
     private val log = KotlinLogging.logger {}
@@ -22,7 +26,13 @@ class TestListener : ITestListener {
 
     @Attachment(value = "Page screenshot", type = "image/png")
     fun saveScreenshotPNG(driver: WebDriver): ByteArray? {
-        return (driver as TakesScreenshot).getScreenshotAs(OutputType.BYTES)
+        return AShot().shootingStrategy(ShootingStrategies.viewportPasting(SCROLL_TIMEOUT))
+            .takeScreenshot(driver)
+            .image.run {
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                ImageIO.write(this, "png", byteArrayOutputStream)
+                byteArrayOutputStream.toByteArray()
+            }
     }
 
     private fun getTestMethodName(iTestResult: ITestResult?): String {

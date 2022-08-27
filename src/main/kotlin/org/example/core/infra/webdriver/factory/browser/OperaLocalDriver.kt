@@ -5,7 +5,7 @@ import io.github.bonigarcia.wdm.managers.OperaDriverManager
 import org.openqa.selenium.WebDriver
 
 class OperaLocalDriver : BrowserDriver<WebDriver> {
-    override fun setUp(): WebDriver {
+    override fun getInstance(): WebDriver {
         WebDriverManager.operadriver().setup()
         log.info { "opera web driver ready" }
         return OperaDriverManager.operadriver().create()

@@ -9,10 +9,10 @@ class WomenCollectionsTest : BaseTest() {
     private val sortOrder = PropertyService.getProperty().productSortOrder().toString()
     private val collectionView = PropertyService.getProperty().collectionView().toString()
 
-    @Test(description = "Women collections verification")
+    @Test(description = "Women collection verification")
     @Description("Women collection price order verification test")
     fun womenCollectionsComperingTest() {
-        reporter.log("<<<Compare women collections by price order>>>")
+        reporter.log("<<<Compare women collection by price order>>>")
         homePageSteps
             .openHomePage()
             .openWomenPage()

@@ -8,5 +8,5 @@ interface BrowserDriver<out T : WebDriver> {
     val log: KLogger
         get() = KotlinLogging.logger {}
 
-    fun setUp(): T
+    fun getInstance(): T
 }
