@@ -11,7 +11,7 @@ class HomePageLogoTest : BaseTest() {
     @Test(description = "Validate logo title")
     @Description("'My Store' home page title verification test")
     fun homePageLogoTest() {
-        reporter.log("<<<Validate 'My Store' home page title>>>")
+        reporter.info("<<<Validate 'My Store' home page title>>>")
         homePageSteps.openHomePage()
 
         Assert.assertTrue(homePageSteps.isLogoTitle(logoTitle), "Invalid logo title")

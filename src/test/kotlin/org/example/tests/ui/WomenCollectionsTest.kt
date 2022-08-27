@@ -12,7 +12,7 @@ class WomenCollectionsTest : BaseTest() {
     @Test(description = "Women collection verification")
     @Description("Women collection price order verification test")
     fun womenCollectionsComperingTest() {
-        reporter.log("<<<Compare women collection by price order>>>")
+        reporter.info("<<<Compare women collection by price order>>>")
         homePageSteps
             .openHomePage()
             .openWomenPage()

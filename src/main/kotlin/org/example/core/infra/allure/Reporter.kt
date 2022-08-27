@@ -18,7 +18,15 @@ object Reporter {
     private var reporter: Reporter? = null
     private val log: KLogger = KotlinLogging.logger {}
 
-    fun log(message: String?, status: Status? = Status.PASSED) {
+    fun info(message: String?, status: Status = Status.PASSED) {
+        log(message, status)
+    }
+
+    fun warn(message: String?, status: Status = Status.BROKEN) {
+        log(message, status)
+    }
+
+    private fun log(message: String?, status: Status?) {
         log.info(message)
         val allureLifecycle = Allure.getLifecycle()
         val stepResult = StepResult()

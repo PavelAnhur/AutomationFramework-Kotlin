@@ -29,7 +29,7 @@ class WomenPageSteps(
         womenPage.selectSortOrder(sortOrder)
         log.info { "changing product collection view.." }
         womenPage.selectCollectionView(collectionView)
-        reporter.log("Products are sorted '$sortOrder' and view is '$collectionView'")
+        reporter.info("Products are sorted '$sortOrder' and view is '$collectionView'")
         return this
     }
 
@@ -39,7 +39,7 @@ class WomenPageSteps(
         womenPage.collectProductsInfo()
         log.info { "filling DB.." }
         storeDb()
-        reporter.log("Product info stored in DB")
+        reporter.info("Product info stored in DB")
     }
 
     private fun storeDb() {
@@ -64,7 +64,8 @@ class WomenPageSteps(
             order.lowercase().startsWith("asc") -> isSorted = isInOrder(actualProductPricesList, naturalOrder())
             order.lowercase().startsWith("desc") -> isSorted = isInOrder(actualProductPricesList, reverseOrder())
         }
-        if (isSorted) reporter.log("price list in $order order")
+        if (isSorted) reporter.info("price list is in $order order")
+        else reporter.warn("price list isn't in $order order")
         return isSorted
     }
 }

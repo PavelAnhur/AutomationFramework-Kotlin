@@ -16,7 +16,7 @@ class HomePageSteps(
     fun openHomePage(url: String? = homePage.homePageUrl()): HomePageSteps {
         log.info { "opening 'My Store' home page.." }
         homePage.openHomePage()
-        reporter.log("$url page is opened")
+        reporter.info("$url page is opened")
         return this
     }
 
@@ -24,7 +24,7 @@ class HomePageSteps(
     fun openWomenPage() {
         log.info { "click on 'Women' title" }
         homePage.clickWomenTitle()
-        reporter.log("Women Collections page is opened")
+        reporter.info("Women Collections page is opened")
     }
 
     @Step("Verify home page logo title")
