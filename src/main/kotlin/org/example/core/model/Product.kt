@@ -1,12 +1,13 @@
 package org.example.core.model
 
+import java.io.Serializable
 import javax.persistence.Column
 
 open class Product private constructor(
     @Column val name: String,
     @Column val price: Double,
     @Column val description: String
-) : java.io.Serializable {
+) : Serializable {
 
     data class Builder(
         var name: String = "",
