@@ -14,10 +14,8 @@ import java.net.URL
 class ChromeLocalDriver : BrowserDriver<WebDriver> {
     override fun getInstance(): WebDriver {
         WebDriverManager.chromedriver().setup()
-        val opt = ChromeOptions()
-        opt.addArguments("headless", "no-sandbox")
         log.info { "chrome web driver ready" }
-        return ChromeDriver(opt)
+        return ChromeDriver()
     }
 }
 
