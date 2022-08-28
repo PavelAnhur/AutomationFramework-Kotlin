@@ -3,7 +3,6 @@ package org.example.tests.ui
 import mu.KLogger
 import mu.KotlinLogging
 import org.example.core.infra.allure.Reporter
-import org.example.core.infra.reflection.StepsManager
 import org.example.core.infra.webdriver.WebDriverSingleton
 import org.example.steps.HomePageSteps
 import org.example.steps.WomenPageSteps
@@ -15,8 +14,8 @@ import org.testng.annotations.BeforeMethod
 import java.util.Optional
 
 open class BaseTest(
-    protected val homePageSteps: HomePageSteps = StepsManager().getStepClass(HomePageSteps::class.java)!!,
-    protected val womenPageSteps: WomenPageSteps = StepsManager().getStepClass(WomenPageSteps::class.java)!!,
+    protected val homePageSteps: HomePageSteps = HomePageSteps(),
+    protected val womenPageSteps: WomenPageSteps = WomenPageSteps(),
     protected val reporter: Reporter = Reporter.instance,
     private val driver: WebDriver = WebDriverSingleton.instance,
     private val log: KLogger = KotlinLogging.logger {}
