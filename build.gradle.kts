@@ -45,7 +45,7 @@ dependencies {
 }
 
 tasks.test {
-    val browser = System.getProperty("browser")
+    val browser = System.getProperty("browser", "chrome")
     systemProperties = mapOf("browser" to browser)
     val suite = System.getProperty("suite", "all-ui-tests.xml")
     useTestNG {
