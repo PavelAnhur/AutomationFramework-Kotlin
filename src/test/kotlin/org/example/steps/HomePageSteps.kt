@@ -32,4 +32,10 @@ class HomePageSteps(
         log.info { "Verifying logo title.." }
         return logo == homePage.getLogoTitle()
     }
+
+    @Step("Input search value '{0}' to the field")
+    fun searchForValue(input: String) {
+        log.info { "searching for the value '$input'" }
+        homePage.inputSearch(input)
+    }
 }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Collection Test">
+<suite name="Search Test">
     <listeners>
         <listener class-name="org.example.core.infra.retry.RetryListener"/>
+        <listener class-name="org.example.core.infra.listeners.TestListener"/>
     </listeners>
-    <test name="Women Collections Test">
+    <test name="Search Field test">
         <classes>
-            <class name="org.example.tests.ui.WomenCollectionsTest"/>
+            <class name="org.example.tests.ui.SearchTest"/>
         </classes>
     </test>
 </suite>

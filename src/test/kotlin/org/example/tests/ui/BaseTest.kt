@@ -5,21 +5,29 @@ import mu.KotlinLogging
 import org.example.core.infra.allure.Reporter
 import org.example.core.infra.webdriver.WebDriverSingleton
 import org.example.steps.HomePageSteps
+import org.example.steps.SearchPageSteps
 import org.example.steps.WomenPageSteps
 import org.openqa.selenium.WebDriver
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.AfterTest
 import org.testng.annotations.BeforeMethod
+import org.testng.annotations.BeforeTest
 import java.util.Optional
 
 open class BaseTest(
     protected val homePageSteps: HomePageSteps = HomePageSteps(),
+    protected val searchPageSteps: SearchPageSteps = SearchPageSteps(),
     protected val womenPageSteps: WomenPageSteps = WomenPageSteps(),
     protected val reporter: Reporter = Reporter.instance,
-    private val driver: WebDriver = WebDriverSingleton.instance,
     private val log: KLogger = KotlinLogging.logger {}
 ) {
+    private lateinit var driver: WebDriver
+
+    @BeforeTest(alwaysRun = true)
+    fun beforeTest() {
+        driver = WebDriverSingleton.instance
+    }
 
     @BeforeMethod(alwaysRun = true)
     fun beforeMethod(result: ITestResult) {

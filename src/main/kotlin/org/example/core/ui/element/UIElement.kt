@@ -7,6 +7,7 @@ import org.example.core.infra.webdriver.WebDriverSingleton
 import org.example.core.infra.webdriver.config.WebDriverConfigImpl.Companion.EXPLICIT_TIMEOUT_SEC
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
+import org.openqa.selenium.Keys
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.ExpectedCondition
 import org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable
@@ -80,6 +81,14 @@ open class UIElement(val by: By, private val description: String) {
             supplier = isElementDisappeared,
             errorMessage = "element $this is visible after $NUMBER_OF_ATTEMPTS retries"
         )
+    }
+
+    fun inputValue(input: String) {
+        scrollToElement()
+        waitForClickable()
+        log.info { "sending '$input' to the element $this" }
+        webElement.sendKeys(input)
+        webElement.sendKeys(Keys.ENTER)
     }
 
     private fun scrollToElement() {

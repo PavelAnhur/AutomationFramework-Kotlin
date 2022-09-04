@@ -9,6 +9,7 @@ class HomePage : BasePage() {
     private val log: KLogger = KotlinLogging.logger {}
     private val logo = UIElement(By.xpath("//*[@id='header_logo']/a"), "homepage logo")
     private val womenTitle = UIElement(By.xpath("//a[@title='Women']"), "'Women' title")
+    private val searchField = UIElement(By.id("search_query_top"), "search field")
 
     fun openHomePage(): HomePage {
         driver.get(homePageUrl)
@@ -37,4 +38,8 @@ class HomePage : BasePage() {
     }
 
     fun homePageUrl() = homePageUrl
+
+    fun inputSearch(input: String) {
+        searchField.inputValue(input)
+    }
 }
