@@ -13,13 +13,12 @@ object WebDriverSingleton {
         KotlinLogging.logger {}.info { "web driver initialization.." }
     }
 
-    val instance =
-        ThreadLocal<WebDriver>().getOrSet {
-            WebDriverConfigImpl(
-                WebDriverCreatorImpl(
-                    BrowserImpl(),
-                    WebDriverFactory()
-                )
-            ).config()
-        }
+    val instance = ThreadLocal<WebDriver>().getOrSet {
+        WebDriverConfigImpl(
+            WebDriverCreatorImpl(
+                BrowserImpl(),
+                WebDriverFactory()
+            )
+        ).config()
+    }
 }

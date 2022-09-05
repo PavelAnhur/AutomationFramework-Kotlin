@@ -4,9 +4,9 @@ import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 
-class SearchTest : BaseTest() {
+open class SearchTest : BaseTest() {
 
-    @Test(dataProvider = "searchTestData", dataProviderClass = SearchTest::class, description = "Validate search field")
+    @Test(dataProvider = "searchTestData", description = "Validate search field")
     fun searchTest(searchInput: String) {
         reporter.info("<<<Search field validation>>>")
         homePageSteps
@@ -26,6 +26,6 @@ class SearchTest : BaseTest() {
     @DataProvider
     fun searchTestData(): Iterator<String> {
         val data = listOf("t-shirt", "dress", "blouse")
-        return data.iterator()
+        return data.listIterator()
     }
 }

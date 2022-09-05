@@ -8,6 +8,7 @@ import org.example.steps.HomePageSteps
 import org.example.steps.SearchPageSteps
 import org.example.steps.WomenPageSteps
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.support.ThreadGuard
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.AfterTest
@@ -26,7 +27,7 @@ open class BaseTest(
 
     @BeforeTest(alwaysRun = true)
     fun beforeTest() {
-        driver = WebDriverSingleton.instance
+        driver = ThreadGuard.protect(WebDriverSingleton.instance)
     }
 
     @BeforeMethod(alwaysRun = true)

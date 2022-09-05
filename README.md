@@ -21,7 +21,7 @@ To build a report, and browse it use the following command:\
 `gradlew allureServe`
 **********
 _Selenium Grid + Docker:_\
-`docker-compose -f src/main/resources/docker-compose.yml up`\
+`docker-compose -f docker-compose.yml up`\
 (all needed instructions in docker-compose.yml file)\
 Available browsers:\
 `remoteChrome`, `remoteFirefox`, `remoteEdge`
