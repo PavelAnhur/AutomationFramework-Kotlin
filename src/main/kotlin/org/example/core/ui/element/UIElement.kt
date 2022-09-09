@@ -8,6 +8,7 @@ import org.example.core.infra.webdriver.config.WebDriverConfigImpl.Companion.EXP
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.Keys
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.ExpectedCondition
 import org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable
@@ -20,13 +21,11 @@ import java.util.function.Supplier
 open class UIElement(val by: By, private val description: String) {
 
     private val log = KotlinLogging.logger {}
-    private val driver = WebDriverSingleton.instance
+    private val driver: WebDriver = WebDriverSingleton.instance
     private val jsExecutor by lazy { driver as JavascriptExecutor }
     private val highlighter by lazy { ElementHighlighterImpl(this) }
     internal val webElement: WebElement
         get() = driver.findElement(by)
-
-    constructor(by: By) : this(by, by.toString())
 
     override fun toString(): String {
         return "locator=$by"
@@ -39,7 +38,7 @@ open class UIElement(val by: By, private val description: String) {
 
     fun getAttribute(attribute: String): String? {
         log.info("getting attribute of the element: $this")
-        highlighter.highlightAndUnhighlight()
+        highlighter.highlightAndUnhighlight(driver)
         return webElement.getAttribute(attribute)
     }
 
@@ -47,7 +46,7 @@ open class UIElement(val by: By, private val description: String) {
         try {
             scrollToElement()
             waitForClickable()
-            highlighter.highlightAndUnhighlight()
+            highlighter.highlightAndUnhighlight(driver)
             log.info { "clicking on the element: $this ${elementCoords()}" }
             webElement.click()
         } catch (e: Exception) {
@@ -61,7 +60,7 @@ open class UIElement(val by: By, private val description: String) {
     fun getText(): String {
         scrollToElement()
         log.info { "getting text of the element: $this" }
-        highlighter.highlightAndUnhighlight()
+        highlighter.highlightAndUnhighlight(driver)
         return webElement.text ?: "element $this doesn't contain test"
     }
 

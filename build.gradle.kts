@@ -20,11 +20,11 @@ repositories {
 
 dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.4.0")
-    implementation("io.github.bonigarcia:webdrivermanager:5.2.3")
+    implementation("io.github.bonigarcia:webdrivermanager:5.3.0")
     implementation("org.aeonbits.owner:owner:1.0.12")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("org.testng:testng:7.6.1")
-    implementation("org.postgresql:postgresql:42.4.2")
+    implementation("org.postgresql:postgresql:42.5.0")
     implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.3")
     implementation("org.springframework.boot:spring-boot-starter-mustache:2.7.3")
@@ -33,7 +33,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
     implementation("org.springframework:spring-context:5.3.22")
     runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.3")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20-Beta")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20-Beta")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.7.20-Beta")

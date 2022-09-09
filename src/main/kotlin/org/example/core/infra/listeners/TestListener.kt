@@ -7,13 +7,14 @@ import org.example.core.infra.exceptions.TestListenerException
 import org.example.core.infra.screenshot.IScreenshotMaker
 import org.example.core.infra.screenshot.ScreenshotMaker
 import org.example.core.infra.webdriver.WebDriverSingleton
+import org.openqa.selenium.WebDriver
 import org.testng.ITestContext
 import org.testng.ITestListener
 import org.testng.ITestResult
 
 class TestListener : ITestListener {
+    private val driver: WebDriver = WebDriverSingleton.instance
     private val log = KotlinLogging.logger {}
-    private val driver = WebDriverSingleton.instance
     private val reporter = Reporter.instance
 
     override fun onTestFailure(result: ITestResult?) {

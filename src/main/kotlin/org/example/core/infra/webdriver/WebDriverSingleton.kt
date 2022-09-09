@@ -6,19 +6,22 @@ import org.example.core.infra.webdriver.config.WebDriverConfigImpl
 import org.example.core.infra.webdriver.creator.WebDriverCreatorImpl
 import org.example.core.infra.webdriver.factory.WebDriverFactory
 import org.openqa.selenium.WebDriver
-import kotlin.concurrent.getOrSet
 
 object WebDriverSingleton {
-    init {
-        KotlinLogging.logger {}.info { "web driver initialization.." }
-    }
-
-    val instance = ThreadLocal<WebDriver>().getOrSet {
-        WebDriverConfigImpl(
-            WebDriverCreatorImpl(
-                BrowserImpl(),
-                WebDriverFactory()
-            )
-        ).config()
-    }
+    private val INSTANCE = ThreadLocal<WebDriver>()
+    val instance: WebDriver
+        get() {
+            if (null == INSTANCE.get()) {
+                KotlinLogging.logger {}.info { "web driver initialization.." }
+                INSTANCE.set(
+                    WebDriverConfigImpl(
+                        WebDriverCreatorImpl(
+                            BrowserImpl(),
+                            WebDriverFactory()
+                        )
+                    ).config()
+                )
+            }
+            return INSTANCE.get()
+        }
 }

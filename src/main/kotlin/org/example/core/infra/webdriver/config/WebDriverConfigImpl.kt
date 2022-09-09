@@ -1,7 +1,6 @@
 package org.example.core.infra.webdriver.config
 
-import org.example.core.infra.browser.BrowserImpl.Companion.WINDOW_HEIGHT
-import org.example.core.infra.browser.BrowserImpl.Companion.WINDOW_WIDTH
+import org.example.core.infra.browser.BrowserImpl
 import org.example.core.infra.webdriver.creator.IWebDriverCreator
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.WebDriver
@@ -13,8 +12,8 @@ class WebDriverConfigImpl(
 
     override fun config(): WebDriver {
         val driver = driverCreator.create()
-        driver.manage().window().size = Dimension(WINDOW_WIDTH, WINDOW_HEIGHT)
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_TIMEOUT_SEC))
+        driver.manage().window().size = Dimension(BrowserImpl.WINDOW_WIDTH, BrowserImpl.WINDOW_HEIGHT)
         return driver
     }
 
