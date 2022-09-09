@@ -7,7 +7,7 @@ import org.testng.ITestResult
 
 class FailedTestRetry : IRetryAnalyzer {
     companion object {
-        private const val MAX_RETRY_COUNT = 2
+        private const val MAX_RETRY_COUNT = 1
     }
 
     private var retryCount = 0

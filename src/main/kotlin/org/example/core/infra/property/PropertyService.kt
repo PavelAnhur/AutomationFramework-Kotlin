@@ -34,9 +34,6 @@ interface Configuration : Config {
 
     @Config.Key("collection.view")
     fun collectionView(): String?
-
-    @Config.Key("product.sort.order")
-    fun productSortOrder(): String?
 }
 
 class PropertyService {
