@@ -2,24 +2,18 @@ package org.example.core.infra.db
 
 import mu.KotlinLogging
 import org.example.core.infra.exceptions.DBManagerException
-import org.example.core.infra.file.FileReader
-import org.example.core.infra.property.PropertyService
 import java.sql.Connection
 import java.sql.DriverManager
 
 interface IDBManager {
-    fun connectToDb(): Connection
+    fun connectToDb(jdbcUrl: String, dbUser: String, dbPassword: String): Connection
     fun closeDb(connection: Connection)
 }
 
 class DBManager : IDBManager {
     private val log = KotlinLogging.logger {}
-    private val jdbcUrl = PropertyService.getProperty().dbUrl()
-    private val dbUser = PropertyService.getProperty().dbUser()
-    private val dbPasswordPath = PropertyService.getProperty().dbPasswordPath()
-    private val dbPassword = dbPasswordPath?.let { FileReader.readLineFromFile(it) }
 
-    override fun connectToDb(): Connection {
+    override fun connectToDb(jdbcUrl: String, dbUser: String, dbPassword: String): Connection {
         val connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)
         return if (connection.isValid(0)) {
             log.info { "connection is established" }

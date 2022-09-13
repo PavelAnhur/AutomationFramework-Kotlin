@@ -92,7 +92,7 @@ open class UIElement(val by: By, private val description: String) {
 
     private fun scrollToElement() {
         log.info { "scrolling to the element: $this" }
-        jsExecutor.executeScript("arguments[0].scrollIntoView(true);", webElement)
+        jsExecutor.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", webElement)
     }
 
     private fun waitForClickable(timeout: Long = EXPLICIT_TIMEOUT_SEC) {

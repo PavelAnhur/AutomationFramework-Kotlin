@@ -8,7 +8,10 @@ interface InsertDBQuery {
     fun insertInto(tableName: String)
 }
 
-class DBQuery(private val connection: Connection, private val product: Product) : InsertDBQuery {
+class DBQuery(
+    private val connection: Connection,
+    private val product: Product
+) : InsertDBQuery {
 
     override fun insertInto(tableName: String) {
         KotlinLogging.logger {}.info {

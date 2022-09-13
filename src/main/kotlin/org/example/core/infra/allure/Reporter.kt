@@ -3,7 +3,6 @@ package org.example.core.infra.allure
 import io.qameta.allure.Allure
 import io.qameta.allure.model.Status
 import io.qameta.allure.model.StepResult
-import mu.KLogger
 import mu.KotlinLogging
 import java.util.UUID
 
@@ -16,7 +15,6 @@ object Reporter {
             return reporter as Reporter
         }
     private var reporter: Reporter? = null
-    private val log: KLogger = KotlinLogging.logger {}
 
     fun info(message: String?, status: Status = Status.PASSED) {
         log(message, status)
@@ -27,7 +25,7 @@ object Reporter {
     }
 
     private fun log(message: String?, status: Status?) {
-        log.info(message)
+        KotlinLogging.logger {}.info(message)
         val allureLifecycle = Allure.getLifecycle()
         val stepResult = StepResult()
         stepResult.name = message
