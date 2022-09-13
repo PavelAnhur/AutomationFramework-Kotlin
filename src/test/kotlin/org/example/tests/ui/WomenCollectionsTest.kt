@@ -13,7 +13,7 @@ class WomenCollectionsTest : BaseTest() {
 
     @Test(dataProvider = "womenCollectionTestData", description = "Women collection verification")
     @Description("Women collection price order verification test")
-    fun compereWomenCollectionTest(sortOrder: String) {
+    fun compareWomenCollectionTest(sortOrder: String) {
         reporter.info("<<<Compare women collection by price order>>>")
         homePageSteps = HomePageSteps()
             .also {

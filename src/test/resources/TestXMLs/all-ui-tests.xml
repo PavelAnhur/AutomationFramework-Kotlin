@@ -19,7 +19,7 @@
             </class>
             <class name="org.example.tests.ui.WomenCollectionsTest">
                 <methods>
-                    <include name="compereWomenCollectionTest"/>
+                    <include name="compareWomenCollectionTest"/>
                 </methods>
             </class>
         </classes>
