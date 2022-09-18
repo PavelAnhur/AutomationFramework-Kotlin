@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Search Test">
     <listeners>
-        <listener class-name="org.example.core.infra.retry.RetryListener"/>
+        <listener class-name="org.example.core.infra.listeners.RetryListener"/>
         <listener class-name="org.example.core.infra.listeners.TestListener"/>
     </listeners>
     <test name="Search Field test">
