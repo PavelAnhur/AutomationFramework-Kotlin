@@ -1,9 +1,12 @@
 package org.example.tests.ui
 
 import io.qameta.allure.Description
+import org.example.core.infra.db.DBManager
 import org.example.core.infra.property.PropertyService
-import org.example.steps.HomePageSteps
-import org.example.steps.WomenPageSteps
+import org.example.core.pageobject.store.HomePage
+import org.example.core.pageobject.store.WomenPage
+import org.example.steps.store.HomePageSteps
+import org.example.steps.store.WomenPageSteps
 import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
@@ -15,13 +18,13 @@ class WomenCollectionsTest : BaseTest() {
     @Description("Women collection price order verification test")
     fun compareWomenCollectionTest(sortOrder: String) {
         reporter.info("<<<Compare women collection by price order>>>")
-        homePageSteps = HomePageSteps()
+        homePageSteps = HomePageSteps(HomePage())
             .also {
                 it.openHomePage()
                     .openWomenPage()
             }
 
-        womenPageSteps = WomenPageSteps()
+        womenPageSteps = WomenPageSteps(WomenPage(), DBManager())
             .also {
                 it.changeProductTableView(sortOrder, collectionView)
                     .storeProductInfoInDB()

@@ -34,6 +34,9 @@ interface Configuration : Config {
 
     @Config.Key("collection.view")
     fun collectionView(): String?
+
+    @Config.Key("10minutes.mail.url")
+    fun tenMinutesMailUrl(): String
 }
 
 class PropertyService {

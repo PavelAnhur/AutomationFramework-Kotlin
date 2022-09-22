@@ -1,5 +1,6 @@
-package org.example.core.pageobject
+package org.example.core.pageobject.store
 
+import org.example.core.pageobject.BasePage
 import org.example.core.ui.element.UIElement
 import org.example.core.ui.element.UIElementList
 import org.openqa.selenium.By

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="All UI Test Suite">
+    <listeners>
+        <listener class-name="org.example.core.infra.listeners.TestListener"/>
+        <!--        <listener class-name="org.example.core.infra.listeners.RetryListener"/>-->
+    </listeners>
+    <test name="Create Account Test">
+        <classes>
+            <class name="org.example.tests.ui.CreateAccountTest">
+                <methods>
+                    <include name="createAccountTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

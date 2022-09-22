@@ -1,7 +1,9 @@
 package org.example.tests.ui
 
-import org.example.steps.HomePageSteps
-import org.example.steps.SearchPageSteps
+import org.example.core.pageobject.store.HomePage
+import org.example.core.pageobject.store.SearchPage
+import org.example.steps.store.HomePageSteps
+import org.example.steps.store.SearchPageSteps
 import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
@@ -11,13 +13,13 @@ open class SearchTest : BaseTest() {
     @Test(dataProvider = "searchTestData", description = "Validate search field")
     fun searchTest(searchInput: String) {
         reporter.info("<<<Search field validation>>>")
-        homePageSteps = HomePageSteps()
+        homePageSteps = HomePageSteps(HomePage())
             .also {
                 it.openHomePage()
                     .searchForValue(searchInput)
             }
 
-        val productNamesWithoutSearchInput = SearchPageSteps().getDiffList(searchInput)
+        val productNamesWithoutSearchInput = SearchPageSteps(SearchPage()).getDiffList(searchInput)
 
         Assert.assertTrue(
             productNamesWithoutSearchInput.isEmpty(),

@@ -1,9 +1,9 @@
-package org.example.core.pageobject
+package org.example.core.pageobject.store
 
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.ui.element.LocatorAttribute.Companion.sortLocatorAttributeValue
-import org.example.core.ui.element.LocatorAttribute.Companion.viewLocatorId
+import org.example.core.pageobject.BasePage
+import org.example.core.ui.element.LocatorAttribute
 import org.example.core.ui.element.UIElement
 import org.example.core.ui.element.UIElementList
 import org.openqa.selenium.By
@@ -21,14 +21,19 @@ class WomenPage : BasePage() {
     private val productDescriptionXpath = "$PRODUCT_LIST_XPATH[%d]//*[@class='product-desc']"
 
     fun selectSortOrder(sortOrder: String): WomenPage {
+        log.info { "sorting products $sortOrder.." }
         sortDropdown.click()
-        UIElement(By.xpath("//*[@value='${sortLocatorAttributeValue(sortOrder)}']"), "sort order dropdown").click()
+        UIElement(
+            By.xpath("//*[@value='${LocatorAttribute.sortLocatorAttributeValue(sortOrder)}']"),
+            "sort order dropdown"
+        ).click()
         loadingSpinner.waitForDisappear()
         return this
     }
 
     fun selectCollectionView(view: String): WomenPage {
-        UIElement(By.id("${viewLocatorId(view)}"), "product view").click()
+        log.info { "changing product collection view to $view.." }
+        UIElement(By.id("${LocatorAttribute.viewLocatorId(view)}"), "product view").click()
         return this
     }
 

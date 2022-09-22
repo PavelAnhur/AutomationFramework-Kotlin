@@ -6,8 +6,9 @@ import mu.KLogger
 import mu.KotlinLogging
 import org.example.core.infra.allure.Reporter
 import org.example.core.infra.webdriver.WebDriverSingleton
-import org.example.steps.HomePageSteps
-import org.example.steps.WomenPageSteps
+import org.example.steps.store.AuthenticationPageSteps
+import org.example.steps.store.HomePageSteps
+import org.example.steps.store.WomenPageSteps
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.AfterTest
@@ -21,6 +22,7 @@ open class BaseTest(
     private val driver by lazy { WebDriverSingleton.instance }
     protected lateinit var homePageSteps: HomePageSteps
     protected lateinit var womenPageSteps: WomenPageSteps
+    protected lateinit var authenticationPageSteps: AuthenticationPageSteps
 
     @BeforeMethod(alwaysRun = true)
     fun beforeMethod(result: ITestResult) {

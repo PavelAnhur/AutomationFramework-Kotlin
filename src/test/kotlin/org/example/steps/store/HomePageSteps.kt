@@ -1,20 +1,15 @@
-package org.example.steps
+package org.example.steps.store
 
 import io.qameta.allure.Step
-import mu.KLogger
-import mu.KotlinLogging
-import org.example.core.infra.allure.Reporter
-import org.example.core.pageobject.HomePage
+import org.example.core.pageobject.store.HomePage
+import org.example.steps.BaseStep
 
 class HomePageSteps(
-    private val log: KLogger = KotlinLogging.logger {},
-    private val reporter: Reporter = Reporter.instance,
-    private val homePage: HomePage = HomePage()
-) {
+    private val homePage: HomePage
+) : BaseStep() {
 
     @Step("Open {0} web page")
     fun openHomePage(url: String? = homePage.homePageUrl()): HomePageSteps {
-        log.info { "opening 'My Store' home page.." }
         homePage.openHomePage()
         reporter.info("$url page is opened")
         return this
@@ -22,20 +17,22 @@ class HomePageSteps(
 
     @Step("Open Women Collections page")
     fun openWomenPage() {
-        log.info { "click on 'Women' title" }
         homePage.clickWomenTitle()
         reporter.info("Women Collections page is opened")
     }
 
     @Step("Verify home page logo title")
     fun isLogoTitle(logo: String): Boolean {
-        log.info { "Verifying logo title.." }
         return logo == homePage.getLogoTitle()
     }
 
     @Step("Input search value '{0}' to the field")
     fun searchForValue(input: String) {
-        log.info { "searching for the value '$input'" }
         homePage.inputSearch(input)
+    }
+
+    @Step("Click on Sign in button")
+    fun clickSignInButton() {
+        homePage.clickSignInButton()
     }
 }

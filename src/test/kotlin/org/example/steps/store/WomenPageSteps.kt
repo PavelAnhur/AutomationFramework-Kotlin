@@ -1,25 +1,23 @@
-package org.example.steps
+package org.example.steps.store
 
 import com.google.common.collect.Comparators.isInOrder
 import io.qameta.allure.Step
 import mu.KLogger
 import mu.KotlinLogging
-import org.example.core.infra.allure.Reporter
-import org.example.core.infra.db.DBManager
 import org.example.core.infra.db.DBService
 import org.example.core.infra.db.IDBManager
 import org.example.core.infra.file.FileReader
 import org.example.core.infra.property.PropertyService
 import org.example.core.model.Product
-import org.example.core.pageobject.WomenPage
+import org.example.core.pageobject.store.WomenPage
+import org.example.steps.BaseStep
 import org.postgresql.util.PSQLException
 
 class WomenPageSteps(
+    private val womenPage: WomenPage,
+    private val dbManager: IDBManager,
     private val log: KLogger = KotlinLogging.logger {},
-    private val reporter: Reporter = Reporter.instance,
-    private val womenPage: WomenPage = WomenPage(),
-    private val dbManager: IDBManager = DBManager()
-) {
+) : BaseStep() {
     private lateinit var products: MutableList<Product>
     val actualProductPricesList: List<Double>
         get() = this.products.map { it.price }
@@ -31,9 +29,7 @@ class WomenPageSteps(
 
     @Step("Change collection table view with '{0}' sort and '{1}' view ")
     fun changeProductTableView(sortOrder: String, collectionView: String): WomenPageSteps {
-        log.info { "sorting products.." }
         womenPage.selectSortOrder(sortOrder)
-        log.info { "changing product collection view.." }
         womenPage.selectCollectionView(collectionView)
         reporter.info("Products are sorted '$sortOrder' and view is '$collectionView'")
         return this

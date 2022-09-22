@@ -17,8 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait
 import java.time.Duration
 import java.util.function.Supplier
 
-@Suppress("unused")
-open class UIElement(val by: By, private val description: String) {
+open class UIElement(val by: By, val description: String) {
 
     private val log = KotlinLogging.logger {}
     private val driver: WebDriver = WebDriverSingleton.instance
@@ -100,7 +99,7 @@ open class UIElement(val by: By, private val description: String) {
         waitForCondition(timeout, elementToBeClickable(by))
     }
 
-    private fun waitForCondition(timeout: Long, expectedCondition: ExpectedCondition<WebElement>) {
+    private fun <T> waitForCondition(timeout: Long, expectedCondition: ExpectedCondition<T>) {
         WebDriverWait(driver, Duration.ofSeconds(timeout)).until(expectedCondition)
     }
 }
