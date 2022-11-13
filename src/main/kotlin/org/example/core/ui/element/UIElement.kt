@@ -13,12 +13,12 @@ import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.ExpectedCondition
 import org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable
 import org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated
+import org.openqa.selenium.support.ui.Select
 import org.openqa.selenium.support.ui.WebDriverWait
 import java.time.Duration
 import java.util.function.Supplier
 
 open class UIElement(val by: By, val description: String) {
-
     private val log = KotlinLogging.logger {}
     private val driver: WebDriver = WebDriverSingleton.instance
     private val jsExecutor by lazy { driver as JavascriptExecutor }
@@ -87,6 +87,11 @@ open class UIElement(val by: By, val description: String) {
         log.info { "sending '$input' to the element $this" }
         webElement.sendKeys(input)
         webElement.sendKeys(Keys.ENTER)
+    }
+
+    fun select(selectedValue: String) {
+        log.info("selecting $selectedValue from ${this.webElement}")
+        Select(this.webElement).selectByValue(selectedValue)
     }
 
     private fun scrollToElement() {

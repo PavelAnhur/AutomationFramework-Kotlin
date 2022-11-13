@@ -14,5 +14,6 @@ class TenMinutesMailPageSteps(
             .open10MinutesMailPage(url)
             .copy10MinutesMail()
             .close10MinutesMailPage()
+            .getEmail()
     }
 }

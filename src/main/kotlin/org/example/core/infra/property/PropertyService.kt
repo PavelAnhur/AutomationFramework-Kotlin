@@ -36,7 +36,22 @@ interface Configuration : Config {
     fun collectionView(): String?
 
     @Config.Key("10minutes.mail.url")
-    fun tenMinutesMailUrl(): String
+    fun tenMinutesMailUrl(): String?
+
+    @Config.Key("account.gender")
+    fun accountGender(): String?
+
+    @Config.Key("account.firstName")
+    fun accountFirstName(): String?
+
+    @Config.Key("account.lastName")
+    fun accountLastName(): String?
+
+    @Config.Key("account.password")
+    fun accountPassword(): String?
+
+    @Config.Key("account.birthdate")
+    fun dateOfBirth(): String?
 }
 
 class PropertyService {
