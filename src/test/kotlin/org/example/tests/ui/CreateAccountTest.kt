@@ -16,11 +16,9 @@ class CreateAccountTest : BaseTest() {
 
     @Test(description = "Check if it's possible to create a new account")
     fun createAccountTest() {
-        homePageSteps = HomePageSteps(HomePage())
-            .also {
-                it.openHomePage()
-                    .clickSignInButton()
-            }
+        homePageSteps = HomePageSteps(HomePage()).also {
+            it.openHomePage().clickSignInButton()
+        }
         val email = TenMinutesMailPageSteps().get10MinutestMail()
         val dateOfBirth = DateFormatterImpl().format(getProperty().dateOfBirth().toString())
         val account: Account? = Account.Builder()

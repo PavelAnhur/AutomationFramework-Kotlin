@@ -19,8 +19,7 @@ class WomenPageSteps(
     private val log: KLogger = KotlinLogging.logger {},
 ) : BaseStep() {
     private lateinit var products: MutableList<Product>
-    val actualProductPricesList: List<Double>
-        get() = this.products.map { it.price }
+    val actualProductPricesList: List<Double> get() = this.products.map { it.price }
     private val tableName = PropertyService.getProperty().dbTableName().toString()
     private val jdbcUrl = PropertyService.getProperty().dbUrl().toString()
     private val dbUser = PropertyService.getProperty().dbUser().toString()

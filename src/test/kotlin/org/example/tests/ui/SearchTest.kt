@@ -13,11 +13,9 @@ open class SearchTest : BaseTest() {
     @Test(dataProvider = "searchTestData", description = "Validate search field")
     fun searchTest(searchInput: String) {
         reporter.info("<<<Search field validation>>>")
-        homePageSteps = HomePageSteps(HomePage())
-            .also {
-                it.openHomePage()
-                    .searchForValue(searchInput)
-            }
+        homePageSteps = HomePageSteps(HomePage()).also {
+            it.openHomePage().searchForValue(searchInput)
+        }
 
         val productNamesWithoutSearchInput = SearchPageSteps(SearchPage()).getDiffList(searchInput)
 

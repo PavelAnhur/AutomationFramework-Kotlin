@@ -11,11 +11,11 @@ private const val IMAGE_FORMAT = "png"
 
 class ScreenshotMaker(private val driver: WebDriver) : IScreenshotMaker {
     override fun create(): ByteArray =
-        AShot().shootingStrategy(ShootingStrategies.viewportPasting(SCROLL_TIMEOUT))
-            .takeScreenshot(driver)
-            .image.run {
-                val byteArrayOutputStream = ByteArrayOutputStream()
-                ImageIO.write(this, IMAGE_FORMAT, byteArrayOutputStream)
-                byteArrayOutputStream.toByteArray()
-            }
+        AShot().shootingStrategy(
+            ShootingStrategies.viewportPasting(SCROLL_TIMEOUT)
+        ).takeScreenshot(driver).image.run {
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            ImageIO.write(this, IMAGE_FORMAT, byteArrayOutputStream)
+            byteArrayOutputStream.toByteArray()
+        }
 }

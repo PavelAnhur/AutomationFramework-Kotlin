@@ -18,17 +18,13 @@ class WomenCollectionsTest : BaseTest() {
     @Description("Women collection price order verification test")
     fun compareWomenCollectionTest(sortOrder: String) {
         reporter.info("<<<Compare women collection by price order>>>")
-        homePageSteps = HomePageSteps(HomePage())
-            .also {
-                it.openHomePage()
-                    .openWomenPage()
-            }
+        homePageSteps = HomePageSteps(HomePage()).also {
+            it.openHomePage().openWomenPage()
+        }
 
-        womenPageSteps = WomenPageSteps(WomenPage(), DBManager())
-            .also {
-                it.changeProductTableView(sortOrder, collectionView)
-                    .storeProductInfoInDB()
-            }
+        womenPageSteps = WomenPageSteps(WomenPage(), DBManager()).also {
+            it.changeProductTableView(sortOrder, collectionView).storeProductInfoInDB()
+        }
 
         Assert.assertTrue(
             womenPageSteps.isProductPricesInOrder(sortOrder),

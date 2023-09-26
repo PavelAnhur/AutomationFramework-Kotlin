@@ -11,6 +11,7 @@ class WaitUtil {
 
     companion object {
         private val log = KotlinLogging.logger {}
+
         fun waitForTrue(
             supplier: Supplier<Boolean>,
             errorMessage: String,

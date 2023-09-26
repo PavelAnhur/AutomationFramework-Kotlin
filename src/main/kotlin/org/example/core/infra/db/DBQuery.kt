@@ -22,7 +22,8 @@ class DBQuery(
             """.trimMargin()
         }
         val statement = connection.createStatement()
-        val query = """INSERT INTO $tableName (name,price,description) 
+        val query =
+            """INSERT INTO $tableName (name,price,description) 
                 |VALUES ('${product.name.prepareString()}',${product.price},'${product.description.prepareString()}') 
                 |ON CONFLICT DO NOTHING;""".trimMargin()
         connection.prepareStatement(query).execute()

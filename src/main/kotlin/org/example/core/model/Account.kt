@@ -13,14 +13,14 @@ class Account private constructor(
     val birthYear: String
 ) {
     data class Builder(
-        var gender: String? = null,
-        var firstName: String? = null,
-        var lastName: String? = null,
-        var email: String? = null,
-        var password: String? = null,
-        var birthDay: Int? = null,
-        var birthMonth: Month? = null,
-        var birthYear: Int? = null
+        private var gender: String? = null,
+        private var firstName: String? = null,
+        private var lastName: String? = null,
+        private var email: String? = null,
+        private var password: String? = null,
+        private var birthDay: Int? = null,
+        private var birthMonth: Month? = null,
+        private var birthYear: Int? = null
     ) {
         fun gender(gender: String) = apply { this.gender = gender }
         fun firstName(firstName: String) = apply { this.firstName = firstName }
